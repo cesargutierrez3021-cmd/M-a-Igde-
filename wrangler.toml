@@ -1,0 +1,9 @@
+name = "ma-igde"
+compatibility_date = "2026-09-01"
+
+# Sirve el build estático de la interfaz NOAH (web/dist) como Worker de assets.
+# El build real lo genera el comando de compilación configurado en el dashboard:
+# cd web && npm install && npm run build
+[assets]
+directory = "./web/dist"
+not_found_handling = "single-page-application"

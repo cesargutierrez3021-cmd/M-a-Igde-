@@ -1,74 +1,267 @@
 /*
- * NOAH — tokens de diseño.
- * Fuente de verdad: manual maestro §1.1 (paleta), §1.2 (tipografía), §7.5 (reglas visuales).
- * Regla de oro: --gold nunca supera el 10% de la superficie de una pantalla.
+ * NOAH — sistema de diseño.
+ * Dos temas completos (noir y claro) sobre los mismos tokens semánticos,
+ * de forma que ningún componente sepa en qué tema está: todos leen variables.
+ *
+ * Fuente de verdad de marca: manual maestro §1.1, §1.2, §7.5.
+ * Regla de oro: el dorado nunca supera el 10% de la superficie de una pantalla.
  */
 
 @import "tailwindcss";
 
-@theme {
-  /* Paleta — modo oscuro (por defecto) */
-  --color-noir: #0B0D10;
-  --color-surface: #14181D;
-  --color-gold: #C9A227;
-  --color-gold-lite: #E8C766;
-  --color-silver: #C3C7CC;
-  --color-white: #F5F6F7;
-  --color-win: #3FA96A;
-  --color-loss: #C4553F;
-  --color-void: #6B7280;
+/* ─────────────────────────────────────────────────────────
+   TEMA NOIR (por defecto)
+   ───────────────────────────────────────────────────────── */
+:root,
+[data-theme="noir"] {
+  color-scheme: dark;
 
-  /* Tipografía — §1.2 */
+  --c-canvas: #0B0D10;
+  --c-canvas-deep: #070809;
+  --c-surface: #14181D;
+  --c-surface-2: #1A1F26;
+  --c-surface-3: #212832;
+
+  --c-fg: #F5F6F7;
+  --c-dim: #C3C7CC;
+  --c-mute: #868D96;
+
+  --c-gold: #C9A227;
+  --c-goldlite: #E8C766;
+  --c-gold-deep: #8F6F13;
+
+  --c-win: #3FA96A;
+  --c-loss: #C4553F;
+  --c-void: #6B7280;
+
+  --c-line: rgb(195 199 204 / 0.12);
+  --c-line-strong: rgb(195 199 204 / 0.22);
+  --c-gold-line: rgb(201 162 39 / 0.32);
+
+  /* Superficies compuestas */
+  --grad-surface: linear-gradient(160deg, #171C22 0%, #12161B 100%);
+  --grad-gold: linear-gradient(135deg, #E8C766 0%, #C9A227 45%, #9A7B1B 100%);
+  --grad-gold-soft: linear-gradient(135deg, rgb(232 199 102 / 0.16) 0%, rgb(201 162 39 / 0.06) 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, rgb(201 162 39 / 0.45), transparent);
+
+  --glow-gold: 0 0 0 1px rgb(201 162 39 / 0.28), 0 8px 32px -12px rgb(201 162 39 / 0.45);
+  --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -20px rgb(0 0 0 / 0.9);
+
+  /* Aurora del fondo: dos manchas muy tenues, dan profundidad sin ruido */
+  --aurora-1: rgb(201 162 39 / 0.07);
+  --aurora-2: rgb(120 140 180 / 0.05);
+}
+
+/* ─────────────────────────────────────────────────────────
+   TEMA CLARO — mismos roles, papel cálido en vez de blanco puro
+   ───────────────────────────────────────────────────────── */
+[data-theme="claro"] {
+  color-scheme: light;
+
+  --c-canvas: #F7F5F1;
+  --c-canvas-deep: #EFECE6;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #FBF9F6;
+  --c-surface-3: #F3F0EA;
+
+  --c-fg: #14181D;
+  --c-dim: #4E555D;
+  --c-mute: #7C838C;
+
+  --c-gold: #96761A;
+  --c-goldlite: #C9A227;
+  --c-gold-deep: #6E560F;
+
+  --c-win: #2F7F4F;
+  --c-loss: #A8412C;
+  --c-void: #8A9099;
+
+  --c-line: rgb(20 24 29 / 0.10);
+  --c-line-strong: rgb(20 24 29 / 0.18);
+  --c-gold-line: rgb(150 118 26 / 0.30);
+
+  --grad-surface: linear-gradient(160deg, #FFFFFF 0%, #FAF8F4 100%);
+  --grad-gold: linear-gradient(135deg, #C9A227 0%, #A98716 45%, #7E6410 100%);
+  --grad-gold-soft: linear-gradient(135deg, rgb(201 162 39 / 0.14) 0%, rgb(150 118 26 / 0.05) 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, rgb(150 118 26 / 0.35), transparent);
+
+  --glow-gold: 0 0 0 1px rgb(150 118 26 / 0.25), 0 8px 28px -14px rgb(150 118 26 / 0.35);
+  --shadow-card: 0 1px 2px 0 rgb(20 24 29 / 0.04), 0 12px 28px -22px rgb(20 24 29 / 0.35);
+
+  --aurora-1: rgb(201 162 39 / 0.10);
+  --aurora-2: rgb(90 110 150 / 0.06);
+}
+
+/* ─────────────────────────────────────────────────────────
+   Puente hacia Tailwind: utilidades (bg-surface, text-dim…)
+   que resuelven a la variable viva del tema activo.
+   ───────────────────────────────────────────────────────── */
+@theme inline {
+  --color-canvas: var(--c-canvas);
+  --color-canvas-deep: var(--c-canvas-deep);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-surface-3: var(--c-surface-3);
+
+  --color-fg: var(--c-fg);
+  --color-dim: var(--c-dim);
+  --color-mute: var(--c-mute);
+
+  --color-gold: var(--c-gold);
+  --color-goldlite: var(--c-goldlite);
+  --color-gold-deep: var(--c-gold-deep);
+
+  --color-win: var(--c-win);
+  --color-loss: var(--c-loss);
+  --color-void: var(--c-void);
+
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-gold-line: var(--c-gold-line);
+
   --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* Bordes — §7.5: 12px tarjetas, 8px botones, 999px etiquetas */
-  --radius-card: 12px;
-  --radius-button: 8px;
+  --radius-card: 16px;
+  --radius-btn: 10px;
   --radius-pill: 999px;
 }
 
-:root {
-  color-scheme: dark;
-  --bg: var(--color-noir);
-  --bg-surface: var(--color-surface);
-  --text-primary: var(--color-white);
-  --text-secondary: var(--color-silver);
-  --accent: var(--color-gold);
-  --accent-lite: var(--color-gold-lite);
-  --border-subtle: color-mix(in srgb, var(--color-silver) 12%, transparent);
-}
-
-/* Modo claro: mismos tokens invertidos (§1.1) */
-[data-theme="light"] {
-  color-scheme: light;
-  --bg: #F5F6F7;
-  --bg-surface: #FFFFFF;
-  --text-primary: #0B0D10;
-  --text-secondary: #4B5157;
-  --accent: var(--color-gold);
-  --accent-lite: #B8901F;
-  --border-subtle: color-mix(in srgb, #0B0D10 10%, transparent);
+/* ─────────────────────────────────────────────────────────
+   Base
+   ───────────────────────────────────────────────────────── */
+html {
+  background: var(--c-canvas);
 }
 
 body {
-  background: var(--bg);
-  color: var(--text-primary);
+  margin: 0;
+  background: var(--c-canvas);
+  color: var(--c-fg);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
 }
 
-/* Cifras tabulares: las columnas de cuotas y ROI no "bailan" al actualizarse (§1.2) */
+/* El fondo lleva una aurora fija y muy tenue: da profundidad sin distraer.
+   Es lo que separa una pantalla "plana de plantilla" de una con atmósfera. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60rem 40rem at 15% -10%, var(--aurora-1), transparent 60%),
+    radial-gradient(50rem 36rem at 110% 15%, var(--aurora-2), transparent 60%);
+}
+
+/* Cifras tabulares: cuotas y ROI no "bailan" al actualizarse (§1.2) */
 .tabular {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
 }
 
-/* Límite global de animación — §7.5: ninguna supera 300ms, todas respetan reduced-motion */
+/* Titulares: Sora apretada. El tracking negativo es lo que da el aire caro. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+/* Texto con relleno dorado — reservado a cifras protagonistas */
+.gold-text {
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--grad-hairline);
+}
+
+/* Ocultar barra de scroll en carruseles horizontales, sin perder el gesto */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+   Animaciones — ninguna supera 300ms salvo las decorativas
+   que no bloquean lectura (barrido de valor, aurora, brillo).
+   ───────────────────────────────────────────────────────── */
+@keyframes noah-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes noah-ring {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  70% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes noah-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes noah-breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--c-surface-2) 25%,
+    var(--c-surface-3) 37%,
+    var(--c-surface-2) 63%
+  );
+  background-size: 200% 100%;
+  animation: noah-shimmer 1.6s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+.pulse-ring {
+  animation: noah-ring 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.float-slow {
+  animation: noah-float 6s ease-in-out infinite;
+}
+
+.breathe {
+  animation: noah-breathe 3s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+/* Foco visible y coherente en ambos temas */
+:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

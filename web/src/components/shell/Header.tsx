@@ -1,15 +1,107 @@
-interface HeaderProps {
-  titulo: string
+import { Moon, Sun, LogOut } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Logotipo } from '../brand/HuskyMark'
+import { useTema } from '../../lib/theme'
+import { pulsable } from '../../design/motion'
+
+/*
+ * Cabecera fija. Mantiene la marca siempre visible y ofrece lo único que el
+ * usuario necesita desde cualquier pantalla: cambiar de tema y salir.
+ * El fondo lleva desenfoque para que el contenido pase por debajo sin chocar.
+ */
+export function Header({ onSalir }: { onSalir?: () => void }) {
+  const { tema, alternar } = useTema()
+
+  return (
+    <header className="sticky top-0 z-30 border-b border-line bg-canvas/85 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-md items-center justify-between px-4 py-3">
+        <Logotipo size={26} />
+
+        <div className="flex items-center gap-1">
+          <motion.button
+            {...pulsable}
+            onClick={alternar}
+            aria-label={tema === 'noir' ? 'Cambiar a tema claro' : 'Cambiar a tema noir'}
+            className="relative grid size-10 place-items-center rounded-full border border-line text-dim"
+          >
+            <motion.span
+              key={tema}
+              initial={{ rotate: -70, opacity: 0, scale: 0.7 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="grid place-items-center"
+            >
+              {tema === 'noir' ? <Sun size={17} strokeWidth={1.6} /> : <Moon size={17} strokeWidth={1.6} />}
+            </motion.span>
+          </motion.button>
+
+          {onSalir && (
+            <motion.button
+              {...pulsable}
+              onClick={onSalir}
+              aria-label="Cerrar sesión"
+              className="grid size-10 place-items-center rounded-full border border-line text-dim"
+            >
+              <LogOut size={16} strokeWidth={1.6} />
+            </motion.button>
+          )}
+        </div>
+      </div>
+    </header>
+  )
 }
 
-/* Cabecera simple — logotipo NOAH usa Sora 800 con tracking amplio (manual §1.2). */
-export function Header({ titulo }: HeaderProps) {
+/*
+ * Encabezado de pantalla: píldora + titular grande + bajada.
+ * Es lo que da jerarquía editorial y evita que todas las pantallas
+ * empiecen igual de planas.
+ */
+export function TituloPantalla({
+  kicker,
+  titulo,
+  destacado,
+  bajada,
+}: {
+  kicker: string
+  titulo: string
+  destacado?: string
+  bajada?: string
+}) {
   return (
-    <header className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--border-subtle)] bg-[var(--bg)]/95 px-4 py-3 backdrop-blur">
-      <span className="font-[var(--font-display)] text-sm font-extrabold uppercase tracking-[0.18em] text-[var(--color-gold)]">
-        NOAH
-      </span>
-      <h1 className="font-[var(--font-sans)] text-sm font-medium text-[var(--text-secondary)]">{titulo}</h1>
-    </header>
+    <div className="pb-1">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.24 }}
+      >
+        <span
+          className="inline-flex items-center rounded-[var(--radius-pill)] border border-gold-line px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-goldlite"
+          style={{ background: 'var(--grad-gold-soft)' }}
+        >
+          {kicker}
+        </span>
+      </motion.div>
+
+      <motion.h1
+        className="display mt-3 text-[30px] text-fg"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.26, delay: 0.04 }}
+      >
+        {titulo}
+        {destacado && <span className="gold-text"> {destacado}</span>}
+      </motion.h1>
+
+      {bajada && (
+        <motion.p
+          className="mt-2 text-[13.5px] leading-relaxed text-mute"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.26, delay: 0.08 }}
+        >
+          {bajada}
+        </motion.p>
+      )}
+    </div>
   )
 }

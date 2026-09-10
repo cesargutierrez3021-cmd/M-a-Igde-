@@ -1,63 +1,121 @@
 /*
- * Tipos del dominio NOAH, vistos desde la interfaz.
- * Reflejan lo que el contrato de mercado (manual §5) expone hacia afuera:
- * la interfaz nunca decide nada, solo muestra lo que el motor ya decidió.
+ * Tipos del dominio NOAH vistos desde la interfaz.
+ * La interfaz nunca decide nada: refleja lo que el motor ya decidió
+ * (manual §4). Estos tipos son el contrato que la API deberá cumplir.
  */
 
 export type NivelUsuario = 'gratuito' | 'premium' | 'admin'
-
-export type ResultadoPick = 'pendiente' | 'ganada' | 'perdida' | 'nula'
+export type Deporte = 'futbol' | 'baloncesto' | 'tenis'
+export type ResultadoPick = 'pendiente' | 'ganada' | 'perdida' | 'nula' | 'invalidada'
+export type EstadoSalud = 'correcto' | 'atencion' | 'critico'
 
 export interface Pick {
   id: string
+  deporte: Deporte
   partido: string
   liga: string
   fechaHoraISO: string
-  mercado: string // p.ej. "1X2", "TOTALS_2.5" — nunca se privilegia ninguno (invariante 4)
+  /** Clave del mercado — el evaluador nunca privilegia ninguna (invariante 4). */
+  mercado: string
+  mercadoLegible: string
   seleccion: string
-  probabilidadCalibrada: number // 0-1
+  probabilidadCalibrada: number
+  probabilidadMin: number
+  probabilidadMax: number
   cuotaJusta: number
   cuotaPublicada: number
+  casa: string
   edgeRelativo: number
   edgeAbsoluto: number
   ev: number
-  incertidumbre: number // 0-1, a mayor valor menos evidencia
-  stakeSugerido: number // fracción de Kelly simultáneo, 0-1
+  incertidumbre: number
+  confianzaConsenso: number
+  stakeSugerido: number
+  stakeEscala: number
+  modelos: string[]
   resultado: ResultadoPick
-  clv?: number // se conoce solo al cierre
+  clv?: number
+  apostada?: boolean
 }
 
 export interface NoBet {
   id: string
-  fechaISO: string
   mercado: string
-  motivo: string // p.ej. "SIN_CALIBRACION", "EDGE_INSUFICIENTE"
+  mercadoLegible: string
+  motivo: 'SIN_CALIBRACION' | 'EDGE_INSUFICIENTE' | 'INCERTIDUMBRE_ALTA' | 'MERCADO_APAGADO'
+  detalle: string
 }
 
-export interface ApuestaUsuario {
-  pickId: string
-  aposto: boolean
-  importe?: number
-  cuotaReal?: number
-}
-
-export interface PuntoCurvaCapital {
+export interface PuntoCurva {
   fechaISO: string
-  capitalBot: number
-  capitalUsuario: number
+  bot: number
+  usuario: number
 }
 
-export interface ResumenEstadisticas {
-  capitalActual: number
-  beneficioPerdida: number
+export interface Resumen {
+  capital: number
+  unidadValor: number
+  beneficio: number
+  unidades: number
   roi: number
-  yield: number
+  rendimiento: number
   rachaActual: number
   clvMedio: number
-  porcentajeClvPositivo: number
+  clvPositivo: number
   brier: number
+  ece: number
   drawdownMaximo: number
   drawdownActual: number
   sharpe: number
-  muestraSuficiente: boolean // por debajo de cierto n, todo se marca "no concluyente"
+  resueltas: number
+  ganadas: number
+  perdidas: number
+  nulas: number
+  muestraMinima: number
+}
+
+export interface YieldMercado {
+  mercado: string
+  rendimiento: number
+  n: number
+}
+
+export interface PuntoCalibracion {
+  intervalo: string
+  predicha: number
+  observada: number
+  n: number
+}
+
+export interface FilaModelo {
+  modelo: string
+  mercado: string
+  brier: number
+  ece: number
+  clv: number
+  n: number
+  activo: boolean
+}
+
+export interface Componente {
+  nombre: string
+  estado: EstadoSalud
+  detalle: string
+  ultimoLatidoISO: string
+}
+
+export interface CupoApi {
+  nombre: string
+  descripcion: string
+  usado: number
+  total: number
+  estado: EstadoSalud
+}
+
+export interface InterruptorMercado {
+  clave: string
+  legible: string
+  activo: boolean
+  modoSombra: boolean
+  n: number
 }

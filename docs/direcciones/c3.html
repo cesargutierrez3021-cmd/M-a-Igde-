@@ -1,0 +1,221 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0f18;display:flex;gap:26px;padding:30px;font-family:Sora,sans-serif}
+.tel{width:390px;height:844px;overflow:hidden;position:relative;color:#DDE7F0;
+  background:
+   radial-gradient(60% 40% at 50% 0%,rgba(53,224,255,.13),transparent 70%),
+   radial-gradient(70% 50% at 100% 60%,rgba(240,180,41,.10),transparent 70%),
+   #060B14}
+.tel::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(53,224,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(53,224,255,.055) 1px,transparent 1px);
+  background-size:26px 26px;mask-image:radial-gradient(70% 60% at 50% 35%,#000,transparent)}
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+.cy{color:#35E0FF}.go{color:#F0B429}.gr{color:#3FE08A}.rd{color:#FF5C6E}
+/* barra superior */
+.top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;position:relative;z-index:2}
+.top .id{font-size:11px;font-weight:800;letter-spacing:.24em}
+.top .st{font-size:8.5px;letter-spacing:.14em;color:#5E7288}
+/* gauge central */
+.hero{position:relative;z-index:2;padding:6px 14px 0;text-align:center}
+.hero .lbl{font-size:8.5px;letter-spacing:.22em;color:#5E7288;text-transform:uppercase}
+.hero .v{font-size:46px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-top:-64px}
+.hero .sub{font-size:10.5px;color:#7C90A6;margin-top:6px}
+/* tarjetas de vidrio */
+.glass{margin:10px 14px;padding:13px;border-radius:14px;position:relative;z-index:2;
+  background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.022));
+  border:1px solid rgba(53,224,255,.20);backdrop-filter:blur(8px);
+  box-shadow:0 0 0 1px rgba(255,255,255,.03) inset,0 18px 40px -30px rgba(0,0,0,.9)}
+.glass.go{border-color:rgba(240,180,41,.34)}
+.gh{display:flex;justify-content:space-between;align-items:center;font-size:8.5px;letter-spacing:.18em;color:#5E7288;text-transform:uppercase}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 14px;position:relative;z-index:2}
+.tile{border-radius:12px;padding:10px;background:rgba(255,255,255,.045);border:1px solid rgba(53,224,255,.14);text-align:center}
+.tile b{display:block;font-size:7.5px;letter-spacing:.14em;color:#5E7288;text-transform:uppercase;font-weight:500}
+.tile i{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;display:block;margin-top:4px}
+/* ficha objetivo */
+.tgt .mk{font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:7px}
+.tgt .meta{font-size:10px;color:#7C90A6;margin-top:3px}
+.bars{display:flex;gap:3px;margin-top:10px}
+.bars i{flex:1;height:5px;border-radius:2px;background:rgba(53,224,255,.16)}
+.bars i.on{background:linear-gradient(90deg,#35E0FF,#F0B429)}
+/* nav */
+.nav{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;padding:0 8px 6px;
+  background:linear-gradient(0deg,#060B14 60%,transparent)}
+.nav a{flex:1;text-align:center;padding:12px 0 10px;font-size:8.5px;letter-spacing:.1em;color:#4E6076;text-decoration:none}
+.nav a.on{color:#35E0FF}
+.nav .dot{display:block;width:4px;height:4px;border-radius:50%;background:#35E0FF;margin:5px auto 0}
+</style></head><body>
+
+<div class="tel">
+  <div class="top"><span class="id">N O A H</span><span class="st cy">◈ SISTEMA NOMINAL</span><span class="st">14:22Z</span></div>
+
+  <div class="hero">
+    <svg viewBox="0 0 300 200" style="width:100%;max-width:290px">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#35E0FF"/><stop offset="1" stop-color="#F0B429"/></linearGradient>
+        <radialGradient id="glow"><stop offset="0" stop-color="#35E0FF" stop-opacity=".28"/><stop offset="1" stop-color="#35E0FF" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="150" cy="150" r="120" fill="url(#glow)"/>
+      <!-- anillos concéntricos -->
+      <circle cx="150" cy="150" r="118" fill="none" stroke="#35E0FF" stroke-opacity=".13"/>
+      <circle cx="150" cy="150" r="96" fill="none" stroke="#35E0FF" stroke-opacity=".09"/>
+      <!-- arco de fondo -->
+      <path d="M40 150 A110 110 0 0 1 260 150" fill="none" stroke="#1B2C42" stroke-width="9" stroke-linecap="round"/>
+      <!-- arco de valor 61% -->
+      <path d="M40 150 A110 110 0 0 1 236 84" fill="none" stroke="url(#g1)" stroke-width="9" stroke-linecap="round"/>
+      <!-- ticks -->
+      <g stroke="#35E0FF" stroke-opacity=".45">
+        <line x1="150" y1="18" x2="150" y2="30"/><line x1="22" y1="150" x2="34" y2="150"/><line x1="266" y1="150" x2="278" y2="150"/>
+        <line x1="60" y1="60" x2="68" y2="68"/><line x1="240" y1="60" x2="232" y2="68"/>
+      </g>
+      <!-- aguja -->
+      <g transform="rotate(52 150 150)">
+        <line x1="150" y1="150" x2="150" y2="52" stroke="#F0B429" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="150" cy="150" r="6" fill="#F0B429"/><circle cx="150" cy="150" r="12" fill="none" stroke="#F0B429" stroke-opacity=".4"/>
+      </g>
+      <!-- reticula de puntería -->
+      <g stroke="#35E0FF" stroke-opacity=".3" fill="none">
+        <path d="M118 150 h-10 M182 150 h10 M150 118 v-10"/>
+      </g>
+    </svg>
+    <div class="v go mono">+11.50<span style="font-size:20px"> u</span></div>
+    <div class="lbl" style="margin-top:8px">Rendimiento acumulado del motor</div>
+    <div class="sub">34 de 100 resueltas · muestra <span class="go">no concluyente</span></div>
+  </div>
+
+  <div class="row3">
+    <div class="tile"><b>CLV</b><i class="go">+2.1<span style="font-size:11px">%</span></i></div>
+    <div class="tile"><b>ROI</b><i class="cy">+4.1<span style="font-size:11px">%</span></i></div>
+    <div class="tile"><b>Sharpe</b><i>0.71</i></div>
+  </div>
+
+  <div class="glass">
+    <div class="gh"><span>Telemetría de componentes</span><span class="gr">5/6</span></div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;gap:9px;font-size:11.5px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#3FE08A;box-shadow:0 0 8px #3FE08A"></span>
+        <span style="flex:1">Motor de decisión</span><span class="mono" style="font-size:10px;color:#5E7288">09:00</span></div>
+      <div style="display:flex;align-items:center;gap:9px;font-size:11.5px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#3FE08A;box-shadow:0 0 8px #3FE08A"></span>
+        <span style="flex:1">Worker de la cola</span><span class="mono" style="font-size:10px;color:#5E7288">14:21</span></div>
+      <div style="display:flex;align-items:center;gap:9px;font-size:11.5px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#F0B429;box-shadow:0 0 8px #F0B429"></span>
+        <span style="flex:1">Ingesta de cuotas</span><span class="mono go" style="font-size:10px">12 err</span></div>
+      <div style="display:flex;align-items:center;gap:9px;font-size:11.5px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#FF5C6E;box-shadow:0 0 8px #FF5C6E"></span>
+        <span style="flex:1">Telegram</span><span class="mono rd" style="font-size:10px">webhook</span></div>
+    </div>
+  </div>
+
+  <div class="nav"><a class="on">Mando<span class="dot"></span></a><a>Objetivos</a><a>Registro</a><a>Telemetría</a><a>Ajustes</a></div>
+</div>
+
+<div class="tel">
+  <div class="top"><span class="id">N O A H</span><span class="st cy">◈ 3 OBJETIVOS</span><span class="st">14:22Z</span></div>
+
+  <div style="padding:4px 14px 0;position:relative;z-index:2">
+    <div style="font-size:8.5px;letter-spacing:.22em;color:#5E7288;text-transform:uppercase">Barrido completado</div>
+    <div style="font-size:27px;font-weight:800;letter-spacing:-.03em;margin-top:4px">Objetivos <span class="cy">fijados</span></div>
+  </div>
+
+  <div class="glass go tgt">
+    <div class="gh"><span>01 · LaLiga · T−4h29</span><span class="go">STAKE 4/10</span></div>
+    <div class="mk">Menos de 3,5 goles</div>
+    <div class="meta">Real Betis vs Real Madrid · Pinnacle</div>
+
+    <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+      <svg viewBox="0 0 90 90" style="width:82px;flex:none">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="#1B2C42" stroke-width="6"/>
+        <circle cx="45" cy="45" r="38" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"
+          stroke-dasharray="239" stroke-dashoffset="47" transform="rotate(-90 45 45)"/>
+        <text x="45" y="42" text-anchor="middle" fill="#DDE7F0" font-size="19" font-family="JetBrains Mono" font-weight="700">80</text>
+        <text x="45" y="56" text-anchor="middle" fill="#5E7288" font-size="8" font-family="Sora">PROB %</text>
+      </svg>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:3px 0"><span style="color:#7C90A6">Ventaja</span><span class="mono go" style="font-weight:700">28,8%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:3px 0"><span style="color:#7C90A6">Cuota</span><span class="mono" style="font-weight:700">1,93</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:3px 0"><span style="color:#7C90A6">Justa</span><span class="mono" style="color:#7C90A6">1,42</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:3px 0"><span style="color:#7C90A6">Rango</span><span class="mono cy">71–89%</span></div>
+      </div>
+    </div>
+
+    <div style="font-size:8px;letter-spacing:.14em;color:#5E7288;margin-top:10px;text-transform:uppercase">Confianza del consenso · 52</div>
+    <div class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="glass tgt">
+    <div class="gh"><span>02 · Serie A · T−6h59</span><span>STAKE 3/10</span></div>
+    <div class="mk" style="font-size:17px">Más de 2,5 goles</div>
+    <div class="meta">Genoa vs Como · Bet365</div>
+    <div style="display:flex;gap:16px;margin-top:10px">
+      <div><div style="font-size:7.5px;letter-spacing:.14em;color:#5E7288">PROB</div><div class="mono" style="font-size:16px;font-weight:700">56,7%</div></div>
+      <div><div style="font-size:7.5px;letter-spacing:.14em;color:#5E7288">VENTAJA</div><div class="mono go" style="font-size:16px;font-weight:700">15,2%</div></div>
+      <div><div style="font-size:7.5px;letter-spacing:.14em;color:#5E7288">CUOTA</div><div class="mono" style="font-size:16px;font-weight:700">2,38</div></div>
+    </div>
+  </div>
+
+  <div class="glass" style="border-color:rgba(255,255,255,.09)">
+    <div class="gh"><span>Descartados por el barrido</span><span>3</span></div>
+    <div style="font-size:10.5px;color:#7C90A6;margin-top:8px;line-height:1.9">
+      <div style="display:flex;justify-content:space-between"><span>Ambos marcan</span><span style="color:#4E6076">sin valor</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Córners 9.5</span><span style="color:#4E6076">sin calibrar</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Tarjetas 4.5</span><span style="color:#4E6076">apagado</span></div>
+    </div>
+  </div>
+
+  <div class="nav"><a>Mando</a><a class="on">Objetivos<span class="dot"></span></a><a>Registro</a><a>Telemetría</a><a>Ajustes</a></div>
+</div>
+
+<div class="tel">
+  <div class="top"><span class="id">N O A H</span><span class="st cy">◈ TELEMETRÍA</span><span class="st">14:22Z</span></div>
+
+  <div style="padding:4px 14px 8px;position:relative;z-index:2">
+    <div style="font-size:8.5px;letter-spacing:.22em;color:#5E7288;text-transform:uppercase">Trayectoria del capital</div>
+  </div>
+
+  <div class="glass" style="margin-top:0">
+    <svg viewBox="0 0 330 150" style="width:100%">
+      <defs><linearGradient id="fill3" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#35E0FF" stop-opacity=".34"/><stop offset="1" stop-color="#35E0FF" stop-opacity="0"/></linearGradient></defs>
+      <g stroke="#35E0FF" stroke-opacity=".1">
+        <line x1="0" y1="30" x2="330" y2="30"/><line x1="0" y1="70" x2="330" y2="70"/><line x1="0" y1="110" x2="330" y2="110"/>
+      </g>
+      <path d="M0,124 L33,116 L66,120 L99,96 L132,104 L165,112 L198,78 L231,68 L264,76 L297,44 L330,34 L330,140 L0,140 Z" fill="url(#fill3)"/>
+      <polyline points="0,124 33,116 66,120 99,96 132,104 165,112 198,78 231,68 264,76 297,44 330,34" fill="none" stroke="#35E0FF" stroke-width="2"/>
+      <polyline points="0,128 33,122 66,125 99,104 132,112 165,120 198,88 231,79 264,88 297,57 330,48" fill="none" stroke="#F0B429" stroke-width="1.4" stroke-dasharray="4 3" opacity=".8"/>
+      <circle cx="330" cy="34" r="4" fill="#35E0FF"/><circle cx="330" cy="34" r="9" fill="none" stroke="#35E0FF" stroke-opacity=".4"/>
+    </svg>
+    <div style="display:flex;justify-content:space-between;font-size:9px;color:#5E7288" class="mono">
+      <span>27 JUL</span><span class="cy">— bot</span><span class="go">-- tú</span><span>10 SEP</span>
+    </div>
+  </div>
+
+  <div class="row3">
+    <div class="tile"><b>Brier</b><i>0.198</i></div>
+    <div class="tile"><b>ECE</b><i class="gr">0.024</i></div>
+    <div class="tile"><b>DD máx</b><i class="rd">−8.6%</i></div>
+  </div>
+
+  <div class="glass">
+    <div class="gh"><span>Cupo de sensores</span><span class="cy">3 activos</span></div>
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:11px">
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px"><span>The Odds API</span><span class="mono" style="color:#7C90A6">318/500</span></div>
+        <div style="height:4px;border-radius:2px;background:rgba(53,224,255,.14);margin-top:5px"><div style="width:63%;height:100%;border-radius:2px;background:linear-gradient(90deg,#35E0FF,#3FE08A)"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px"><span>API-Sports Fútbol</span><span class="mono" style="color:#7C90A6">24/100</span></div>
+        <div style="height:4px;border-radius:2px;background:rgba(53,224,255,.14);margin-top:5px"><div style="width:24%;height:100%;border-radius:2px;background:linear-gradient(90deg,#35E0FF,#3FE08A)"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px"><span>football-data.org</span><span class="mono go">86/100</span></div>
+        <div style="height:4px;border-radius:2px;background:rgba(53,224,255,.14);margin-top:5px"><div style="width:86%;height:100%;border-radius:2px;background:linear-gradient(90deg,#F0B429,#FF5C6E)"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav"><a>Mando</a><a>Objetivos</a><a>Registro</a><a class="on">Telemetría<span class="dot"></span></a><a>Ajustes</a></div>
+</div>
+
+</body></html>

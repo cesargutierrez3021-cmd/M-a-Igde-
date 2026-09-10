@@ -1,0 +1,189 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#2a2724;display:flex;gap:26px;padding:30px;font-family:Inter,sans-serif}
+.tel{width:390px;height:844px;background:#FAF8F3;overflow:hidden;position:relative;color:#14120F}
+.serif{font-family:Fraunces,serif}
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+/* cabecera de revista */
+.mast{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;border-bottom:2px solid #14120F}
+.mast .n{font-family:Fraunces,serif;font-weight:900;font-size:21px;letter-spacing:.14em}
+.mast .d{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8A8378}
+.rule{height:1px;background:#14120F1A;margin:0 20px}
+.rule.th{background:#14120F;height:2px}
+/* portada */
+.cover{padding:22px 20px 16px}
+.folio{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#A8873A;font-weight:600}
+.cover h1{font-family:Fraunces,serif;font-size:44px;line-height:.94;font-weight:900;letter-spacing:-.03em;margin-top:10px}
+.cover h1 em{font-style:italic;font-weight:400;color:#A8873A}
+.cover .lede{font-size:13px;line-height:1.55;color:#4A453D;margin-top:12px;max-width:30ch}
+/* cifra editorial */
+.fig{display:flex;align-items:baseline;gap:14px;padding:18px 20px;border-top:1px solid #14120F1A;border-bottom:1px solid #14120F1A;margin-top:16px}
+.fig .num{font-family:Fraunces,serif;font-size:56px;font-weight:900;letter-spacing:-.04em;line-height:.85}
+.fig .cap{font-size:10.5px;line-height:1.5;color:#6B655C;max-width:16ch;text-transform:uppercase;letter-spacing:.08em}
+/* sumario numerado */
+.toc{padding:16px 20px}
+.toc h2{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#8A8378;margin-bottom:10px}
+.toc .row{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #14120F12;align-items:baseline}
+.toc .idx{font-family:'JetBrains Mono',monospace;font-size:10px;color:#A8873A;width:20px;flex:none}
+.toc .ttl{font-family:Fraunces,serif;font-size:15px;font-weight:600;flex:1}
+.toc .val{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500}
+.toc .val.p{color:#2F6B45}.toc .val.n{color:#8B2B1E}
+/* ficha de catálogo */
+.entry{padding:16px 20px;border-bottom:1px solid #14120F1A;position:relative}
+.entry .kick{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#A8873A;font-weight:600}
+.entry h3{font-family:Fraunces,serif;font-size:26px;font-weight:900;letter-spacing:-.025em;line-height:1.05;margin-top:6px}
+.entry .meta{font-size:11px;color:#6B655C;margin-top:6px}
+.entry .cols{display:flex;gap:0;margin-top:14px;border-top:1px solid #14120F1A;padding-top:10px}
+.entry .c{flex:1;border-right:1px solid #14120F12;padding-right:8px}
+.entry .c:last-child{border:0}
+.entry .c b{display:block;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#8A8378;font-weight:500}
+.entry .c i{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:500}
+.gold{color:#A8873A}
+.odds{font-family:Fraunces,serif;font-size:30px;font-weight:900;letter-spacing:-.03em}
+/* nota al pie */
+.foot{padding:14px 20px;font-size:10px;line-height:1.6;color:#8A8378;border-top:2px solid #14120F}
+.foot em{font-style:italic;color:#6B2737}
+/* grabado */
+.eng{position:absolute;right:-10px;top:120px;width:150px;opacity:.13}
+/* nav editorial */
+.nav{position:absolute;bottom:0;left:0;right:0;display:flex;background:#FAF8F3;border-top:2px solid #14120F}
+.nav a{flex:1;text-align:center;padding:13px 0 15px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:#8A8378;text-decoration:none;font-weight:500}
+.nav a.on{color:#14120F;font-weight:600;box-shadow:inset 0 3px 0 #A8873A}
+.stripe{height:5px;background:repeating-linear-gradient(90deg,#A8873A 0 18px,transparent 18px 26px)}
+</style></head><body>
+
+<div class="tel">
+  <div class="mast"><span class="n">NOAH</span><span class="d">Nº 34 · 10 SEP 2026</span></div>
+  <div class="stripe"></div>
+  <div class="cover">
+    <div class="folio">Boletín del motor</div>
+    <h1>Tres <em>lecturas</em><br>del mercado</h1>
+    <p class="lede">Lo que el modelo vio hoy y el precio todavía no. Con su incertidumbre declarada.</p>
+  </div>
+
+  <div class="fig">
+    <div class="num gold">+11,50</div>
+    <div class="cap">Unidades acumuladas<br>en 34 apuestas resueltas</div>
+  </div>
+
+  <div class="toc">
+    <h2>En este número</h2>
+    <div class="row"><span class="idx">01</span><span class="ttl">Rendimiento</span><span class="val p">+4,1%</span></div>
+    <div class="row"><span class="idx">02</span><span class="ttl">CLV medio</span><span class="val p">+2,1%</span></div>
+    <div class="row"><span class="idx">03</span><span class="ttl">Calibración</span><span class="val">0,024</span></div>
+    <div class="row"><span class="idx">04</span><span class="ttl">Caída máxima</span><span class="val n">−8,6%</span></div>
+    <div class="row"><span class="idx">05</span><span class="ttl">Descartados hoy</span><span class="val">3</span></div>
+  </div>
+
+  <div class="foot">
+    <em>Advertencia editorial.</em> Con 34 apuestas resueltas de las 100 necesarias, estas cifras no son concluyentes. Se publican para dejar constancia, no para decidir sobre ellas.
+  </div>
+
+  <div class="nav"><a class="on">Boletín</a><a>Lecturas</a><a>Registro</a><a>Balance</a><a>Índice</a></div>
+</div>
+
+<div class="tel">
+  <div class="mast"><span class="n">NOAH</span><span class="d">Lecturas · 3 de 3</span></div>
+  <div class="stripe"></div>
+
+  <svg class="eng" viewBox="0 0 100 130">
+    <g stroke="#14120F" fill="none" stroke-width=".7">
+      <path d="M22 46 L18 12 L44 34 M78 46 L82 12 L56 34"/>
+      <path d="M22 46 L50 38 L78 46 L72 84 L50 104 L28 84 Z"/>
+      <path d="M40 72 L50 50 L60 72 L50 104 Z"/>
+      <path d="M30 56 L44 52 M70 56 L56 52"/>
+      <path d="M50 82 L45 90 L55 90 Z"/>
+    </g>
+    <g stroke="#14120F" stroke-width=".4" opacity=".6">
+      <path d="M26 60 L46 56 M26 64 L44 61 M74 60 L54 56 M74 64 L56 61"/>
+      <path d="M34 78 L46 76 M34 82 L46 80 M66 78 L54 76 M66 82 L54 80"/>
+    </g>
+  </svg>
+
+  <div class="entry">
+    <div class="kick">01 · LaLiga · faltan 4 h 29 min</div>
+    <h3>Menos de 3,5 goles</h3>
+    <p class="meta">Real Betis contra Real Madrid · cuota tomada en Pinnacle</p>
+    <div style="display:flex;align-items:baseline;gap:10px;margin-top:12px">
+      <span class="odds gold">1,93</span>
+      <span style="font-size:11px;color:#6B655C">frente a una cuota justa de <b class="mono">1,42</b></span>
+    </div>
+    <div class="cols">
+      <div class="c"><b>Probabilidad</b><i>80,1%</i></div>
+      <div class="c"><b>Ventaja</b><i class="gold">28,8%</i></div>
+      <div class="c"><b>Rango</b><i style="font-size:14px">71–89%</i></div>
+    </div>
+    <p style="font-size:10.5px;line-height:1.6;color:#6B655C;margin-top:12px;border-left:2px solid #A8873A;padding-left:10px">
+      Tres modelos coinciden, pero dos comparten el mismo Elo de fondo: el consenso vale 52 sobre 100, no 100.
+    </p>
+  </div>
+
+  <div class="entry">
+    <div class="kick">02 · Serie A · faltan 6 h 59 min</div>
+    <h3>Más de 2,5 goles</h3>
+    <p class="meta">Genoa contra Como · cuota tomada en Bet365</p>
+    <div style="display:flex;align-items:baseline;gap:10px;margin-top:12px">
+      <span class="odds gold">2,38</span>
+      <span style="font-size:11px;color:#6B655C">justa <b class="mono">1,94</b></span>
+    </div>
+    <div class="cols">
+      <div class="c"><b>Probabilidad</b><i>56,7%</i></div>
+      <div class="c"><b>Ventaja</b><i class="gold">15,2%</i></div>
+      <div class="c"><b>Rango</b><i style="font-size:14px">50–63%</i></div>
+    </div>
+  </div>
+
+  <div class="entry" style="border:0">
+    <div class="kick">03 · Colombia Primera A</div>
+    <h3>Local gana o empata</h3>
+    <p class="meta">Millonarios contra Junior · Betplay</p>
+  </div>
+
+  <div class="nav"><a>Boletín</a><a class="on">Lecturas</a><a>Registro</a><a>Balance</a><a>Índice</a></div>
+</div>
+
+<div class="tel">
+  <div class="mast"><span class="n">NOAH</span><span class="d">Balance · histórico</span></div>
+  <div class="stripe"></div>
+
+  <div class="cover" style="padding-bottom:8px">
+    <div class="folio">Sección 04</div>
+    <h1 style="font-size:38px">El <em>balance</em></h1>
+  </div>
+
+  <div style="padding:6px 20px 0">
+    <svg viewBox="0 0 340 130" style="width:100%">
+      <defs><pattern id="hatch" width="4" height="4" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="4" stroke="#A8873A" stroke-width="1.1" opacity=".35"/></pattern></defs>
+      <line x1="0" y1="110" x2="340" y2="110" stroke="#14120F" stroke-width="1"/>
+      <line x1="0" y1="70" x2="340" y2="70" stroke="#14120F" stroke-width=".4" stroke-dasharray="2 3" opacity=".4"/>
+      <line x1="0" y1="30" x2="340" y2="30" stroke="#14120F" stroke-width=".4" stroke-dasharray="2 3" opacity=".4"/>
+      <path d="M0,96 L34,88 L68,92 L102,72 L136,78 L170,86 L204,60 L238,52 L272,58 L306,34 L340,26 L340,110 L0,110 Z" fill="url(#hatch)"/>
+      <polyline points="0,96 34,88 68,92 102,72 136,78 170,86 204,60 238,52 272,58 306,34 340,26" fill="none" stroke="#14120F" stroke-width="1.6"/>
+      <polyline points="0,100 34,94 68,97 102,80 136,86 170,94 204,70 238,63 272,70 306,47 340,40" fill="none" stroke="#8A8378" stroke-width="1" stroke-dasharray="3 3"/>
+    </svg>
+    <div style="display:flex;justify-content:space-between;font-size:9px;color:#8A8378;margin-top:2px" class="mono">
+      <span>27 JUL</span><span>—— bot &nbsp;&nbsp; ---- tú</span><span>10 SEP</span>
+    </div>
+  </div>
+
+  <div class="rule th" style="margin-top:16px"></div>
+
+  <div class="toc" style="padding-top:14px">
+    <h2>Desglose por mercado</h2>
+    <div class="row"><span class="idx">i</span><span class="ttl">Más y menos de goles</span><span class="val p">+7,1%</span></div>
+    <div class="row"><span class="idx">ii</span><span class="ttl">Doble oportunidad</span><span class="val p">+4,2%</span></div>
+    <div class="row"><span class="idx">iii</span><span class="ttl">Hándicap asiático</span><span class="val n">−1,8%</span></div>
+    <div class="row"><span class="idx">iv</span><span class="ttl">Resultado 1X2</span><span class="val p">+3,3%</span></div>
+  </div>
+
+  <div class="foot" style="position:absolute;bottom:52px;left:0;right:0">
+    <em>Nota.</em> El hándicap acumula siete apuestas. Cualquier lectura sobre esa cifra es anécdota, no evidencia.
+  </div>
+
+  <div class="nav"><a>Boletín</a><a>Lecturas</a><a>Registro</a><a class="on">Balance</a><a>Índice</a></div>
+</div>
+
+</body></html>

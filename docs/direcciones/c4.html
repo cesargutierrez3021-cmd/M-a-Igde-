@@ -1,0 +1,171 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#3a3a38;display:flex;gap:26px;padding:30px;font-family:Inter,sans-serif}
+.tel{width:390px;height:844px;background:#F2F1EC;overflow:hidden;position:relative;color:#0A0A0A}
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+.big{font-weight:900;letter-spacing:-.055em;line-height:.86}
+/* cabecera bloque */
+.head{background:#0A0A0A;color:#F2F1EC;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.head .n{font-weight:900;font-size:16px;letter-spacing:-.03em}
+.head .m{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#8A8A85}
+/* franja naranja */
+.flag{background:#FF4A17;color:#0A0A0A;padding:7px 16px;font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  display:flex;justify-content:space-between}
+/* cifra gigante */
+.hero{padding:20px 16px 16px;border-bottom:3px solid #0A0A0A}
+.hero .k{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#0A0A0A}
+.hero .v{font-size:82px;margin-top:2px}
+.hero .u{font-size:26px;font-weight:700;letter-spacing:-.02em}
+.hero .s{font-size:11px;font-weight:500;margin-top:8px;color:#55554F}
+/* rejilla dura */
+.grid2{display:grid;grid-template-columns:1fr 1fr;border-bottom:3px solid #0A0A0A}
+.grid2>div{padding:14px 16px;border-right:3px solid #0A0A0A}
+.grid2>div:last-child{border-right:0}
+.grid2 .k{font-size:8.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#55554F}
+.grid2 .v{font-size:34px;font-weight:900;letter-spacing:-.05em;margin-top:2px}
+.inv{background:#0A0A0A;color:#F2F1EC}
+.inv .k{color:#8A8A85}
+.or{background:#FF4A17}
+/* barra de progreso brutal */
+.pbar{height:14px;background:#0A0A0A;position:relative;margin-top:10px}
+.pbar div{height:100%;background:#FF4A17}
+/* lista */
+.list .it{display:flex;align-items:stretch;border-bottom:1px solid #0A0A0A}
+.list .idx{width:44px;flex:none;background:#0A0A0A;color:#F2F1EC;display:grid;place-items:center;font-weight:900;font-size:17px}
+.list .bd{flex:1;padding:11px 14px}
+.list .bd .t{font-size:16px;font-weight:900;letter-spacing:-.03em}
+.list .bd .m{font-size:10px;color:#55554F;margin-top:2px}
+.list .rt{width:78px;flex:none;display:grid;place-items:center;border-left:1px solid #0A0A0A;font-weight:900;font-size:19px;letter-spacing:-.04em}
+.list .rt.or{background:#FF4A17}
+/* ficha */
+.card{border-bottom:3px solid #0A0A0A}
+.card .top{background:#0A0A0A;color:#F2F1EC;padding:8px 16px;display:flex;justify-content:space-between;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.card .bd{padding:14px 16px}
+.card h2{font-size:31px;font-weight:900;letter-spacing:-.05em;line-height:.92}
+.card .sub{font-size:10.5px;color:#55554F;margin-top:6px;font-weight:500}
+.mtx{display:grid;grid-template-columns:repeat(3,1fr);margin-top:14px;border-top:1px solid #0A0A0A}
+.mtx>div{padding:9px 0;border-right:1px solid #0A0A0A}
+.mtx>div:last-child{border-right:0}
+.mtx b{display:block;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#55554F}
+.mtx i{font-style:normal;font-size:22px;font-weight:900;letter-spacing:-.05em}
+.blocks{display:flex;gap:3px;margin-top:12px}
+.blocks i{flex:1;height:10px;background:#D9D8D2}
+.blocks i.on{background:#FF4A17}
+/* nav */
+.nav{position:absolute;bottom:0;left:0;right:0;display:flex;background:#0A0A0A}
+.nav a{flex:1;text-align:center;padding:13px 0;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6E6E68;text-decoration:none}
+.nav a.on{background:#FF4A17;color:#0A0A0A}
+</style></head><body>
+
+<div class="tel">
+  <div class="head"><span class="n">NOAH</span><span class="m">10.09.26 / PAPER</span></div>
+  <div class="flag"><span>Panel</span><span>34 / 100 resueltas</span></div>
+
+  <div class="hero">
+    <div class="k">Ganancia acumulada</div>
+    <div class="v big">+11,50<span class="u"> u</span></div>
+    <div class="s">$ 57.500 COP · 18 ganadas / 14 perdidas / 2 nulas</div>
+    <div class="pbar"><div style="width:34%"></div></div>
+    <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:6px">Muestra insuficiente — no concluyente</div>
+  </div>
+
+  <div class="grid2">
+    <div><div class="k">ROI</div><div class="v">+4,1%</div></div>
+    <div class="or"><div class="k" style="color:#0A0A0A">CLV medio</div><div class="v">+2,1%</div></div>
+  </div>
+  <div class="grid2">
+    <div class="inv"><div class="k">Acierto</div><div class="v">56,3%</div></div>
+    <div><div class="k">Sharpe</div><div class="v">0,71</div></div>
+  </div>
+
+  <div class="flag" style="background:#0A0A0A;color:#F2F1EC"><span>Últimas alertas</span><span style="color:#FF4A17">Ver todo</span></div>
+
+  <div class="list">
+    <div class="it"><span class="idx">1</span><div class="bd"><div class="t">Visitante gana o empata</div><div class="m">R. Sociedad — Celta · 2,15</div></div><span class="rt or">G</span></div>
+    <div class="it"><span class="idx">2</span><div class="bd"><div class="t">Menos de 2,5</div><div class="m">Athletic — Villarreal · 1,88</div></div><span class="rt">P</span></div>
+    <div class="it"><span class="idx">3</span><div class="bd"><div class="t">Hándicap 0</div><div class="m">Lecce — Torino · 2,05</div></div><span class="rt" style="color:#55554F">N</span></div>
+  </div>
+
+  <div class="nav"><a class="on">Panel</a><a>Hoy</a><a>Mías</a><a>Datos</a><a>Más</a></div>
+</div>
+
+<div class="tel">
+  <div class="head"><span class="n">NOAH</span><span class="m">Oportunidades</span></div>
+  <div class="flag"><span>Máx. 3 al día</span><span>3 activas</span></div>
+
+  <div class="card">
+    <div class="top"><span>01 / LaLiga</span><span>Stake 4/10</span></div>
+    <div class="bd">
+      <h2>Menos de<br>3,5 goles</h2>
+      <div class="sub">Real Betis — Real Madrid · faltan 4 h 29 min</div>
+      <div style="display:flex;align-items:flex-end;gap:10px;margin-top:14px">
+        <span class="big" style="font-size:52px;color:#FF4A17">1,93</span>
+        <span style="font-size:10.5px;color:#55554F;padding-bottom:8px;font-weight:500">justa 1,42<br>Pinnacle</span>
+      </div>
+      <div class="mtx">
+        <div><b>Prob.</b><i>80,1%</i></div>
+        <div><b>Ventaja</b><i style="color:#FF4A17">28,8%</i></div>
+        <div><b>Rango</b><i style="font-size:17px">71–89</i></div>
+      </div>
+      <div style="font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:14px">Consenso 52 / 100</div>
+      <div class="blocks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="top"><span>02 / Serie A</span><span>Stake 3/10</span></div>
+    <div class="bd">
+      <h2 style="font-size:27px">Más de 2,5 goles</h2>
+      <div class="sub">Genoa — Como</div>
+      <div style="display:flex;align-items:flex-end;gap:10px;margin-top:10px">
+        <span class="big" style="font-size:40px;color:#FF4A17">2,38</span>
+        <span style="font-size:10px;color:#55554F;padding-bottom:6px;font-weight:500">ventaja 15,2%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flag" style="background:#0A0A0A;color:#F2F1EC"><span>Descartados</span><span>3</span></div>
+  <div class="list">
+    <div class="it"><div class="bd" style="padding:9px 14px"><div class="t" style="font-size:14px">Ambos marcan</div></div><span class="rt" style="font-size:9px;font-weight:700;letter-spacing:.1em;color:#55554F">SIN<br>VALOR</span></div>
+    <div class="it"><div class="bd" style="padding:9px 14px"><div class="t" style="font-size:14px">Córners 9.5</div></div><span class="rt" style="font-size:9px;font-weight:700;letter-spacing:.1em;color:#55554F">SIN<br>CALIB</span></div>
+  </div>
+
+  <div class="nav"><a>Panel</a><a class="on">Hoy</a><a>Mías</a><a>Datos</a><a>Más</a></div>
+</div>
+
+<div class="tel">
+  <div class="head"><span class="n">NOAH</span><span class="m">Datos</span></div>
+  <div class="flag"><span>Rendimiento</span><span>27 jul — 10 sep</span></div>
+
+  <div style="padding:16px 16px 8px;border-bottom:3px solid #0A0A0A">
+    <svg viewBox="0 0 340 120" style="width:100%">
+      <polyline points="0,104 34,96 68,100 102,78 136,86 170,94 204,62 238,52 272,60 306,32 340,22"
+        fill="none" stroke="#0A0A0A" stroke-width="4" stroke-linejoin="miter"/>
+      <polyline points="0,110 34,104 68,107 102,88 136,96 170,104 204,74 238,66 272,74 306,46 340,38"
+        fill="none" stroke="#FF4A17" stroke-width="2.5" stroke-dasharray="8 5"/>
+      <line x1="0" y1="118" x2="340" y2="118" stroke="#0A0A0A" stroke-width="3"/>
+    </svg>
+    <div style="display:flex;gap:16px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-top:8px">
+      <span>— Bot</span><span style="color:#FF4A17">-- Tú</span>
+    </div>
+  </div>
+
+  <div class="flag" style="background:#0A0A0A;color:#F2F1EC"><span>Por mercado</span><span>4</span></div>
+  <div class="list">
+    <div class="it"><div class="bd"><div class="t">Más / menos</div><div class="m">14 resueltas</div></div><span class="rt or">+7,1</span></div>
+    <div class="it"><div class="bd"><div class="t">Doble oportunidad</div><div class="m">9 resueltas</div></div><span class="rt or">+4,2</span></div>
+    <div class="it"><div class="bd"><div class="t">Hándicap</div><div class="m">7 resueltas</div></div><span class="rt inv" style="background:#0A0A0A;color:#F2F1EC">−1,8</span></div>
+    <div class="it"><div class="bd"><div class="t">1X2</div><div class="m">4 resueltas</div></div><span class="rt or">+3,3</span></div>
+  </div>
+
+  <div class="grid2" style="border-top:3px solid #0A0A0A">
+    <div><div class="k">Brier</div><div class="v" style="font-size:28px">0,198</div></div>
+    <div class="inv"><div class="k">ECE</div><div class="v" style="font-size:28px">0,024</div></div>
+  </div>
+
+  <div class="nav"><a>Panel</a><a>Hoy</a><a>Mías</a><a class="on">Datos</a><a>Más</a></div>
+</div>
+
+</body></html>

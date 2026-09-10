@@ -1,0 +1,290 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#12181c;display:flex;gap:26px;padding:30px;font-family:Inter,sans-serif}
+.tel{width:390px;height:844px;background:#0E1418;overflow:hidden;position:relative;color:#E4EAED}
+.topo{position:absolute;inset:0;pointer-events:none;opacity:.5}
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+.disp{font-family:Sora,sans-serif;font-weight:800;letter-spacing:-.035em}
+.go{color:#C9A227}.ice{color:#7FD4E8}.mu{color:#7C8B93}.ea{color:#B08968}
+/* cabecera con coordenadas */
+.hd{position:relative;z-index:2;padding:12px 16px 8px;display:flex;justify-content:space-between;align-items:flex-start}
+.hd .n{font-family:Sora;font-weight:800;letter-spacing:.2em;font-size:13px;color:#C9A227}
+.hd .co{font-size:8.5px;line-height:1.6;color:#5E6E77;text-align:right;letter-spacing:.06em}
+/* bloque de cota */
+.alt{position:relative;z-index:2;padding:8px 16px 14px}
+.alt .k{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#5E6E77}
+.alt .v{font-size:44px;line-height:1;margin-top:4px;color:#C9A227}
+.alt .s{font-size:11px;color:#7C8B93;margin-top:6px}
+/* panel de terreno */
+.pane{position:relative;z-index:2;margin:0 16px 12px;border:1px solid #22323A;border-radius:3px;background:rgba(14,20,24,.72);
+  backdrop-filter:blur(3px)}
+.pane .ph{display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #22323A;
+  font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#5E6E77}
+.pane .pb{padding:12px}
+/* punto en el mapa = pronóstico */
+.mk{display:flex;gap:11px;padding:11px 12px;border-bottom:1px solid #1A272E;position:relative}
+.mk:last-child{border:0}
+.mk .pin{width:34px;flex:none;text-align:center}
+.mk .pin .h{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#C9A227;display:block;margin-top:2px}
+.mk .bd{flex:1;min-width:0}
+.mk .bd .t{font-family:Sora;font-weight:800;font-size:15px;letter-spacing:-.02em}
+.mk .bd .m{font-size:10px;color:#7C8B93;margin-top:2px}
+.mk .rt{text-align:right;flex:none}
+.mk .rt .o{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:#E4EAED}
+.mk .rt .e{font-size:9.5px;color:#C9A227}
+/* cota / regla */
+.ruler{display:flex;align-items:center;gap:6px;margin-top:9px}
+.ruler .rl{flex:1;height:3px;background:#1E2C33;position:relative;border-radius:2px}
+.ruler .rl i{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#7FD4E8,#C9A227);border-radius:2px}
+.ruler span{font-size:8.5px;color:#5E6E77;font-family:'JetBrains Mono',monospace}
+/* brújula */
+.comp{position:absolute;right:14px;top:210px;z-index:2;opacity:.9}
+/* nav */
+.nav{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;background:rgba(14,20,24,.94);border-top:1px solid #22323A}
+.nav a{flex:1;text-align:center;padding:12px 0;font-size:8.5px;letter-spacing:.1em;color:#5E6E77;text-decoration:none;text-transform:uppercase}
+.nav a.on{color:#C9A227}
+.nav a.on::before{content:"";display:block;width:16px;height:2px;background:#C9A227;margin:0 auto 6px}
+</style></head><body>
+
+<!-- ══ P1 : MAPA DEL DÍA ══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none">
+    <g fill="none" stroke="#C9A227" stroke-opacity=".13" stroke-width="1">
+      <path d="M-20 210 C 70 170, 150 250, 230 200 S 360 150, 420 205"/>
+      <path d="M-20 240 C 70 200, 150 280, 230 230 S 360 180, 420 235"/>
+      <path d="M-20 272 C 70 232, 150 312, 230 262 S 360 212, 420 267"/>
+      <path d="M-20 306 C 70 266, 150 346, 230 296 S 360 246, 420 301"/>
+      <path d="M-20 344 C 70 304, 150 384, 230 334 S 360 284, 420 339"/>
+      <path d="M-20 386 C 70 346, 150 426, 230 376 S 360 326, 420 381"/>
+    </g>
+    <g fill="none" stroke="#7FD4E8" stroke-opacity=".10" stroke-width="1">
+      <path d="M-20 560 C 90 520, 170 600, 250 555 S 370 505, 420 560"/>
+      <path d="M-20 596 C 90 556, 170 636, 250 591 S 370 541, 420 596"/>
+      <path d="M-20 634 C 90 594, 170 674, 250 629 S 370 579, 420 634"/>
+      <path d="M-20 674 C 90 634, 170 714, 250 669 S 370 619, 420 674"/>
+    </g>
+  </svg>
+
+  <div class="hd">
+    <div>
+      <div class="n">N O A H</div>
+      <div style="font-size:8.5px;letter-spacing:.16em;color:#5E6E77;margin-top:3px;text-transform:uppercase">Reconocimiento del día</div>
+    </div>
+    <div class="co">10 SEP 2026<br>04°42′N 74°04′O<br><span class="go">MODO PAPEL</span></div>
+  </div>
+
+  <div class="alt">
+    <div class="k">Cota alcanzada</div>
+    <div class="v disp mono">+11,50<span style="font-size:19px"> u</span></div>
+    <div class="s">34 de 100 tramos recorridos · el terreno aún no es legible</div>
+    <div class="ruler"><span>0</span><div class="rl"><i style="width:34%"></i></div><span>100</span></div>
+  </div>
+
+  <svg class="comp" viewBox="0 0 60 60" width="52" height="52">
+    <circle cx="30" cy="30" r="27" fill="none" stroke="#22323A"/>
+    <circle cx="30" cy="30" r="21" fill="none" stroke="#22323A" stroke-dasharray="1 4"/>
+    <path d="M30 8 L34 30 L30 52 L26 30 Z" fill="#C9A227"/>
+    <path d="M30 8 L26 30 L30 30 Z" fill="#7FD4E8"/>
+    <text x="30" y="6" text-anchor="middle" font-size="7" fill="#5E6E77" font-family="JetBrains Mono">N</text>
+  </svg>
+
+  <div class="pane">
+    <div class="ph"><span>Tres cotas de valor</span><span class="go">activas</span></div>
+    <div class="mk">
+      <div class="pin">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3 L21 19 L3 19 Z" fill="none" stroke="#C9A227" stroke-width="1.5"/><path d="M12 8 L17 19 L7 19 Z" fill="#C9A227" fill-opacity=".55"/></svg>
+        <span class="h">28,8</span>
+      </div>
+      <div class="bd"><div class="t">Menos de 3,5 goles</div><div class="m">R. Betis — R. Madrid · LaLiga · 4 h 29</div>
+        <div class="ruler"><span>71</span><div class="rl"><i style="left:71%;right:11%"></i></div><span>89</span></div>
+      </div>
+      <div class="rt"><div class="o">1,93</div><div class="e">+28,8%</div></div>
+    </div>
+    <div class="mk">
+      <div class="pin">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 6 L20 19 L4 19 Z" fill="none" stroke="#C9A227" stroke-width="1.5"/><path d="M12 11 L16 19 L8 19 Z" fill="#C9A227" fill-opacity=".4"/></svg>
+        <span class="h">15,2</span>
+      </div>
+      <div class="bd"><div class="t">Más de 2,5 goles</div><div class="m">Genoa — Como · Serie A · 6 h 59</div>
+        <div class="ruler"><span>50</span><div class="rl"><i style="left:50%;right:37%"></i></div><span>63</span></div>
+      </div>
+      <div class="rt"><div class="o">2,38</div><div class="e">+15,2%</div></div>
+    </div>
+    <div class="mk">
+      <div class="pin">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 10 L19 19 L5 19 Z" fill="none" stroke="#7C8B93" stroke-width="1.5"/></svg>
+        <span class="h mu">7,4</span>
+      </div>
+      <div class="bd"><div class="t">Local gana o empata</div><div class="m">Millonarios — Junior · Colombia</div></div>
+      <div class="rt"><div class="o">1,74</div><div class="e mu">+7,4%</div></div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Terreno descartado</span><span>3</span></div>
+    <div class="pb" style="padding:10px 12px;font-size:10.5px;color:#7C8B93;line-height:2">
+      <div style="display:flex;justify-content:space-between"><span>Ambos marcan</span><span style="color:#4E5C64">bajo la cota mínima</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Córners 9.5</span><span style="color:#4E5C64">sin cartografiar</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Tarjetas 4.5</span><span style="color:#4E5C64">fuera de mapa</span></div>
+    </div>
+  </div>
+
+  <div class="nav"><a class="on">Mapa</a><a>Rutas</a><a>Diario</a><a>Ascenso</a><a>Base</a></div>
+</div>
+
+<!-- ══ P2 : DETALLE DE UNA COTA ══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none">
+    <g fill="none" stroke="#C9A227" stroke-opacity=".12">
+      <ellipse cx="200" cy="300" rx="230" ry="120"/><ellipse cx="200" cy="300" rx="192" ry="98"/>
+      <ellipse cx="200" cy="300" rx="154" ry="78"/><ellipse cx="200" cy="300" rx="116" ry="58"/>
+      <ellipse cx="200" cy="300" rx="78" ry="38"/><ellipse cx="200" cy="300" rx="40" ry="19"/>
+    </g>
+  </svg>
+
+  <div class="hd">
+    <div><div style="font-size:11px;color:#5E6E77">← Volver al mapa</div></div>
+    <div class="co">COTA 01<br><span class="go">28,8 % VENTAJA</span></div>
+  </div>
+
+  <div style="position:relative;z-index:2;padding:6px 16px 0">
+    <div style="font-size:8.5px;letter-spacing:.18em;color:#5E6E77;text-transform:uppercase">LaLiga · Real Betis — Real Madrid</div>
+    <h1 class="disp" style="font-size:31px;margin-top:8px;line-height:1.02">Menos de<br><span class="go">3,5 goles</span></h1>
+  </div>
+
+  <div class="pane" style="margin-top:16px">
+    <div class="ph"><span>Perfil de la probabilidad</span><span>80,1 %</span></div>
+    <div class="pb">
+      <svg viewBox="0 0 320 110" style="width:100%">
+        <!-- perfil de montaña = distribución -->
+        <defs><linearGradient id="mt" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C9A227" stop-opacity=".45"/><stop offset="1" stop-color="#C9A227" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0,100 L40,94 L75,80 L110,58 L145,30 L175,20 L205,34 L240,62 L275,84 L320,98 L320,105 L0,105 Z" fill="url(#mt)"/>
+        <polyline points="0,100 40,94 75,80 110,58 145,30 175,20 205,34 240,62 275,84 320,98" fill="none" stroke="#C9A227" stroke-width="1.8"/>
+        <!-- banda del rango creíble -->
+        <rect x="110" y="8" width="130" height="97" fill="#7FD4E8" opacity=".07"/>
+        <line x1="110" y1="8" x2="110" y2="105" stroke="#7FD4E8" stroke-width="1" stroke-dasharray="3 3" opacity=".7"/>
+        <line x1="240" y1="8" x2="240" y2="105" stroke="#7FD4E8" stroke-width="1" stroke-dasharray="3 3" opacity=".7"/>
+        <line x1="175" y1="14" x2="175" y2="105" stroke="#C9A227" stroke-width="1.5"/>
+        <circle cx="175" cy="20" r="4" fill="#C9A227"/>
+        <text x="112" y="102" font-size="8" fill="#5E6E77" font-family="JetBrains Mono">71%</text>
+        <text x="222" y="102" font-size="8" fill="#5E6E77" font-family="JetBrains Mono">89%</text>
+      </svg>
+      <p style="font-size:10.5px;color:#7C8B93;line-height:1.6;margin-top:6px">
+        La cresta marca la estimación; la franja azul, el terreno donde todavía cabe la duda.
+      </p>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Cuotas</span><span>Pinnacle</span></div>
+    <div class="pb" style="display:flex;gap:14px;align-items:flex-end">
+      <div><div style="font-size:8px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase">Publicada</div>
+        <div class="mono go" style="font-size:30px;font-weight:700;letter-spacing:-.03em">1,93</div></div>
+      <div style="width:1px;height:40px;background:#22323A"></div>
+      <div><div style="font-size:8px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase">Justa</div>
+        <div class="mono" style="font-size:30px;font-weight:700;color:#7C8B93;letter-spacing:-.03em">1,42</div></div>
+      <div style="flex:1;text-align:right"><div style="font-size:8px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase">Desnivel</div>
+        <div class="mono ice" style="font-size:22px;font-weight:700">+0,51</div></div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Ruta de la decisión</span><span>7 tramos</span></div>
+    <div class="pb" style="padding-left:20px">
+      <div style="position:relative;border-left:1px dashed #2A3C45;padding-left:16px;display:flex;flex-direction:column;gap:11px">
+        <div><span style="position:absolute;left:-4px;width:7px;height:7px;background:#C9A227;transform:rotate(45deg)"></span>
+          <div style="font-size:12px;font-weight:600">Datos validados</div><div style="font-size:10px;color:#7C8B93">12 casas · sin alineaciones</div></div>
+        <div><span style="position:absolute;left:-4px;width:7px;height:7px;background:#C9A227;transform:rotate(45deg)"></span>
+          <div style="font-size:12px;font-weight:600">Corte temporal</div><div style="font-size:10px;color:#7C8B93">as_of 10-09 · sin futuro</div></div>
+        <div><span style="position:absolute;left:-4px;width:7px;height:7px;background:#C9A227;transform:rotate(45deg)"></span>
+          <div style="font-size:12px;font-weight:600">De-vig de Shin</div><div style="font-size:10px;color:#7C8B93">margen retirado: 4,71 %</div></div>
+        <div><span style="position:absolute;left:-4px;width:7px;height:7px;background:#7FD4E8;transform:rotate(45deg)"></span>
+          <div style="font-size:12px;font-weight:600">Kelly simultáneo</div><div style="font-size:10px;color:#7C8B93">cartera del día · stake 4/10</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav"><a class="on">Mapa</a><a>Rutas</a><a>Diario</a><a>Ascenso</a><a>Base</a></div>
+</div>
+
+<!-- ══ P3 : ASCENSO (RENDIMIENTO) ══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none">
+    <g fill="none" stroke="#7FD4E8" stroke-opacity=".09">
+      <path d="M-20 470 C 80 430, 160 510, 240 465 S 360 415, 420 470"/>
+      <path d="M-20 508 C 80 468, 160 548, 240 503 S 360 453, 420 508"/>
+      <path d="M-20 548 C 80 508, 160 588, 240 543 S 360 493, 420 548"/>
+      <path d="M-20 590 C 80 550, 160 630, 240 585 S 360 535, 420 590"/>
+    </g>
+  </svg>
+
+  <div class="hd">
+    <div><div class="n">N O A H</div>
+      <div style="font-size:8.5px;letter-spacing:.16em;color:#5E6E77;margin-top:3px;text-transform:uppercase">Perfil del ascenso</div></div>
+    <div class="co">45 DÍAS<br>34 TRAMOS</div>
+  </div>
+
+  <div style="position:relative;z-index:2;padding:6px 16px 0">
+    <svg viewBox="0 0 358 190" style="width:100%">
+      <defs><linearGradient id="ridge" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#C9A227" stop-opacity=".34"/><stop offset="1" stop-color="#C9A227" stop-opacity="0"/></linearGradient></defs>
+      <!-- cotas horizontales -->
+      <g stroke="#22323A" stroke-dasharray="2 5">
+        <line x1="0" y1="40" x2="358" y2="40"/><line x1="0" y1="85" x2="358" y2="85"/><line x1="0" y1="130" x2="358" y2="130"/>
+      </g>
+      <text x="2" y="36" font-size="8" fill="#4E5C64" font-family="JetBrains Mono">+12u</text>
+      <text x="2" y="81" font-size="8" fill="#4E5C64" font-family="JetBrains Mono">+6u</text>
+      <text x="2" y="126" font-size="8" fill="#4E5C64" font-family="JetBrains Mono">0</text>
+      <!-- cresta = curva de capital -->
+      <path d="M0,150 L36,142 L72,146 L108,118 L144,128 L180,140 L216,98 L252,86 L288,96 L324,54 L358,38 L358,168 L0,168 Z" fill="url(#ridge)"/>
+      <polyline points="0,150 36,142 72,146 108,118 144,128 180,140 216,98 252,86 288,96 324,54 358,38"
+        fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linejoin="round"/>
+      <polyline points="0,155 36,148 72,152 108,126 144,136 180,148 216,108 252,97 288,108 324,68 358,52"
+        fill="none" stroke="#7FD4E8" stroke-width="1.4" stroke-dasharray="4 3" opacity=".85"/>
+      <!-- bandera en la cima -->
+      <g><line x1="358" y1="38" x2="358" y2="20" stroke="#C9A227" stroke-width="1.4"/>
+        <path d="M358 20 L344 25 L358 30 Z" fill="#C9A227"/></g>
+      <line x1="0" y1="168" x2="358" y2="168" stroke="#22323A"/>
+    </svg>
+    <div style="display:flex;justify-content:space-between;font-size:9px;color:#5E6E77;margin-top:2px" class="mono">
+      <span>27 JUL</span><span class="go">— bot</span><span class="ice">-- tú</span><span>10 SEP</span>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px 16px 0;position:relative;z-index:2">
+    <div class="pane" style="margin:0"><div class="pb" style="padding:9px 10px;text-align:center">
+      <div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase">CLV</div>
+      <div class="mono go" style="font-size:18px;font-weight:700">+2,1%</div></div></div>
+    <div class="pane" style="margin:0"><div class="pb" style="padding:9px 10px;text-align:center">
+      <div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase">Desnivel −</div>
+      <div class="mono" style="font-size:18px;font-weight:700;color:#C4553F">−8,6%</div></div></div>
+    <div class="pane" style="margin:0"><div class="pb" style="padding:9px 10px;text-align:center">
+      <div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase">Sharpe</div>
+      <div class="mono ice" style="font-size:18px;font-weight:700">0,71</div></div></div>
+  </div>
+
+  <div class="pane" style="margin-top:12px">
+    <div class="ph"><span>Terreno por tipo</span><span>4 zonas</span></div>
+    <div class="pb" style="display:flex;flex-direction:column;gap:11px">
+      <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Más / menos goles</span><span class="mono go">+7,1%</span></div>
+        <div style="height:5px;background:#1E2C33;border-radius:2px;margin-top:5px"><div style="width:71%;height:100%;background:linear-gradient(90deg,#7FD4E8,#C9A227);border-radius:2px"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Doble oportunidad</span><span class="mono go">+4,2%</span></div>
+        <div style="height:5px;background:#1E2C33;border-radius:2px;margin-top:5px"><div style="width:47%;height:100%;background:linear-gradient(90deg,#7FD4E8,#C9A227);border-radius:2px"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Hándicap asiático</span><span class="mono" style="color:#C4553F">−1,8%</span></div>
+        <div style="height:5px;background:#1E2C33;border-radius:2px;margin-top:5px"><div style="width:18%;height:100%;background:#C4553F;border-radius:2px"></div></div></div>
+    </div>
+  </div>
+
+  <div style="position:relative;z-index:2;padding:0 16px">
+    <div style="border-left:2px solid #C9A227;padding:8px 12px;font-size:10.5px;line-height:1.6;color:#7C8B93">
+      Quedan <span class="go mono">66 tramos</span> para saber si esta cresta es real o es la forma que tiene el ruido.
+    </div>
+  </div>
+
+  <div class="nav"><a>Mapa</a><a>Rutas</a><a>Diario</a><a class="on">Ascenso</a><a>Base</a></div>
+</div>
+
+</body></html>

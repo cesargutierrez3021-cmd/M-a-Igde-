@@ -1,0 +1,557 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#12181c;display:flex;flex-wrap:wrap;gap:24px;padding:24px;font-family:Inter,sans-serif;width:1716px}
+.tel{width:390px;height:844px;background:#0E1418;overflow:hidden;position:relative;color:#E4EAED;flex:none}
+.topo{position:absolute;inset:0;pointer-events:none;opacity:.5}
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+.disp{font-family:Sora,sans-serif;font-weight:800;letter-spacing:-.035em}
+.go{color:#C9A227}.ice{color:#7FD4E8}.mu{color:#7C8B93}.ea{color:#B08968}.rd{color:#C4553F}.gr{color:#4FA97A}
+/* cabecera */
+.hd{position:relative;z-index:2;padding:12px 16px 6px;display:flex;justify-content:space-between;align-items:flex-start}
+.hd .n{font-family:Sora;font-weight:800;letter-spacing:.2em;font-size:12px;color:#C9A227}
+.hd .sb{font-size:8px;letter-spacing:.16em;color:#5E6E77;margin-top:3px;text-transform:uppercase}
+.hd .co{font-size:8px;line-height:1.6;color:#5E6E77;text-align:right;letter-spacing:.06em}
+h1.t{position:relative;z-index:2;padding:4px 16px 0;font-family:Sora;font-weight:800;letter-spacing:-.03em;font-size:26px;line-height:1.05}
+.sub{position:relative;z-index:2;padding:6px 16px 0;font-size:11px;color:#7C8B93;line-height:1.5}
+/* panel */
+.pane{position:relative;z-index:2;margin:11px 16px 0;border:1px solid #22323A;border-radius:3px;background:rgba(14,20,24,.75)}
+.pane .ph{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #22323A;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#5E6E77}
+.pane .pb{padding:12px}
+.row{display:flex;gap:10px;padding:10px 12px;border-bottom:1px solid #1A272E;align-items:center}
+.row:last-child{border:0}
+/* tiles */
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:11px 16px 0;position:relative;z-index:2}
+.tile{border:1px solid #22323A;border-radius:3px;padding:9px 10px;text-align:center;background:rgba(14,20,24,.75)}
+.tile b{display:block;font-size:7px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase;font-weight:500}
+.tile i{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;display:block;margin-top:3px}
+/* barras */
+.bar{height:4px;background:#1E2C33;border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#7FD4E8,#C9A227)}
+.ruler{display:flex;align-items:center;gap:6px;margin-top:7px}
+.ruler .rl{flex:1;height:3px;background:#1E2C33;position:relative;border-radius:2px}
+.ruler .rl i{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#7FD4E8,#C9A227);border-radius:2px}
+.ruler span{font-size:8px;color:#5E6E77;font-family:'JetBrains Mono',monospace}
+/* avatar */
+.av{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font-family:Sora;font-weight:800;font-size:13px;
+  border:1px solid #2A3C45;background:#16212700}
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border:1px solid #22323A;border-radius:20px;font-size:9px;color:#7C8B93}
+.chip.go{border-color:#C9A22755;color:#C9A227;background:#C9A2270D}
+.chip.gr{border-color:#4FA97A55;color:#4FA97A;background:#4FA97A0D}
+.chip.rd{border-color:#C4553F55;color:#C4553F;background:#C4553F0D}
+/* botones */
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;height:40px;border-radius:3px;font-size:13px;font-weight:600;border:1px solid #22323A;color:#E4EAED}
+.btn.pri{background:linear-gradient(135deg,#E8C766,#C9A227);color:#14181D;border:0}
+.btn.gh{color:#7C8B93}
+/* nav */
+.nav{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;background:rgba(14,20,24,.95);border-top:1px solid #22323A}
+.nav a{flex:1;text-align:center;padding:11px 0;font-size:8px;letter-spacing:.08em;color:#5E6E77;text-decoration:none;text-transform:uppercase}
+.nav a.on{color:#C9A227}
+.nav a.on::before{content:"";display:block;width:14px;height:2px;background:#C9A227;margin:0 auto 5px}
+.nav a::before{content:"";display:block;width:14px;height:2px;background:transparent;margin:0 auto 5px}
+</style></head><body>
+
+<!-- ═══ 0 · BASE (inicio) ═══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none"><g fill="none" stroke="#C9A227" stroke-opacity=".12">
+    <path d="M-20 150 C 70 110, 150 190, 230 140 S 360 90, 420 145"/><path d="M-20 182 C 70 142, 150 222, 230 172 S 360 122, 420 177"/>
+    <path d="M-20 216 C 70 176, 150 256, 230 206 S 360 156, 420 211"/><path d="M-20 252 C 70 212, 150 292, 230 242 S 360 192, 420 247"/></g>
+    <g fill="none" stroke="#7FD4E8" stroke-opacity=".08"><path d="M-20 620 C 90 580, 170 660, 250 615 S 370 565, 420 620"/>
+    <path d="M-20 658 C 90 618, 170 698, 250 653 S 370 603, 420 658"/></g></svg>
+
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Campamento base</div></div>
+    <div class="co">10 SEP 2026<br>04°42′N 74°04′O<br><span class="go">MODO PAPEL</span></div></div>
+
+  <h1 class="t">Buen día,<br><span class="go">explorador</span></h1>
+  <p class="sub">El terreno de hoy, tu cota y lo que la jauría está rastreando.</p>
+
+  <div class="pane">
+    <div class="ph"><span>Tu cota</span><span class="go">34 / 100 tramos</span></div>
+    <div class="pb">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div><div class="disp go mono" style="font-size:34px;line-height:1">+11,50<span style="font-size:15px"> u</span></div>
+          <div style="font-size:10px;color:#7C8B93;margin-top:4px">$ 57.500 · 18 G / 14 P / 2 N</div></div>
+        <svg viewBox="0 0 96 40" style="width:96px"><defs><linearGradient id="sp" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C9A227" stop-opacity=".4"/><stop offset="1" stop-color="#C9A227" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,32 L16,28 L32,30 L48,20 L64,24 L80,12 L96,8 L96,40 L0,40 Z" fill="url(#sp)"/>
+          <polyline points="0,32 16,28 32,30 48,20 64,24 80,12 96,8" fill="none" stroke="#C9A227" stroke-width="1.6"/></svg>
+      </div>
+      <div class="ruler"><span>0</span><div class="rl"><i style="width:34%"></i></div><span>100</span></div>
+      <div style="font-size:9.5px;color:#C9A227;margin-top:6px">Aún no concluyente · faltan 66 tramos</div>
+    </div>
+  </div>
+
+  <div class="tri">
+    <div class="tile"><b>CLV</b><i class="go">+2,1%</i></div>
+    <div class="tile"><b>ROI</b><i class="ice">+4,1%</i></div>
+    <div class="tile"><b>Racha</b><i>2</i></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Cotas del bot · hoy</span><span class="go">3 activas</span></div>
+    <div class="row"><svg viewBox="0 0 24 24" width="20" height="20" style="flex:none"><path d="M12 3 L21 19 L3 19 Z" fill="none" stroke="#C9A227" stroke-width="1.5"/><path d="M12 8 L17 19 L7 19 Z" fill="#C9A227" fill-opacity=".5"/></svg>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">Menos de 3,5 goles</div>
+        <div style="font-size:10px;color:#7C8B93">R. Betis — R. Madrid · 4 h 29</div></div>
+      <div style="text-align:right"><div class="mono" style="font-size:14px;font-weight:700">1,93</div><div class="go" style="font-size:9px">+28,8%</div></div></div>
+    <div class="row"><svg viewBox="0 0 24 24" width="20" height="20" style="flex:none"><path d="M12 6 L20 19 L4 19 Z" fill="none" stroke="#C9A227" stroke-width="1.5"/><path d="M12 11 L16 19 L8 19 Z" fill="#C9A227" fill-opacity=".35"/></svg>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">Más de 2,5 goles</div>
+        <div style="font-size:10px;color:#7C8B93">Genoa — Como · 6 h 59</div></div>
+      <div style="text-align:right"><div class="mono" style="font-size:14px;font-weight:700">2,38</div><div class="go" style="font-size:9px">+15,2%</div></div></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>La jauría</span><span class="ice">42 rastros hoy</span></div>
+    <div class="row" style="padding:9px 12px">
+      <span class="av" style="border-color:#C9A22755;color:#C9A227">M</span>
+      <div style="flex:1;min-width:0"><div style="font-size:12px"><b>Mateo_R</b> selló <span class="go">Over 2.5</span></div>
+        <div style="font-size:9.5px;color:#5E6E77">CLV +3,1% · 61 pronósticos · hace 12 min</div></div>
+      <span class="chip gr">✓ sellado</span></div>
+    <div class="row" style="padding:9px 12px">
+      <span class="av" style="border-color:#7FD4E855;color:#7FD4E8">L</span>
+      <div style="flex:1;min-width:0"><div style="font-size:12px"><b>Laura_88</b> selló <span class="ice">1X Millonarios</span></div>
+        <div style="font-size:9.5px;color:#5E6E77">CLV −0,4% · 23 pronósticos · hace 31 min</div></div>
+      <span class="chip gr">✓ sellado</span></div>
+  </div>
+
+  <div class="nav"><a class="on">Base</a><a>Mapa</a><a>Cuaderno</a><a>Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ═══ 1 · MAPA (oportunidades del bot) ═══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none"><g fill="none" stroke="#C9A227" stroke-opacity=".12">
+    <path d="M-20 210 C 70 170, 150 250, 230 200 S 360 150, 420 205"/><path d="M-20 244 C 70 204, 150 284, 230 234 S 360 184, 420 239"/>
+    <path d="M-20 280 C 70 240, 150 320, 230 270 S 360 220, 420 275"/></g></svg>
+
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Mapa del día</div></div>
+    <div class="co">MÁX. 3 COTAS<br><span class="go">3 ACTIVAS</span></div></div>
+
+  <h1 class="t">Cotas de <span class="go">valor</span></h1>
+  <p class="sub">Revalidadas antes de cada partido. Si el precio se mueve, la cota se recalcula.</p>
+
+  <div class="pane" style="border-color:#C9A22745">
+    <div class="ph" style="border-color:#C9A22730"><span>Cota 01 · LaLiga</span><span class="go">Stake 4/10</span></div>
+    <div class="pb">
+      <div style="font-size:10px;color:#7C8B93">Real Betis — Real Madrid · faltan 4 h 29</div>
+      <div class="disp go" style="font-size:22px;margin-top:5px">Menos de 3,5 goles</div>
+      <div style="display:flex;align-items:baseline;gap:9px;margin-top:8px">
+        <span class="mono" style="font-size:26px;font-weight:700">1,93</span>
+        <span style="font-size:10px;color:#7C8B93">justa 1,42 · Pinnacle</span></div>
+
+      <svg viewBox="0 0 320 78" style="width:100%;margin-top:10px">
+        <defs><linearGradient id="mt1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C9A227" stop-opacity=".42"/><stop offset="1" stop-color="#C9A227" stop-opacity="0"/></linearGradient></defs>
+        <rect x="110" y="4" width="130" height="66" fill="#7FD4E8" opacity=".07"/>
+        <path d="M0,70 L40,66 L75,56 L110,40 L145,20 L175,13 L205,24 L240,44 L275,60 L320,68 L320,74 L0,74 Z" fill="url(#mt1)"/>
+        <polyline points="0,70 40,66 75,56 110,40 145,20 175,13 205,24 240,44 275,60 320,68" fill="none" stroke="#C9A227" stroke-width="1.6"/>
+        <line x1="175" y1="9" x2="175" y2="74" stroke="#C9A227" stroke-width="1.4"/><circle cx="175" cy="13" r="3.4" fill="#C9A227"/>
+        <text x="112" y="70" font-size="7.5" fill="#5E6E77" font-family="JetBrains Mono">71%</text>
+        <text x="221" y="70" font-size="7.5" fill="#5E6E77" font-family="JetBrains Mono">89%</text></svg>
+      <div style="font-size:9.5px;color:#7C8B93;margin-top:-2px">Cresta 80,1 % · la franja es la duda que queda</div>
+
+      <div style="display:flex;gap:6px;margin-top:10px">
+        <div class="btn pri" style="flex:1">Sellar apuesta</div>
+        <div class="btn" style="width:44px">✎</div>
+        <div class="btn" style="width:44px">↗</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Cota 02 · Serie A</span><span>Stake 3/10</span></div>
+    <div class="pb">
+      <div style="font-size:10px;color:#7C8B93">Genoa — Como · 6 h 59</div>
+      <div class="disp go" style="font-size:19px;margin-top:4px">Más de 2,5 goles</div>
+      <div style="display:flex;gap:16px;margin-top:8px">
+        <div><div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77">PROB</div><div class="mono" style="font-size:15px;font-weight:700">56,7%</div></div>
+        <div><div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77">VENTAJA</div><div class="mono go" style="font-size:15px;font-weight:700">15,2%</div></div>
+        <div><div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77">CUOTA</div><div class="mono" style="font-size:15px;font-weight:700">2,38</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Terreno descartado</span><span>3</span></div>
+    <div class="pb" style="padding:9px 12px;font-size:10px;color:#7C8B93;line-height:1.95">
+      <div style="display:flex;justify-content:space-between"><span>Ambos marcan</span><span style="color:#4E5C64">bajo la cota mínima</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Córners 9.5</span><span style="color:#4E5C64">sin cartografiar</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Tarjetas 4.5</span><span style="color:#4E5C64">fuera de mapa</span></div>
+    </div>
+  </div>
+
+  <div class="nav"><a>Base</a><a class="on">Mapa</a><a>Cuaderno</a><a>Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ═══ 2 · CUADERNO DE CAMPO (mis pronósticos) ═══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none"><g fill="none" stroke="#7FD4E8" stroke-opacity=".08">
+    <path d="M-20 480 C 90 440, 170 520, 250 475 S 370 425, 420 480"/><path d="M-20 518 C 90 478, 170 558, 250 513 S 370 463, 420 518"/></g></svg>
+
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Cuaderno de campo</div></div>
+    <div class="co">12 SELLADOS<br><span class="ice">4 ABIERTOS</span></div></div>
+
+  <h1 class="t">Tus <span class="go">pronósticos</span></h1>
+  <p class="sub">Sellados con hora antes del pitido. Se liquidan solos. Nadie puede editarlos después.</p>
+
+  <div class="pane" style="border-color:#C9A22745">
+    <div class="ph" style="border-color:#C9A22730"><span>Nuevo pronóstico</span><span class="go">se sella al publicar</span></div>
+    <div class="pb">
+      <div style="display:flex;gap:6px;margin-bottom:9px">
+        <div style="flex:1;border:1px solid #22323A;border-radius:3px;padding:7px 9px">
+          <div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77">PARTIDO</div>
+          <div style="font-size:12px;margin-top:2px">Sevilla — Valencia</div></div>
+        <div style="width:72px;border:1px solid #22323A;border-radius:3px;padding:7px 9px">
+          <div style="font-size:7.5px;letter-spacing:.14em;color:#5E6E77">CUOTA</div>
+          <div class="mono go" style="font-size:14px;font-weight:700;margin-top:1px">2,05</div></div>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px">
+        <span class="chip go">1X2 · Local</span><span class="chip">Over/Under</span><span class="chip">Hándicap</span><span class="chip">BTTS</span>
+      </div>
+      <div style="font-size:8px;letter-spacing:.14em;color:#5E6E77;text-transform:uppercase">Confianza · 6/10</div>
+      <div class="ruler" style="margin-top:5px"><span>1</span><div class="rl"><i style="width:60%"></i></div><span>10</span></div>
+      <div style="border:1px dashed #2A3C45;border-radius:3px;padding:8px 9px;margin-top:9px;font-size:10.5px;color:#7C8B93;line-height:1.5">
+        Por qué: el Valencia llega con tres bajas en defensa y el Sevilla…</div>
+      <div class="btn pri" style="margin-top:9px">Sellar y publicar</div>
+      <div style="font-size:9px;color:#5E6E77;text-align:center;margin-top:6px">Se guardará la cuota y la hora exactas. No podrás editarlo.</div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Tuyos, abiertos</span><span>4</span></div>
+    <div class="row"><span class="av" style="border-color:#C9A22755;color:#C9A227;width:28px;height:28px;font-size:11px">↑</span>
+      <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600">Athletic gana</div>
+        <div style="font-size:9.5px;color:#5E6E77">sellado 09:12 @ 2,30 · confianza 7/10</div></div>
+      <span class="chip go">pendiente</span></div>
+    <div class="row"><span class="av" style="border-color:#4FA97A55;color:#4FA97A;width:28px;height:28px;font-size:11px">✓</span>
+      <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600">Under 2.5 · Lecce</div>
+        <div style="font-size:9.5px;color:#5E6E77">sellado ayer @ 1,88 · cerró en 1,74</div></div>
+      <span class="chip gr">CLV +7,4%</span></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Tú frente al bot</span><span class="ice">tres curvas</span></div>
+    <div class="pb">
+      <svg viewBox="0 0 320 92" style="width:100%">
+        <g stroke="#22323A" stroke-dasharray="2 4"><line x1="0" y1="24" x2="320" y2="24"/><line x1="0" y1="56" x2="320" y2="56"/></g>
+        <polyline points="0,80 40,74 80,76 120,58 160,64 200,44 240,38 280,24 320,16" fill="none" stroke="#C9A227" stroke-width="2"/>
+        <polyline points="0,82 40,78 80,80 120,66 160,72 200,56 240,52 280,42 320,36" fill="none" stroke="#7FD4E8" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <polyline points="0,84 40,82 80,86 120,78 160,84 200,74 240,78 280,68 320,62" fill="none" stroke="#B08968" stroke-width="1.5"/>
+        <line x1="0" y1="88" x2="320" y2="88" stroke="#22323A"/></svg>
+      <div style="display:flex;gap:10px;font-size:9px;margin-top:5px;flex-wrap:wrap">
+        <span class="go">— Bot (todo)</span><span class="ice">-- Tú siguiendo al bot</span><span class="ea">— Tus propios</span></div>
+      <div style="border-left:2px solid #C9A227;padding:7px 10px;margin-top:9px;font-size:10.5px;line-height:1.55;color:#7C8B93">
+        Tus pronósticos van <span class="ea">3,2 u por debajo</span> del bot, pero tu CLV propio es
+        <span class="go">+0,9 %</span>: eliges bien el precio, no tanto el partido.</div>
+    </div>
+  </div>
+
+  <div class="nav"><a>Base</a><a>Mapa</a><a class="on">Cuaderno</a><a>Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ═══ 3 · LA JAURÍA (comunidad) ═══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none"><g fill="none" stroke="#C9A227" stroke-opacity=".1">
+    <path d="M-20 120 C 70 80, 150 160, 230 110 S 360 60, 420 115"/><path d="M-20 154 C 70 114, 150 194, 230 144 S 360 94, 420 149"/></g></svg>
+
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">La jauría</div></div>
+    <div class="co">1.284 EXPLORADORES<br><span class="ice">42 RASTROS HOY</span></div></div>
+
+  <h1 class="t">Rastros de <span class="ice">la jauría</span></h1>
+
+  <div style="position:relative;z-index:2;padding:10px 16px 0;display:flex;gap:5px;overflow:hidden">
+    <span class="chip go">Todos</span><span class="chip">Siguiendo</span><span class="chip">Mejor CLV</span><span class="chip">Mi liga</span><span class="chip">Hoy</span>
+  </div>
+
+  <div class="pane" style="border-color:#7FD4E840">
+    <div class="ph" style="border-color:#7FD4E830"><span>Rastro colectivo · Sevilla — Valencia</span><span class="ice">86 sellados</span></div>
+    <div class="pb">
+      <div style="display:flex;height:22px;border-radius:2px;overflow:hidden;font-size:9px;font-weight:600">
+        <div style="width:58%;background:linear-gradient(90deg,#7FD4E8,#5EB8CE);color:#0E1418;display:grid;place-items:center">Local 58%</div>
+        <div style="width:24%;background:#2A3C45;display:grid;place-items:center;color:#B8C4CB">X 24%</div>
+        <div style="width:18%;background:#3A2E28;display:grid;place-items:center;color:#B08968">2 18%</div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:9px;font-size:10.5px">
+        <span style="color:#7C8B93">El bot dice</span><span class="go">Empate o visitante · 1,95</span></div>
+      <div style="border-left:2px solid #C4553F;padding:7px 10px;margin-top:8px;font-size:10.5px;line-height:1.5;color:#7C8B93">
+        La jauría y el bot <span class="rd">no coinciden</span> aquí. Ninguno de los dos tiene razón por ser mayoría.</div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="row" style="align-items:flex-start;padding:12px">
+      <span class="av" style="border-color:#C9A22755;color:#C9A227">M</span>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <b style="font-size:12.5px">Mateo_R</b><span class="chip gr">✓ verificado</span>
+          <span style="font-size:9px;color:#5E6E77">hace 12 min</span></div>
+        <div style="font-size:9.5px;color:#5E6E77;margin-top:2px">CLV +3,1 % · 61 sellados · racha 4</div>
+        <div style="border:1px solid #22323A;border-radius:3px;padding:9px;margin-top:8px">
+          <div style="font-size:10px;color:#7C8B93">Genoa — Como · Serie A</div>
+          <div style="font-size:14px;font-weight:600;margin-top:2px">Más de 2,5 goles <span class="go mono">@ 2,38</span></div>
+          <div class="ruler" style="margin-top:6px"><span>conf</span><div class="rl"><i style="width:70%"></i></div><span>7/10</span></div>
+        </div>
+        <div style="font-size:10.5px;color:#9FAAB2;line-height:1.5;margin-top:7px">
+          Los dos llegan sin portero titular y el Como no ha dejado la portería a cero fuera en toda la temporada.</div>
+        <div style="display:flex;gap:14px;margin-top:9px;font-size:10.5px;color:#5E6E77">
+          <span>♡ 34</span><span>💬 8</span><span>⚑ copiar</span><span style="margin-left:auto" class="ice">seguir</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="row" style="align-items:flex-start;padding:12px">
+      <span class="av" style="border-color:#7FD4E855;color:#7FD4E8">L</span>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px"><b style="font-size:12.5px">Laura_88</b>
+          <span class="chip gr">✓ verificado</span><span style="font-size:9px;color:#5E6E77">hace 31 min</span></div>
+        <div style="font-size:9.5px;color:#5E6E77;margin-top:2px">CLV −0,4 % · 23 sellados</div>
+        <div style="border:1px solid #22323A;border-radius:3px;padding:9px;margin-top:8px">
+          <div style="font-size:10px;color:#7C8B93">Millonarios — Junior</div>
+          <div style="font-size:14px;font-weight:600;margin-top:2px">Local gana o empata <span class="ice mono">@ 1,74</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav"><a>Base</a><a>Mapa</a><a>Cuaderno</a><a class="on">Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ═══ 4 · CUMBRES (clasificación) ═══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none"><g fill="none" stroke="#C9A227" stroke-opacity=".11">
+    <path d="M-20 300 C 90 250, 170 340, 250 285 S 370 235, 420 290"/><path d="M-20 336 C 90 286, 170 376, 250 321 S 370 271, 420 326"/>
+    <path d="M-20 374 C 90 324, 170 414, 250 359 S 370 309, 420 364"/></g></svg>
+
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Cumbres</div></div>
+    <div class="co">TEMPORADA<br>SEP 2026</div></div>
+
+  <h1 class="t">Quién llegó <span class="go">más alto</span></h1>
+  <p class="sub">Ordenado por CLV, no por aciertos. Acertar es fácil un mes; batir al cierre, no.</p>
+
+  <div style="position:relative;z-index:2;padding:10px 16px 0;display:flex;gap:5px">
+    <span class="chip go">CLV</span><span class="chip">ROI</span><span class="chip">Racha</span><span class="chip">Volumen</span>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Cima</span><span>mín. 30 sellados</span></div>
+    <div class="row" style="background:linear-gradient(90deg,#C9A2270F,transparent)">
+      <span class="mono go" style="width:20px;font-size:14px;font-weight:700">1</span>
+      <span class="av" style="border-color:#C9A22755;color:#C9A227">A</span>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">Andrés_V <span class="chip gr" style="margin-left:3px">✓</span></div>
+        <div style="font-size:9.5px;color:#5E6E77">148 sellados · ROI +6,2%</div></div>
+      <div style="text-align:right"><div class="mono go" style="font-size:15px;font-weight:700">+4,8%</div><div style="font-size:8.5px;color:#5E6E77">CLV</div></div></div>
+    <div class="row"><span class="mono" style="width:20px;font-size:13px;color:#B8C4CB">2</span>
+      <span class="av" style="border-color:#C3C7CC55;color:#C3C7CC">M</span>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">Mateo_R</div>
+        <div style="font-size:9.5px;color:#5E6E77">61 sellados · ROI +3,9%</div></div>
+      <div style="text-align:right"><div class="mono" style="font-size:15px;font-weight:700">+3,1%</div></div></div>
+    <div class="row"><span class="mono" style="width:20px;font-size:13px;color:#B08968">3</span>
+      <span class="av" style="border-color:#B0896855;color:#B08968">S</span>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">Sofía_M</div>
+        <div style="font-size:9.5px;color:#5E6E77">92 sellados · ROI +2,1%</div></div>
+      <div style="text-align:right"><div class="mono" style="font-size:15px;font-weight:700">+2,6%</div></div></div>
+    <div class="row" style="border-top:1px solid #22323A;background:#7FD4E80A">
+      <span class="mono ice" style="width:20px;font-size:13px">17</span>
+      <span class="av" style="border-color:#7FD4E855;color:#7FD4E8">Tú</span>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">Tu posición</div>
+        <div style="font-size:9.5px;color:#5E6E77">12 sellados · faltan 18 para entrar</div></div>
+      <div style="text-align:right"><div class="mono ice" style="font-size:15px;font-weight:700">+0,9%</div></div></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>El bot, fuera de concurso</span><span class="go">referencia</span></div>
+    <div class="pb" style="display:flex;align-items:center;gap:11px">
+      <svg viewBox="0 0 40 40" width="34" height="34"><path d="M9 16 L7 3 L18 12 Z" fill="#C9A227"/><path d="M31 16 L33 3 L22 12 Z" fill="#B08C1C"/>
+        <path d="M9 16 L20 13 L20 25 L7 20 Z" fill="#D5D9DE"/><path d="M31 16 L20 13 L20 25 L33 20 Z" fill="#A2A9B0"/>
+        <path d="M15 25 L20 17 L25 25 L20 36 Z" fill="#F5F6F7"/></svg>
+      <div style="flex:1"><div style="font-size:13px;font-weight:600">NOAH</div>
+        <div style="font-size:9.5px;color:#5E6E77">34 sellados · ROI +4,1%</div></div>
+      <div style="text-align:right"><div class="mono go" style="font-size:15px;font-weight:700">+2,1%</div>
+        <div style="font-size:8.5px;color:#5E6E77">no compite</div></div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="pb" style="font-size:10.5px;line-height:1.6;color:#7C8B93">
+      Nadie entra a la clasificación con menos de 30 pronósticos sellados. Con menos que eso,
+      un primer puesto es <span class="go">ruido con nombre propio</span>.</div>
+  </div>
+
+  <div class="nav"><a>Base</a><a>Mapa</a><a>Cuaderno</a><a class="on">Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ═══ 5 · ASCENSO (rendimiento) ═══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none"><g fill="none" stroke="#7FD4E8" stroke-opacity=".08">
+    <path d="M-20 560 C 90 520, 170 600, 250 555 S 370 505, 420 560"/><path d="M-20 598 C 90 558, 170 638, 250 593 S 370 543, 420 598"/></g></svg>
+
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Perfil del ascenso</div></div>
+    <div class="co">45 DÍAS<br>34 TRAMOS</div></div>
+
+  <div style="position:relative;z-index:2;padding:8px 16px 0;display:flex;gap:5px">
+    <span class="chip go">Capital</span><span class="chip">Terreno</span><span class="chip">Precisión</span>
+  </div>
+
+  <div style="position:relative;z-index:2;padding:10px 16px 0">
+    <svg viewBox="0 0 358 178" style="width:100%">
+      <defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#C9A227" stop-opacity=".32"/><stop offset="1" stop-color="#C9A227" stop-opacity="0"/></linearGradient></defs>
+      <g stroke="#22323A" stroke-dasharray="2 5"><line x1="0" y1="36" x2="358" y2="36"/><line x1="0" y1="82" x2="358" y2="82"/><line x1="0" y1="128" x2="358" y2="128"/></g>
+      <text x="2" y="32" font-size="7.5" fill="#4E5C64" font-family="JetBrains Mono">+12u</text>
+      <text x="2" y="78" font-size="7.5" fill="#4E5C64" font-family="JetBrains Mono">+6u</text>
+      <text x="2" y="124" font-size="7.5" fill="#4E5C64" font-family="JetBrains Mono">0</text>
+      <path d="M0,148 L36,140 L72,144 L108,116 L144,126 L180,138 L216,96 L252,84 L288,94 L324,52 L358,36 L358,166 L0,166 Z" fill="url(#rg)"/>
+      <polyline points="0,148 36,140 72,144 108,116 144,126 180,138 216,96 252,84 288,94 324,52 358,36" fill="none" stroke="#C9A227" stroke-width="2.2"/>
+      <polyline points="0,152 36,146 72,150 108,124 144,134 180,146 216,106 252,95 288,106 324,66 358,50" fill="none" stroke="#7FD4E8" stroke-width="1.4" stroke-dasharray="4 3"/>
+      <polyline points="0,158 36,156 72,160 108,150 144,158 180,150 216,152 252,142 288,146 324,130 358,122" fill="none" stroke="#B08968" stroke-width="1.4"/>
+      <g><line x1="358" y1="36" x2="358" y2="18" stroke="#C9A227" stroke-width="1.3"/><path d="M358 18 L344 23 L358 28 Z" fill="#C9A227"/></g>
+      <line x1="0" y1="166" x2="358" y2="166" stroke="#22323A"/></svg>
+    <div style="display:flex;gap:9px;font-size:9px;margin-top:3px;flex-wrap:wrap">
+      <span class="go">— Bot</span><span class="ice">-- Tú siguiéndolo</span><span class="ea">— Tus propios</span></div>
+  </div>
+
+  <div class="tri" style="margin-top:12px">
+    <div class="tile"><b>CLV</b><i class="go">+2,1%</i></div>
+    <div class="tile"><b>Desnivel −</b><i class="rd">−8,6%</i></div>
+    <div class="tile"><b>Sharpe</b><i class="ice">0,71</i></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Terreno por tipo</span><span>4 zonas</span></div>
+    <div class="pb" style="display:flex;flex-direction:column;gap:10px">
+      <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Más / menos goles</span><span class="mono go">+7,1%</span></div>
+        <div class="bar" style="margin-top:5px"><i style="width:71%"></i></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Doble oportunidad</span><span class="mono go">+4,2%</span></div>
+        <div class="bar" style="margin-top:5px"><i style="width:47%"></i></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Hándicap asiático</span><span class="mono rd">−1,8%</span></div>
+        <div class="bar" style="margin-top:5px"><i style="width:18%;background:#C4553F"></i></div></div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Dónde se te escapa el precio</span><span class="ice">CLV por casa</span></div>
+    <div class="pb" style="font-size:10.5px;line-height:2;color:#9FAAB2">
+      <div style="display:flex;justify-content:space-between"><span>Pinnacle</span><span class="mono gr">+3,4%</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Bet365</span><span class="mono gr">+1,1%</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Betplay</span><span class="mono rd">−2,2%</span></div>
+    </div>
+  </div>
+
+  <div class="nav"><a>Base</a><a>Mapa</a><a>Cuaderno</a><a>Jauría</a><a class="on">Ascenso</a></div>
+</div>
+
+<!-- ═══ 6 · FICHA DE EXPEDICIÓN (perfil público) ═══ -->
+<div class="tel">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none"><g fill="none" stroke="#C9A227" stroke-opacity=".11">
+    <ellipse cx="195" cy="180" rx="230" ry="110"/><ellipse cx="195" cy="180" rx="186" ry="88"/><ellipse cx="195" cy="180" rx="142" ry="66"/>
+    <ellipse cx="195" cy="180" rx="98" ry="44"/></g></svg>
+
+  <div class="hd"><div style="font-size:11px;color:#5E6E77">← Volver a la jauría</div>
+    <div class="co">FICHA<br><span class="gr">VERIFICADA</span></div></div>
+
+  <div style="position:relative;z-index:2;padding:14px 16px 0;text-align:center">
+    <span class="av" style="width:62px;height:62px;font-size:24px;border-color:#C9A22755;color:#C9A227;margin:0 auto">M</span>
+    <div class="disp" style="font-size:23px;margin-top:9px">Mateo_R</div>
+    <div style="font-size:10px;color:#7C8B93;margin-top:3px">En la jauría desde marzo · Serie A y LaLiga</div>
+    <div style="display:flex;gap:5px;justify-content:center;margin-top:9px">
+      <span class="chip gr">✓ 61 sellados</span><span class="chip go">racha 4</span><span class="chip">#2 en cumbres</span></div>
+    <div style="display:flex;gap:6px;margin-top:11px">
+      <div class="btn pri" style="flex:1">Seguir</div><div class="btn" style="flex:1">Comparar conmigo</div></div>
+  </div>
+
+  <div class="tri" style="margin-top:14px">
+    <div class="tile"><b>CLV</b><i class="go">+3,1%</i></div>
+    <div class="tile"><b>ROI</b><i class="gr">+3,9%</i></div>
+    <div class="tile"><b>Acierto</b><i>54%</i></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Su ascenso</span><span>61 sellados</span></div>
+    <div class="pb">
+      <svg viewBox="0 0 320 76" style="width:100%">
+        <path d="M0,66 L40,60 L80,64 L120,48 L160,54 L200,36 L240,40 L280,22 L320,16 L320,72 L0,72 Z" fill="#C9A22722"/>
+        <polyline points="0,66 40,60 80,64 120,48 160,54 200,36 240,40 280,22 320,16" fill="none" stroke="#C9A227" stroke-width="1.8"/>
+        <line x1="0" y1="72" x2="320" y2="72" stroke="#22323A"/></svg>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Su terreno</span><span>dónde acierta</span></div>
+    <div class="pb" style="display:flex;flex-direction:column;gap:9px">
+      <div><div style="display:flex;justify-content:space-between;font-size:10.5px"><span>Serie A · goles</span><span class="mono go">+5,9%</span></div>
+        <div class="bar" style="margin-top:4px"><i style="width:78%"></i></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:10.5px"><span>LaLiga · 1X2</span><span class="mono gr">+1,4%</span></div>
+        <div class="bar" style="margin-top:4px"><i style="width:38%"></i></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:10.5px"><span>Copas</span><span class="mono rd">−3,1%</span></div>
+        <div class="bar" style="margin-top:4px"><i style="width:14%;background:#C4553F"></i></div></div>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="pb" style="font-size:10px;line-height:1.6;color:#7C8B93">
+      Todo lo que ves aquí es <span class="gr">histórico completo y automático</span>: se sella la cuota
+      y la hora al publicar, y se liquida solo. No hay capturas ni resultados escogidos a mano.</div>
+  </div>
+
+  <div class="nav"><a>Base</a><a>Mapa</a><a>Cuaderno</a><a class="on">Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ═══ 7 · PUESTO DE CONTROL (admin) ═══ -->
+<div class="tel">
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Puesto de control</div></div>
+    <div class="co">SOLO ADMIN<br><span class="go">1 AVISO</span></div></div>
+
+  <h1 class="t">Puesto de <span class="go">control</span></h1>
+
+  <div style="position:relative;z-index:2;padding:10px 16px 0;display:flex;gap:5px">
+    <span class="chip go">Estación</span><span class="chip">Interruptores</span><span class="chip">Guardia</span><span class="chip">Instrumentos</span>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Estación meteorológica</span><span class="gr">5 / 6</span></div>
+    <div class="row" style="padding:9px 12px"><span style="width:7px;height:7px;border-radius:50%;background:#4FA97A;flex:none;box-shadow:0 0 7px #4FA97A"></span>
+      <div style="flex:1;font-size:11.5px">Motor de decisión</div><span class="mono" style="font-size:9.5px;color:#5E6E77">09:00</span></div>
+    <div class="row" style="padding:9px 12px"><span style="width:7px;height:7px;border-radius:50%;background:#4FA97A;flex:none;box-shadow:0 0 7px #4FA97A"></span>
+      <div style="flex:1;font-size:11.5px">Worker de la cola</div><span class="mono" style="font-size:9.5px;color:#5E6E77">14:21</span></div>
+    <div class="row" style="padding:9px 12px"><span style="width:7px;height:7px;border-radius:50%;background:#C9A227;flex:none;box-shadow:0 0 7px #C9A227"></span>
+      <div style="flex:1;font-size:11.5px">Ingesta de cuotas</div><span class="mono go" style="font-size:9.5px">12 err</span></div>
+    <div class="row" style="padding:9px 12px"><span style="width:7px;height:7px;border-radius:50%;background:#C4553F;flex:none;box-shadow:0 0 7px #C4553F"></span>
+      <div style="flex:1;font-size:11.5px">Telegram</div><span class="mono rd" style="font-size:9.5px">webhook</span></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Guardia · moderación</span><span class="rd">3 en cola</span></div>
+    <div class="row" style="padding:10px 12px;align-items:flex-start">
+      <span class="av" style="width:26px;height:26px;font-size:10px;border-color:#C4553F55;color:#C4553F">!</span>
+      <div style="flex:1;min-width:0"><div style="font-size:11.5px;font-weight:600">Reporte por spam</div>
+        <div style="font-size:9.5px;color:#5E6E77">usuario «picks_vip_2026» · 4 reportes</div></div>
+      <div style="display:flex;gap:4px"><span class="chip rd">vetar</span><span class="chip">ver</span></div></div>
+    <div class="row" style="padding:10px 12px;align-items:flex-start">
+      <span class="av" style="width:26px;height:26px;font-size:10px;border-color:#C9A22755;color:#C9A227">?</span>
+      <div style="flex:1;min-width:0"><div style="font-size:11.5px;font-weight:600">Cuota fuera de rango</div>
+        <div style="font-size:9.5px;color:#5E6E77">sellado @ 12,50 · ninguna casa la ofrecía</div></div>
+      <div style="display:flex;gap:4px"><span class="chip rd">anular</span><span class="chip">ver</span></div></div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Interruptores de mercado</span><span>7</span></div>
+    <div class="pb" style="display:flex;flex-wrap:wrap;gap:5px">
+      <span class="chip gr">1X2 ✓</span><span class="chip gr">Doble op. ✓</span><span class="chip gr">Más/menos ✓</span>
+      <span class="chip go">BTTS · sombra</span><span class="chip gr">Hándicap ✓</span>
+      <span class="chip">Córners ✕</span><span class="chip">Tarjetas ✕</span>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="ph"><span>Cupo de sensores</span><span class="ice">3</span></div>
+    <div class="pb" style="display:flex;flex-direction:column;gap:9px">
+      <div><div style="display:flex;justify-content:space-between;font-size:10.5px"><span>The Odds API</span><span class="mono" style="color:#7C8B93">318/500</span></div>
+        <div class="bar" style="margin-top:4px"><i style="width:63%"></i></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:10.5px"><span>football-data.org</span><span class="mono go">86/100</span></div>
+        <div class="bar" style="margin-top:4px"><i style="width:86%;background:linear-gradient(90deg,#C9A227,#C4553F)"></i></div></div>
+    </div>
+  </div>
+
+  <div class="nav"><a>Base</a><a>Mapa</a><a>Cuaderno</a><a>Jauría</a><a class="on">Control</a></div>
+</div>
+
+</body></html>

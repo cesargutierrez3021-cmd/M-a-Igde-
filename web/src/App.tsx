@@ -18,6 +18,10 @@ import { AdminScreen } from './features/admin/AdminScreen'
 import { CalibracionScreen } from './features/calibracion/CalibracionScreen'
 import { AccesoScreen } from './features/acceso/AccesoScreen'
 import { BienvenidaScreen } from './features/bienvenida/BienvenidaScreen'
+import { PronosticosScreen } from './features/pronosticos/PronosticosScreen'
+import { ComunidadScreen } from './features/comunidad/ComunidadScreen'
+import { ClasificacionScreen } from './features/comunidad/ClasificacionScreen'
+import { PerfilScreen } from './features/comunidad/PerfilScreen'
 import { useApariencia } from './lib/theme'
 
 /*
@@ -63,6 +67,10 @@ export default function App() {
           <Route path="/" element={<PanelScreen />} />
           <Route path="/hoy" element={<OportunidadesScreen />} />
           <Route path="/detalle/:id" element={<DetalleScreen />} />
+          <Route path="/pronosticos" element={<PronosticosScreen />} />
+          <Route path="/comunidad" element={<ComunidadScreen />} />
+          <Route path="/clasificacion" element={<ClasificacionScreen />} />
+          <Route path="/perfil/:id" element={<PerfilScreen />} />
           <Route path="/apuestas" element={<ApuestasScreen />} />
           <Route path="/rendimiento" element={<RendimientoScreen />} />
           <Route path="/capital" element={<CapitalScreen />} />

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SlidersHorizontal, ShieldCheck } from 'lucide-react'
 import { Pantalla } from '../../components/shell/Pantalla'
+import { useApariencia } from '../../lib/theme'
+import { nombreDe } from '../../lib/nombres'
 import { TituloPantalla } from '../../components/shell/Header'
 import { Card, SectionHeader, FiloSuperior, Button, Divider } from '../../components/ui/primitives'
 import { Cifra, Barra } from '../../components/ui/data'
@@ -14,6 +16,8 @@ import { formatearPesos } from '../../lib/format'
  * pantalla enseña en vivo cómo cambia la apuesta sugerida al mover los mandos.
  */
 export function CapitalScreen() {
+  const { tema } = useApariencia()
+  const n = nombreDe('capital', tema)
   const [capital, setCapital] = useState(resumen.capital)
   const [kelly, setKelly] = useState(0.25)
   const [tope, setTope] = useState(5)
@@ -27,9 +31,9 @@ export function CapitalScreen() {
   return (
     <Pantalla>
       <TituloPantalla
-        kicker="Gestión de riesgo"
-        titulo="Tu"
-        destacado="capital"
+        kicker={n.kicker}
+        titulo="Tus"
+        destacado={n.largo.toLowerCase()}
         bajada="Define la banca y cuánto riesgo aceptas. Todo lo demás se calcula sobre esto."
       />
 

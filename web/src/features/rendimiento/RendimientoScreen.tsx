@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { TrendingUp, LayoutGrid, Gauge, ShieldAlert } from 'lucide-react'
 import { Pantalla } from '../../components/shell/Pantalla'
+import { useApariencia } from '../../lib/theme'
+import { nombreDe } from '../../lib/nombres'
 import { TituloPantalla } from '../../components/shell/Header'
 import { Card, SectionHeader, FiloSuperior, Badge } from '../../components/ui/primitives'
 import { Cifra, StatTile, AvisoMuestra, Barra } from '../../components/ui/data'
@@ -18,13 +20,15 @@ type Vista = 'capital' | 'mercados' | 'calidad'
  * Tres vistas para no amontonar veinte cifras en una sola pantalla.
  */
 export function RendimientoScreen() {
+  const { tema } = useApariencia()
+  const n = nombreDe('rendimiento', tema)
   const [vista, setVista] = useState<Vista>('capital')
 
   return (
     <Pantalla>
       <TituloPantalla
-        kicker="Motor del bot"
-        titulo="Rendimiento"
+        kicker={n.kicker}
+        titulo={n.largo}
         bajada="Histórico completo: capital, desglose por mercado y calidad de las probabilidades."
       />
 

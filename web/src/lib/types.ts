@@ -119,3 +119,64 @@ export interface InterruptorMercado {
   modoSombra: boolean
   n: number
 }
+
+/* ── Comunidad y pronósticos propios ─────────────────────────────────────
+ * Un pronóstico sellado es de solo-anexado: al publicarse se congelan la cuota
+ * y la hora, deja de ser editable y se liquida solo. Es lo que separa un
+ * historial verificado de una captura de pantalla.
+ */
+
+export interface Tipster {
+  id: string
+  alias: string
+  inicial: string
+  verificado: boolean
+  clv: number
+  roi: number
+  acierto: number
+  sellados: number
+  racha: number
+  desde: string
+  especialidad: string
+  /** Rendimiento por zona: dónde acierta y dónde no. Se muestra completo. */
+  zonas: { nombre: string; rendimiento: number; n: number }[]
+  curva: number[]
+}
+
+export interface PronosticoSellado {
+  id: string
+  autorId: string
+  partido: string
+  liga: string
+  mercadoLegible: string
+  cuotaSellada: number
+  /** Hora exacta que puso el servidor al publicar. No la declara el usuario. */
+  selladoISO: string
+  inicioISO: string
+  confianza: number
+  razonamiento?: string
+  resultado: ResultadoPick
+  clv?: number
+  cuotaCierre?: number
+  meGusta: number
+  comentarios: number
+  /** Propio = lo publicaste tú. Gobierna qué acciones se ofrecen. */
+  propio?: boolean
+}
+
+export interface Consenso {
+  partido: string
+  liga: string
+  inicioISO: string
+  opciones: { etiqueta: string; fraccion: number }[]
+  totalSellados: number
+  posicionBot: string
+  cuotaBot: number
+  coincide: boolean
+}
+
+export interface EntradaRanking {
+  puesto: number
+  tipster: Tipster
+  esTu?: boolean
+}

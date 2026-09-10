@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { Card, Badge, FiloSuperior } from '../../components/ui/primitives'
 import { EscalaStake, Barra } from '../../components/ui/data'
+import { Probabilidad } from '../../components/ui/probabilidad'
 import type { Pick } from '../../lib/types'
 import { formatearCuota, formatearPorcentaje, faltanPara } from '../../lib/format'
 import { elementoLista } from '../../design/motion'
@@ -80,6 +81,15 @@ export function TarjetaPick({ pick, indice }: { pick: Pick; indice: number }) {
               </span>
               <span>· {pick.casa}</span>
             </p>
+          </div>
+
+          {/* Probabilidad con su rango, dibujada según el tema */}
+          <div className="mt-3.5 px-4">
+            <Probabilidad
+              valor={pick.probabilidadCalibrada}
+              min={pick.probabilidadMin}
+              max={pick.probabilidadMax}
+            />
           </div>
 
           {/* Rejilla de métricas */}

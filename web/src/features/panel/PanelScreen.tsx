@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Send, Wallet, TrendingUp, ArrowUpRight } from 'lucide-react'
 import { Pantalla } from '../../components/shell/Pantalla'
+import { useApariencia } from '../../lib/theme'
+import { nombreDe } from '../../lib/nombres'
 import { TituloPantalla } from '../../components/shell/Header'
 import { Card, Badge, SectionHeader, FiloSuperior, Button } from '../../components/ui/primitives'
 import { Cifra, StatTile, AvisoMuestra } from '../../components/ui/data'
@@ -26,6 +28,8 @@ const tonoResultado: Record<ResultadoPick, 'win' | 'loss' | 'void' | 'acento'> =
  * bot últimamente, y si esas cifras significan algo todavía (§7.4).
  */
 export function PanelScreen() {
+  const { tema } = useApariencia()
+  const n = nombreDe('inicio', tema)
   const ultimas = [...historial, ...picks].slice(0, 5)
 
   return (
@@ -34,9 +38,9 @@ export function PanelScreen() {
       <div className="relative">
         <TramaJauria className="pointer-events-none absolute -top-6 right-0 h-24 w-2/3 opacity-70" />
         <TituloPantalla
-          kicker="Motor del bot"
+          kicker={n.kicker}
           titulo="Hola,"
-          destacado="Analista"
+          destacado={tema === 'terreno' ? 'explorador' : 'Analista'}
           bajada="Resumen del capital, últimas alertas y estado de la jauría."
         />
       </div>

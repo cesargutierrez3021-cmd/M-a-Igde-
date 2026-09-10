@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Download, Filter } from 'lucide-react'
 import { Pantalla } from '../../components/shell/Pantalla'
+import { useApariencia } from '../../lib/theme'
+import { nombreDe } from '../../lib/nombres'
 import { TituloPantalla } from '../../components/shell/Header'
 import { Card, Badge, Button } from '../../components/ui/primitives'
 import { Segmented } from '../../components/ui/controls'
@@ -23,6 +25,8 @@ const tono: Record<ResultadoPick, 'win' | 'loss' | 'void' | 'acento'> = {
 
 /* Historial — manual §7.3, módulo 7. Filtrable y exportable. */
 export function HistorialScreen() {
+  const { tema } = useApariencia()
+  const n = nombreDe('historial', tema)
   const [filtro, setFiltro] = useState<Filtro>('todas')
 
   const filas = useMemo(
@@ -33,8 +37,8 @@ export function HistorialScreen() {
   return (
     <Pantalla>
       <TituloPantalla
-        kicker="Todo lo liquidado"
-        titulo="Historial"
+        kicker={n.kicker}
+        titulo={n.largo}
         bajada="Cada apuesta resuelta, con la cuota que se consiguió y su CLV."
       />
 

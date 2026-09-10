@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { User, Bot, Ticket } from 'lucide-react'
 import { Pantalla } from '../../components/shell/Pantalla'
+import { useApariencia } from '../../lib/theme'
+import { nombreDe } from '../../lib/nombres'
 import { TituloPantalla } from '../../components/shell/Header'
 import { Card, Badge, SectionHeader, FiloSuperior } from '../../components/ui/primitives'
 import { Cifra } from '../../components/ui/data'
@@ -18,6 +20,8 @@ import { listaEscalonada, elementoLista } from '../../design/motion'
  * le importa al usuario: cuánto le costó saltarse apuestas.
  */
 export function ApuestasScreen() {
+  const { tema } = useApariencia()
+  const n = nombreDe('apuestas', tema)
   const [apostadas, setApostadas] = useState<Record<string, boolean>>({ h1: true, h2: true, h4: true })
 
   const marcadas = historial.filter((h) => apostadas[h.id])
@@ -27,9 +31,9 @@ export function ApuestasScreen() {
   return (
     <Pantalla>
       <TituloPantalla
-        kicker="Tu registro personal"
-        titulo="Mis"
-        destacado="apuestas"
+        kicker={n.kicker}
+        titulo={tema === 'terreno' ? 'Tu' : 'Tu'}
+        destacado={n.largo.toLowerCase()}
         bajada="Marca qué alertas apostaste. Comparamos tu resultado real con el del bot."
       />
 

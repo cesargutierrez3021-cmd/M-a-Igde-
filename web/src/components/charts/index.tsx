@@ -215,3 +215,86 @@ export function Sparkline({ datos, alto = 34 }: { datos: PuntoCurva[]; alto?: nu
     </div>
   )
 }
+
+/* ── Comparativa triple ───────────────────────────────────────────────────
+ * Las tres curvas que responden la pregunta que ninguna otra app responde:
+ * cómo va el bot, cómo te va siguiéndolo, y cómo te va por tu cuenta.
+ */
+export function TresCurvas({
+  bot,
+  siguiendo,
+  propios,
+  alto = 170,
+  etiquetas,
+}: {
+  bot: number[]
+  siguiendo: number[]
+  propios: number[]
+  alto?: number
+  etiquetas: { bot: string; siguiendo: string; propios: string }
+}) {
+  const largo = Math.max(bot.length, siguiendo.length, propios.length)
+  const serie = Array.from({ length: largo }, (_, i) => ({
+    i,
+    bot: bot[i] ?? bot[bot.length - 1],
+    siguiendo: siguiendo[i] ?? siguiendo[siguiendo.length - 1],
+    propios: propios[i] ?? propios[propios.length - 1],
+  }))
+
+  return (
+    <div style={{ height: alto }} className="w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={serie} margin={{ top: 6, right: 4, left: -26, bottom: 0 }}>
+          <defs>
+            <linearGradient id="grad-tres" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="var(--c-acento-alto)" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="var(--c-acento)" stopOpacity={0.02} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid stroke="var(--c-line)" strokeDasharray="3 5" vertical={false} />
+          <XAxis dataKey="i" {...ejeComun} tick={false} />
+          <YAxis {...ejeComun} width={34} domain={['dataMin - 0.6', 'dataMax + 0.6']} tickFormatter={(v: number) => v.toFixed(0)} />
+          <Tooltip
+            content={<CajaTooltip formato={(v) => `${v.toFixed(2)} u`} />}
+            cursor={{ stroke: 'var(--c-acento-linea)', strokeWidth: 1 }}
+          />
+          <Area
+            type="monotone" dataKey="bot" name={etiquetas.bot}
+            stroke="var(--c-acento-alto)" strokeWidth={2.2} fill="url(#grad-tres)" animationDuration={800}
+          />
+          <Area
+            type="monotone" dataKey="siguiendo" name={etiquetas.siguiendo}
+            stroke="var(--c-alt)" strokeWidth={1.6} strokeDasharray="4 3" fill="transparent"
+            animationDuration={800} animationBegin={160}
+          />
+          <Area
+            type="monotone" dataKey="propios" name={etiquetas.propios}
+            stroke="var(--c-dim)" strokeWidth={1.6} fill="transparent"
+            animationDuration={800} animationBegin={320}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
+/* ── Curva simple de un tipster, para su perfil ─────────────────────────── */
+export function CurvaTipster({ valores, alto = 90 }: { valores: number[]; alto?: number }) {
+  const serie = valores.map((v, i) => ({ i, v }))
+  return (
+    <div style={{ height: alto }} className="w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={serie} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id="grad-tip" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="var(--c-acento-alto)" stopOpacity={0.34} />
+              <stop offset="100%" stopColor="var(--c-acento)" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <YAxis hide domain={['dataMin - 0.4', 'dataMax + 0.4']} />
+          <Area type="monotone" dataKey="v" stroke="var(--c-acento-alto)" strokeWidth={1.8} fill="url(#grad-tip)" animationDuration={700} />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}

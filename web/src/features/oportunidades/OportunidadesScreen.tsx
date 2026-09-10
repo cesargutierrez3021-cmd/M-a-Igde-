@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { ShieldOff } from 'lucide-react'
 import { Pantalla } from '../../components/shell/Pantalla'
+import { useApariencia } from '../../lib/theme'
+import { nombreDe } from '../../lib/nombres'
 import { TituloPantalla } from '../../components/shell/Header'
 import { Card, Badge, SectionHeader, Divider } from '../../components/ui/primitives'
 import { TarjetaPick } from './TarjetaPick'
@@ -22,14 +24,16 @@ const motivoLegible: Record<NoBet['motivo'], string> = {
  * no se rellena con relleno (invariante 10).
  */
 export function OportunidadesScreen() {
+  const { tema } = useApariencia()
+  const n = nombreDe('oportunidades', tema)
   const hayPicks = picks.length > 0
 
   return (
     <Pantalla>
       <TituloPantalla
-        kicker="Máx. 3 al día"
-        titulo="Apuestas"
-        destacado="listas"
+        kicker={n.kicker}
+        titulo={tema === 'terreno' ? 'Cotas de' : 'Objetivos'}
+        destacado={tema === 'terreno' ? 'valor' : 'fijados'}
         bajada="Solo lo que el motor emitió y sigue teniendo valor: revalidado antes de cada partido."
       />
 

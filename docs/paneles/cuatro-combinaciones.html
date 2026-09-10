@@ -1,0 +1,334 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#5a5f66;display:flex;gap:22px;padding:22px;font-family:Inter,sans-serif;width:2130px}
+.tel{width:390px;height:844px;overflow:hidden;position:relative;flex:none;background:var(--canvas);color:var(--fg)}
+.mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+.disp{font-family:Sora,sans-serif;font-weight:800;letter-spacing:-.035em}
+
+/* ═══ EJE 1 · TEMA  ×  EJE 2 · MODO ═══ */
+/* TERRENO · OSCURO */
+[data-tema="terreno"][data-modo="oscuro"]{
+  --canvas:#0E1418; --surf:rgba(14,20,24,.75); --line:#22323A; --line2:#1A272E;
+  --fg:#E4EAED; --dim:#9FAAB2; --mute:#7C8B93; --faint:#5E6E77;
+  --acc:#C9A227; --acc2:#E8C766; --alt:#7FD4E8; --earth:#B08968;
+  --win:#4FA97A; --loss:#C4553F; --topo:rgba(201,162,39,.12); --topo2:rgba(127,212,232,.09);
+  --btn-fg:#14181D; --grad:linear-gradient(135deg,#E8C766,#C9A227);
+  --track:#1E2C33; --font-h:Sora,sans-serif;
+}
+/* TERRENO · CLARO — papel de mapa topográfico impreso */
+[data-tema="terreno"][data-modo="claro"]{
+  --canvas:#F2F3F0; --surf:#FFFFFF; --line:#D5D8D2; --line2:#E6E8E3;
+  --fg:#141A1D; --dim:#3F4A50; --mute:#6B767C; --faint:#8D979C;
+  --acc:#8A6D14; --acc2:#B08D1E; --alt:#2A7288; --earth:#8A6849;
+  --win:#2F7F55; --loss:#A8412C; --topo:rgba(138,109,20,.16); --topo2:rgba(42,114,136,.11);
+  --btn-fg:#FFFFFF; --grad:linear-gradient(135deg,#B08D1E,#8A6D14);
+  --track:#E4E6E1; --font-h:Sora,sans-serif;
+}
+/* MANDO · OSCURO */
+[data-tema="mando"][data-modo="oscuro"]{
+  --canvas:#060B14; --surf:rgba(255,255,255,.05); --line:rgba(53,224,255,.20); --line2:rgba(255,255,255,.05);
+  --fg:#DDE7F0; --dim:#A8B8C6; --mute:#7C90A6; --faint:#5E7288;
+  --acc:#F0B429; --acc2:#F0B429; --alt:#35E0FF; --earth:#8FA3B8;
+  --win:#3FE08A; --loss:#FF5C6E; --topo:rgba(53,224,255,.055); --topo2:rgba(240,180,41,.09);
+  --btn-fg:#06121A; --grad:linear-gradient(135deg,#35E0FF,#F0B429);
+  --track:rgba(53,224,255,.14); --font-h:Sora,sans-serif;
+  --glow1:rgba(53,224,255,.13); --glow2:rgba(240,180,41,.09);
+}
+/* MANDO · CLARO — modo día de una cabina */
+[data-tema="mando"][data-modo="claro"]{
+  --canvas:#EDF2F6; --surf:#FFFFFF; --line:rgba(14,90,115,.22); --line2:rgba(13,23,32,.07);
+  --fg:#0D1720; --dim:#3B4B57; --mute:#657685; --faint:#8898A5;
+  --acc:#9A7212; --acc2:#B8891A; --alt:#0E7C99; --earth:#5E7183;
+  --win:#1E8558; --loss:#C4394B; --topo:rgba(14,124,153,.10); --topo2:rgba(154,114,18,.07);
+  --btn-fg:#FFFFFF; --grad:linear-gradient(135deg,#0E7C99,#9A7212);
+  --track:rgba(14,90,115,.14); --font-h:Sora,sans-serif;
+  --glow1:rgba(14,124,153,.10); --glow2:rgba(154,114,18,.08);
+}
+
+/* ── estructura compartida ── */
+.topo{position:absolute;inset:0;pointer-events:none}
+[data-tema="mando"] .tel-bg{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 40% at 50% 0%,var(--glow1),transparent 70%),radial-gradient(70% 50% at 100% 62%,var(--glow2),transparent 70%)}
+[data-tema="mando"] .grid{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--topo) 1px,transparent 1px),linear-gradient(90deg,var(--topo) 1px,transparent 1px);
+  background-size:26px 26px;mask-image:radial-gradient(75% 60% at 50% 32%,#000,transparent)}
+.hd{position:relative;z-index:2;padding:12px 16px 6px;display:flex;justify-content:space-between;align-items:flex-start}
+.hd .n{font-family:Sora;font-weight:800;letter-spacing:.2em;font-size:12px;color:var(--acc)}
+[data-tema="mando"] .hd .n{color:var(--fg)}
+.hd .sb{font-size:8px;letter-spacing:.16em;color:var(--faint);margin-top:3px;text-transform:uppercase}
+.hd .co{font-size:8px;line-height:1.6;color:var(--faint);text-align:right;letter-spacing:.06em}
+/* botón claro/oscuro en cabecera */
+.tog{display:flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:20px;padding:3px;background:var(--surf)}
+.tog i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;color:var(--faint)}
+.tog i.on{background:var(--grad);color:var(--btn-fg)}
+h1.t{position:relative;z-index:2;padding:6px 16px 0;font-family:var(--font-h);font-weight:800;letter-spacing:-.03em;font-size:26px;line-height:1.05}
+.sub{position:relative;z-index:2;padding:6px 16px 0;font-size:11px;color:var(--mute);line-height:1.5}
+.pane{position:relative;z-index:2;margin:11px 16px 0;border:1px solid var(--line);background:var(--surf)}
+[data-tema="terreno"] .pane{border-radius:3px}
+[data-tema="mando"] .pane{border-radius:14px}
+[data-tema="mando"][data-modo="claro"] .pane{box-shadow:0 1px 3px rgba(13,23,32,.06)}
+.pane.acc{border-color:color-mix(in srgb,var(--acc) 45%,transparent)}
+.ph{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line2);
+  font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.pb{padding:12px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:11px 16px 0;position:relative;z-index:2}
+.tile{border:1px solid var(--line);padding:9px 10px;text-align:center;background:var(--surf)}
+[data-tema="terreno"] .tile{border-radius:3px}[data-tema="mando"] .tile{border-radius:12px}
+.tile b{display:block;font-size:7px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;font-weight:500}
+.tile i{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;display:block;margin-top:3px}
+.btn{display:flex;align-items:center;justify-content:center;height:40px;font-size:13px;font-weight:600;
+  background:var(--grad);color:var(--btn-fg)}
+[data-tema="terreno"] .btn{border-radius:3px}[data-tema="mando"] .btn{border-radius:11px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:1px solid var(--line);border-radius:20px;font-size:9px;color:var(--mute)}
+.nav{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;background:var(--canvas);border-top:1px solid var(--line)}
+.nav a{flex:1;text-align:center;padding:11px 0;font-size:8px;letter-spacing:.08em;color:var(--faint);text-decoration:none;text-transform:uppercase}
+.nav a.on{color:var(--acc)}
+[data-tema="mando"] .nav a.on{color:var(--alt)}
+.nav a::before{content:"";display:block;width:14px;height:2px;background:transparent;margin:0 auto 5px}
+.nav a.on::before{background:var(--acc)}
+[data-tema="mando"] .nav a.on::before{background:var(--alt)}
+.acc{color:var(--acc)}.alt{color:var(--alt)}.mu{color:var(--mute)}.fn{color:var(--faint)}
+
+/* ── pantalla de bienvenida ── */
+.wel{width:390px;height:844px;background:#0E1418;color:#E4EAED;position:relative;overflow:hidden;flex:none}
+.wel .opt{border:1px solid #22323A;border-radius:4px;padding:11px;margin:0 16px 11px;background:rgba(14,20,24,.6)}
+.wel .opt.sel{border-color:#C9A227;background:rgba(201,162,39,.06)}
+.prev{display:flex;gap:7px}
+.prev>div{flex:1;border-radius:3px;overflow:hidden;border:1px solid #22323A;padding:7px;position:relative}
+.prev .lbl{font-size:8px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;text-align:center;color:#7C8B93}
+.prev .sel-mark{position:absolute;top:5px;right:5px;width:13px;height:13px;border-radius:50%;background:linear-gradient(135deg,#E8C766,#C9A227);
+  display:grid;place-items:center;font-size:8px;color:#14181D;font-weight:800}
+</style></head><body>
+
+<!-- ══ BIENVENIDA · elegir tema y modo ══ -->
+<div class="wel">
+  <svg style="position:absolute;inset:0;opacity:.5" viewBox="0 0 390 844" preserveAspectRatio="none">
+    <g fill="none" stroke="#C9A227" stroke-opacity=".11">
+      <path d="M-20 110 C 70 70, 150 150, 230 100 S 360 50, 420 105"/><path d="M-20 144 C 70 104, 150 184, 230 134 S 360 84, 420 139"/>
+      <path d="M-20 180 C 70 140, 150 220, 230 170 S 360 120, 420 175"/></g></svg>
+
+  <div style="position:relative;z-index:2;padding:44px 16px 0;text-align:center">
+    <svg viewBox="0 0 64 64" width="50" height="50">
+      <path d="M14 26 L11 4 L28 19 Z" fill="#D8B444"/><path d="M50 26 L53 4 L36 19 Z" fill="#A8871B"/>
+      <path d="M14 26 L32 21 L32 40 L12 33 Z" fill="#D5D9DE"/><path d="M50 26 L32 21 L32 40 L52 33 Z" fill="#A2A9B0"/>
+      <path d="M12 33 L32 40 L32 54 L20 46 Z" fill="#9C7C16"/><path d="M52 33 L32 40 L32 54 L44 46 Z" fill="#C9A227"/>
+      <path d="M24 40 L32 27 L40 40 L32 58 Z" fill="#F5F6F7"/>
+      <path d="M17 31 L27 28 L26 35 L19 35 Z" fill="#0B0D10"/><path d="M47 31 L37 28 L38 35 L45 35 Z" fill="#0B0D10"/>
+      <circle cx="22" cy="31.6" r="1.5" fill="#E8C766"/><circle cx="42" cy="31.6" r="1.5" fill="#E8C766"/></svg>
+    <div class="disp" style="font-size:25px;margin-top:14px">Elige cómo<br>quieres ver <span style="color:#C9A227">NOAH</span></div>
+    <div style="font-size:11px;color:#7C8B93;margin-top:9px;line-height:1.5;padding:0 12px">
+      Dos lenguajes distintos, cada uno con su versión clara y oscura. Se cambia cuando quieras.</div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="opt sel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
+        <div><div style="font-family:Sora;font-weight:800;font-size:15px;letter-spacing:-.02em">Terreno</div>
+          <div style="font-size:9.5px;color:#7C8B93">Cartografía · cotas y curvas de nivel</div></div>
+        <span style="width:17px;height:17px;border-radius:50%;background:linear-gradient(135deg,#E8C766,#C9A227);display:grid;place-items:center;font-size:10px;color:#14181D;font-weight:800">✓</span>
+      </div>
+      <div class="prev">
+        <div style="background:#0E1418">
+          <span class="sel-mark">✓</span>
+          <div style="height:5px;width:34px;background:#C9A227;border-radius:2px"></div>
+          <div style="height:20px;background:#151D22;border:1px solid #22323A;border-radius:2px;margin-top:5px"></div>
+          <div style="display:flex;gap:3px;margin-top:4px"><span style="flex:1;height:9px;background:#151D22;border-radius:2px"></span>
+            <span style="flex:1;height:9px;background:linear-gradient(135deg,#E8C766,#C9A227);border-radius:2px"></span></div>
+          <div class="lbl">Oscuro</div></div>
+        <div style="background:#F2F3F0">
+          <div style="height:5px;width:34px;background:#8A6D14;border-radius:2px"></div>
+          <div style="height:20px;background:#fff;border:1px solid #D5D8D2;border-radius:2px;margin-top:5px"></div>
+          <div style="display:flex;gap:3px;margin-top:4px"><span style="flex:1;height:9px;background:#fff;border:1px solid #D5D8D2;border-radius:2px"></span>
+            <span style="flex:1;height:9px;background:linear-gradient(135deg,#B08D1E,#8A6D14);border-radius:2px"></span></div>
+          <div class="lbl" style="color:#6B767C">Claro</div></div>
+      </div>
+    </div>
+
+    <div class="opt">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
+        <div><div style="font-family:Sora;font-weight:800;font-size:15px;letter-spacing:-.02em">Puesto de mando</div>
+          <div style="font-size:9.5px;color:#7C8B93">Instrumentos · objetivos y telemetría</div></div>
+        <span style="width:17px;height:17px;border-radius:50%;border:1px solid #2A3C45"></span>
+      </div>
+      <div class="prev">
+        <div style="background:#060B14">
+          <div style="height:5px;width:34px;background:#35E0FF;border-radius:2px"></div>
+          <div style="height:20px;background:rgba(255,255,255,.05);border:1px solid rgba(53,224,255,.2);border-radius:6px;margin-top:5px"></div>
+          <div style="display:flex;gap:3px;margin-top:4px"><span style="flex:1;height:9px;background:rgba(255,255,255,.05);border-radius:4px"></span>
+            <span style="flex:1;height:9px;background:linear-gradient(135deg,#35E0FF,#F0B429);border-radius:4px"></span></div>
+          <div class="lbl">Oscuro</div></div>
+        <div style="background:#EDF2F6">
+          <div style="height:5px;width:34px;background:#0E7C99;border-radius:2px"></div>
+          <div style="height:20px;background:#fff;border:1px solid rgba(14,90,115,.22);border-radius:6px;margin-top:5px"></div>
+          <div style="display:flex;gap:3px;margin-top:4px"><span style="flex:1;height:9px;background:#fff;border:1px solid rgba(14,90,115,.18);border-radius:4px"></span>
+            <span style="flex:1;height:9px;background:linear-gradient(135deg,#0E7C99,#9A7212);border-radius:4px"></span></div>
+          <div class="lbl" style="color:#657685">Claro</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:26px;left:16px;right:16px">
+    <div style="height:42px;border-radius:3px;background:linear-gradient(135deg,#E8C766,#C9A227);color:#14181D;
+      display:grid;place-items:center;font-size:14px;font-weight:700">Entrar a NOAH</div>
+    <div style="text-align:center;font-size:9.5px;color:#5E6E77;margin-top:9px">
+      Puedes cambiarlo en Ajustes, y el claro/oscuro con el botón de la cabecera</div>
+  </div>
+</div>
+
+<!-- ══ TERRENO OSCURO ══ -->
+<div class="tel" data-tema="terreno" data-modo="oscuro">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none">
+    <g fill="none" stroke="var(--acc)" stroke-opacity=".5" style="stroke:var(--topo)">
+      <path d="M-20 210 C 70 170, 150 250, 230 200 S 360 150, 420 205"/><path d="M-20 244 C 70 204, 150 284, 230 234 S 360 184, 420 239"/>
+      <path d="M-20 280 C 70 240, 150 320, 230 270 S 360 220, 420 275"/></g></svg>
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Mapa del día</div></div>
+    <div class="tog"><i class="on">☾</i><i>☀</i></div></div>
+  <h1 class="t">Cotas de <span class="acc">valor</span></h1>
+  <p class="sub">Revalidadas antes de cada partido. Si el precio se mueve, la cota se recalcula.</p>
+
+  <div class="pane acc"><div class="ph"><span>Cota 01 · LaLiga</span><span class="acc">Stake 4/10</span></div>
+    <div class="pb"><div style="font-size:10px;color:var(--mute)">Real Betis — Real Madrid · 4 h 29</div>
+      <div class="disp acc" style="font-size:22px;margin-top:5px">Menos de 3,5 goles</div>
+      <div style="display:flex;align-items:baseline;gap:9px;margin-top:8px">
+        <span class="mono" style="font-size:26px;font-weight:700">1,93</span>
+        <span style="font-size:10px;color:var(--mute)">justa 1,42 · Pinnacle</span></div>
+      <svg viewBox="0 0 320 74" style="width:100%;margin-top:10px">
+        <rect x="110" y="4" width="130" height="62" fill="var(--alt)" opacity=".1"/>
+        <path d="M0,66 L40,62 L75,53 L110,38 L145,19 L175,12 L205,22 L240,42 L275,57 L320,64 L320,70 L0,70 Z" fill="var(--acc)" opacity=".28"/>
+        <polyline points="0,66 40,62 75,53 110,38 145,19 175,12 205,22 240,42 275,57 320,64" fill="none" stroke="var(--acc)" stroke-width="1.6"/>
+        <line x1="175" y1="8" x2="175" y2="70" stroke="var(--acc)" stroke-width="1.4"/><circle cx="175" cy="12" r="3.4" fill="var(--acc)"/>
+        <text x="112" y="66" font-size="7.5" fill="var(--faint)" font-family="JetBrains Mono">71%</text>
+        <text x="221" y="66" font-size="7.5" fill="var(--faint)" font-family="JetBrains Mono">89%</text></svg>
+      <div class="btn" style="margin-top:10px">Sellar apuesta</div></div></div>
+
+  <div class="tri"><div class="tile"><b>Prob.</b><i>80,1%</i></div>
+    <div class="tile"><b>Ventaja</b><i class="acc">28,8%</i></div>
+    <div class="tile"><b>EV</b><i>54,7%</i></div></div>
+
+  <div class="pane"><div class="ph"><span>Terreno descartado</span><span>3</span></div>
+    <div class="pb" style="padding:9px 12px;font-size:10px;color:var(--mute);line-height:1.95">
+      <div style="display:flex;justify-content:space-between"><span>Ambos marcan</span><span class="fn">bajo la cota</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Córners 9.5</span><span class="fn">sin cartografiar</span></div></div></div>
+
+  <div class="nav"><a>Base</a><a class="on">Mapa</a><a>Cuaderno</a><a>Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ══ TERRENO CLARO ══ -->
+<div class="tel" data-tema="terreno" data-modo="claro">
+  <svg class="topo" viewBox="0 0 390 844" preserveAspectRatio="none">
+    <g fill="none" style="stroke:var(--topo)">
+      <path d="M-20 210 C 70 170, 150 250, 230 200 S 360 150, 420 205"/><path d="M-20 244 C 70 204, 150 284, 230 234 S 360 184, 420 239"/>
+      <path d="M-20 280 C 70 240, 150 320, 230 270 S 360 220, 420 275"/></g>
+    <g fill="none" style="stroke:var(--topo2)">
+      <path d="M-20 620 C 90 580, 170 660, 250 615 S 370 565, 420 620"/><path d="M-20 658 C 90 618, 170 698, 250 653 S 370 603, 420 658"/></g></svg>
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Mapa del día</div></div>
+    <div class="tog"><i>☾</i><i class="on">☀</i></div></div>
+  <h1 class="t">Cotas de <span class="acc">valor</span></h1>
+  <p class="sub">Revalidadas antes de cada partido. Si el precio se mueve, la cota se recalcula.</p>
+
+  <div class="pane acc"><div class="ph"><span>Cota 01 · LaLiga</span><span class="acc">Stake 4/10</span></div>
+    <div class="pb"><div style="font-size:10px;color:var(--mute)">Real Betis — Real Madrid · 4 h 29</div>
+      <div class="disp acc" style="font-size:22px;margin-top:5px">Menos de 3,5 goles</div>
+      <div style="display:flex;align-items:baseline;gap:9px;margin-top:8px">
+        <span class="mono" style="font-size:26px;font-weight:700">1,93</span>
+        <span style="font-size:10px;color:var(--mute)">justa 1,42 · Pinnacle</span></div>
+      <svg viewBox="0 0 320 74" style="width:100%;margin-top:10px">
+        <rect x="110" y="4" width="130" height="62" fill="var(--alt)" opacity=".1"/>
+        <path d="M0,66 L40,62 L75,53 L110,38 L145,19 L175,12 L205,22 L240,42 L275,57 L320,64 L320,70 L0,70 Z" fill="var(--acc)" opacity=".2"/>
+        <polyline points="0,66 40,62 75,53 110,38 145,19 175,12 205,22 240,42 275,57 320,64" fill="none" stroke="var(--acc)" stroke-width="1.6"/>
+        <line x1="175" y1="8" x2="175" y2="70" stroke="var(--acc)" stroke-width="1.4"/><circle cx="175" cy="12" r="3.4" fill="var(--acc)"/>
+        <text x="112" y="66" font-size="7.5" fill="var(--faint)" font-family="JetBrains Mono">71%</text>
+        <text x="221" y="66" font-size="7.5" fill="var(--faint)" font-family="JetBrains Mono">89%</text></svg>
+      <div class="btn" style="margin-top:10px">Sellar apuesta</div></div></div>
+
+  <div class="tri"><div class="tile"><b>Prob.</b><i>80,1%</i></div>
+    <div class="tile"><b>Ventaja</b><i class="acc">28,8%</i></div>
+    <div class="tile"><b>EV</b><i>54,7%</i></div></div>
+
+  <div class="pane"><div class="ph"><span>Terreno descartado</span><span>3</span></div>
+    <div class="pb" style="padding:9px 12px;font-size:10px;color:var(--mute);line-height:1.95">
+      <div style="display:flex;justify-content:space-between"><span>Ambos marcan</span><span class="fn">bajo la cota</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Córners 9.5</span><span class="fn">sin cartografiar</span></div></div></div>
+
+  <div class="nav"><a>Base</a><a class="on">Mapa</a><a>Cuaderno</a><a>Jauría</a><a>Ascenso</a></div>
+</div>
+
+<!-- ══ MANDO OSCURO ══ -->
+<div class="tel" data-tema="mando" data-modo="oscuro">
+  <div class="tel-bg"></div><div class="grid"></div>
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Barrido completado</div></div>
+    <div class="tog"><i class="on">☾</i><i>☀</i></div></div>
+  <h1 class="t">Objetivos <span class="alt">fijados</span></h1>
+  <p class="sub">Revalidados antes de cada lanzamiento. Si el precio se mueve, se recalcula.</p>
+
+  <div class="pane acc"><div class="ph"><span>01 · LaLiga · T−4h29</span><span class="acc">Stake 4/10</span></div>
+    <div class="pb"><div style="font-size:19px;font-weight:800;letter-spacing:-.02em">Menos de 3,5 goles</div>
+      <div style="font-size:10px;color:var(--mute);margin-top:3px">Real Betis vs Real Madrid · Pinnacle</div>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:11px">
+        <svg viewBox="0 0 90 90" style="width:78px;flex:none">
+          <defs><linearGradient id="ao" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#35E0FF"/><stop offset="1" stop-color="#F0B429"/></linearGradient></defs>
+          <circle cx="45" cy="45" r="37" fill="none" stroke="var(--track)" stroke-width="6"/>
+          <circle cx="45" cy="45" r="37" fill="none" stroke="url(#ao)" stroke-width="6" stroke-linecap="round"
+            stroke-dasharray="232" stroke-dashoffset="46" transform="rotate(-90 45 45)"/>
+          <text x="45" y="42" text-anchor="middle" fill="var(--fg)" font-size="18" font-family="JetBrains Mono" font-weight="700">80</text>
+          <text x="45" y="55" text-anchor="middle" fill="var(--faint)" font-size="7.5">PROB %</text></svg>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Ventaja</span><span class="mono acc" style="font-weight:700">28,8%</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Cuota</span><span class="mono" style="font-weight:700">1,93</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Justa</span><span class="mono mu">1,42</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Rango</span><span class="mono alt">71–89%</span></div></div></div>
+      <div class="btn" style="margin-top:11px">Registrar apuesta</div></div></div>
+
+  <div class="tri"><div class="tile"><b>CLV</b><i class="acc">+2.1%</i></div>
+    <div class="tile"><b>ROI</b><i class="alt">+4.1%</i></div>
+    <div class="tile"><b>Sharpe</b><i>0.71</i></div></div>
+
+  <div class="pane"><div class="ph"><span>Descartados</span><span>3</span></div>
+    <div class="pb" style="padding:9px 12px;font-size:10px;color:var(--mute);line-height:1.95">
+      <div style="display:flex;justify-content:space-between"><span>Ambos marcan</span><span class="fn">sin valor</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Córners 9.5</span><span class="fn">sin calibrar</span></div></div></div>
+
+  <div class="nav"><a>Mando</a><a class="on">Objetivos</a><a>Trazado</a><a>Escuadrón</a><a>Telemetría</a></div>
+</div>
+
+<!-- ══ MANDO CLARO ══ -->
+<div class="tel" data-tema="mando" data-modo="claro">
+  <div class="tel-bg"></div><div class="grid"></div>
+  <div class="hd"><div><div class="n">N O A H</div><div class="sb">Barrido completado</div></div>
+    <div class="tog"><i>☾</i><i class="on">☀</i></div></div>
+  <h1 class="t">Objetivos <span class="alt">fijados</span></h1>
+  <p class="sub">Revalidados antes de cada lanzamiento. Si el precio se mueve, se recalcula.</p>
+
+  <div class="pane acc"><div class="ph"><span>01 · LaLiga · T−4h29</span><span class="acc">Stake 4/10</span></div>
+    <div class="pb"><div style="font-size:19px;font-weight:800;letter-spacing:-.02em">Menos de 3,5 goles</div>
+      <div style="font-size:10px;color:var(--mute);margin-top:3px">Real Betis vs Real Madrid · Pinnacle</div>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:11px">
+        <svg viewBox="0 0 90 90" style="width:78px;flex:none">
+          <defs><linearGradient id="ac" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#0E7C99"/><stop offset="1" stop-color="#9A7212"/></linearGradient></defs>
+          <circle cx="45" cy="45" r="37" fill="none" stroke="var(--track)" stroke-width="6"/>
+          <circle cx="45" cy="45" r="37" fill="none" stroke="url(#ac)" stroke-width="6" stroke-linecap="round"
+            stroke-dasharray="232" stroke-dashoffset="46" transform="rotate(-90 45 45)"/>
+          <text x="45" y="42" text-anchor="middle" fill="var(--fg)" font-size="18" font-family="JetBrains Mono" font-weight="700">80</text>
+          <text x="45" y="55" text-anchor="middle" fill="var(--faint)" font-size="7.5">PROB %</text></svg>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Ventaja</span><span class="mono acc" style="font-weight:700">28,8%</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Cuota</span><span class="mono" style="font-weight:700">1,93</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Justa</span><span class="mono mu">1,42</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;padding:2.5px 0"><span class="mu">Rango</span><span class="mono alt">71–89%</span></div></div></div>
+      <div class="btn" style="margin-top:11px">Registrar apuesta</div></div></div>
+
+  <div class="tri"><div class="tile"><b>CLV</b><i class="acc">+2.1%</i></div>
+    <div class="tile"><b>ROI</b><i class="alt">+4.1%</i></div>
+    <div class="tile"><b>Sharpe</b><i>0.71</i></div></div>
+
+  <div class="pane"><div class="ph"><span>Descartados</span><span>3</span></div>
+    <div class="pb" style="padding:9px 12px;font-size:10px;color:var(--mute);line-height:1.95">
+      <div style="display:flex;justify-content:space-between"><span>Ambos marcan</span><span class="fn">sin valor</span></div>
+      <div style="display:flex;justify-content:space-between"><span>Córners 9.5</span><span class="fn">sin calibrar</span></div></div></div>
+
+  <div class="nav"><a>Mando</a><a class="on">Objetivos</a><a>Trazado</a><a>Escuadrón</a><a>Telemetría</a></div>
+</div>
+
+</body></html>

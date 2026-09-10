@@ -17,6 +17,8 @@ import { SaludScreen } from './features/salud/SaludScreen'
 import { AdminScreen } from './features/admin/AdminScreen'
 import { CalibracionScreen } from './features/calibracion/CalibracionScreen'
 import { AccesoScreen } from './features/acceso/AccesoScreen'
+import { BienvenidaScreen } from './features/bienvenida/BienvenidaScreen'
+import { useApariencia } from './lib/theme'
 
 /*
  * NOAH — interfaz.
@@ -30,7 +32,19 @@ import { AccesoScreen } from './features/acceso/AccesoScreen'
 export default function App() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { yaEligio } = useApariencia()
   const enAcceso = location.pathname === '/acceso'
+
+  // En el primer arranque se elige apariencia antes que nada: el resto de la
+  // app se ve distinta según lo que escoja, así que preguntarlo después sería
+  // enseñarle un tema que quizá no quiere.
+  if (!yaEligio) {
+    return (
+      <AnimatePresence mode="wait">
+        <BienvenidaScreen key="bienvenida" />
+      </AnimatePresence>
+    )
+  }
 
   if (enAcceso) {
     return (

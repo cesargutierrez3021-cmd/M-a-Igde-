@@ -9,9 +9,9 @@ import { faltanPara } from '../../lib/format'
 import { listaEscalonada, elementoLista } from '../../design/motion'
 import type { EstadoSalud } from '../../lib/types'
 
-const etiquetaEstado: Record<EstadoSalud, { texto: string; tono: 'win' | 'oro' | 'loss' }> = {
+const etiquetaEstado: Record<EstadoSalud, { texto: string; tono: 'win' | 'acento' | 'loss' }> = {
   correcto: { texto: 'Correcto', tono: 'win' },
-  atencion: { texto: 'Revisar', tono: 'oro' },
+  atencion: { texto: 'Revisar', tono: 'acento' },
   critico: { texto: 'Crítico', tono: 'loss' },
 }
 

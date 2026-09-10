@@ -55,7 +55,7 @@ export function CalibracionScreen() {
                       {formatearPorcentaje(c.predicha, 0)} → {formatearPorcentaje(c.observada, 0)}
                     </span>
                     <span
-                      className={`tabular w-14 text-right font-semibold ${Math.abs(desvio) < 0.03 ? 'text-win' : 'text-goldlite'}`}
+                      className={`tabular w-14 text-right font-semibold ${Math.abs(desvio) < 0.03 ? 'text-win' : 'text-acento-alto'}`}
                     >
                       {desvio >= 0 ? '+' : ''}
                       {(desvio * 100).toFixed(1)}

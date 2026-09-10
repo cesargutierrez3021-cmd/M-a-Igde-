@@ -69,8 +69,8 @@ export function CurvaCapital({ datos, alto = 190 }: { datos: PuntoCurva[]; alto?
         <AreaChart data={serie} margin={{ top: 6, right: 4, left: -22, bottom: 0 }}>
           <defs>
             <linearGradient id="grad-bot" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--c-goldlite)" stopOpacity={0.42} />
-              <stop offset="100%" stopColor="var(--c-gold)" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="var(--c-acento-alto)" stopOpacity={0.42} />
+              <stop offset="100%" stopColor="var(--c-acento)" stopOpacity={0.02} />
             </linearGradient>
           </defs>
 
@@ -84,14 +84,14 @@ export function CurvaCapital({ datos, alto = 190 }: { datos: PuntoCurva[]; alto?
           />
           <Tooltip
             content={<CajaTooltip formato={(v) => `${v.toFixed(2)} u`} />}
-            cursor={{ stroke: 'var(--c-gold-line)', strokeWidth: 1 }}
+            cursor={{ stroke: 'var(--c-acento-linea)', strokeWidth: 1 }}
           />
 
           <Area
             type="monotone"
             dataKey="bot"
             name="Bot"
-            stroke="var(--c-goldlite)"
+            stroke="var(--c-acento-alto)"
             strokeWidth={2}
             fill="url(#grad-bot)"
             animationDuration={900}
@@ -124,8 +124,8 @@ export function BarrasRendimiento({ datos }: { datos: YieldMercado[] }) {
         <BarChart data={datos} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
           <defs>
             <linearGradient id="grad-barra" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--c-goldlite)" />
-              <stop offset="100%" stopColor="var(--c-gold)" />
+              <stop offset="0%" stopColor="var(--c-acento-alto)" />
+              <stop offset="100%" stopColor="var(--c-acento)" />
             </linearGradient>
           </defs>
           <CartesianGrid stroke="var(--c-line)" strokeDasharray="3 5" vertical={false} />
@@ -178,7 +178,7 @@ export function GraficoCalibracion({ datos }: { datos: PuntoCalibracion[] }) {
           <Bar
             dataKey="observadaPct"
             name="Observada"
-            fill="var(--c-gold)"
+            fill="var(--c-acento)"
             radius={[3, 3, 0, 0]}
             animationDuration={700}
             animationBegin={140}
@@ -198,14 +198,14 @@ export function Sparkline({ datos, alto = 34 }: { datos: PuntoCurva[]; alto?: nu
           <YAxis hide domain={['dataMin - 0.4', 'dataMax + 0.4']} />
           <defs>
             <linearGradient id="grad-spark" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--c-goldlite)" stopOpacity={0.4} />
-              <stop offset="100%" stopColor="var(--c-gold)" stopOpacity={0} />
+              <stop offset="0%" stopColor="var(--c-acento-alto)" stopOpacity={0.4} />
+              <stop offset="100%" stopColor="var(--c-acento)" stopOpacity={0} />
             </linearGradient>
           </defs>
           <Area
             type="monotone"
             dataKey="bot"
-            stroke="var(--c-goldlite)"
+            stroke="var(--c-acento-alto)"
             strokeWidth={1.5}
             fill="url(#grad-spark)"
             animationDuration={700}

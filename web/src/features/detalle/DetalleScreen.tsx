@@ -70,7 +70,7 @@ export function DetalleScreen() {
           </div>
 
           <h1 className="display mt-4 text-[26px] leading-tight">
-            <span className="gold-text">{pick.mercadoLegible}</span>
+            <span className="texto-acento">{pick.mercadoLegible}</span>
           </h1>
 
           <div className="mt-3 flex items-stretch gap-4">
@@ -108,7 +108,7 @@ export function DetalleScreen() {
         <Card className="mt-3 p-4">
           <div className="flex items-end justify-between">
             <div>
-              <p className="gold-text text-[32px] leading-none font-semibold">
+              <p className="texto-acento text-[32px] leading-none font-semibold">
                 <Cifra valor={pick.probabilidadCalibrada * 100} decimales={1} sufijo="%" />
               </p>
               <p className="mt-1 text-[12px] text-mute">probabilidad calibrada</p>
@@ -123,7 +123,7 @@ export function DetalleScreen() {
               <motion.div
                 className="absolute top-3.5 h-1 rounded-full"
                 style={{
-                  background: 'var(--grad-gold)',
+                  background: 'var(--grad-acento)',
                   left: `${pick.probabilidadMin * 100}%`,
                   right: `${100 - pick.probabilidadMax * 100}%`,
                 }}
@@ -134,7 +134,7 @@ export function DetalleScreen() {
               />
               <motion.div
                 className="absolute top-1.5 size-5 -translate-x-1/2 rounded-full border-2 border-canvas"
-                style={{ left: `${pick.probabilidadCalibrada * 100}%`, background: 'var(--c-goldlite)' }}
+                style={{ left: `${pick.probabilidadCalibrada * 100}%`, background: 'var(--c-acento-alto)' }}
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
@@ -215,7 +215,7 @@ export function DetalleScreen() {
               >
                 <span
                   className="absolute -left-6 top-1 size-[15px] rounded-full border-2 border-canvas"
-                  style={{ background: 'var(--c-gold)' }}
+                  style={{ background: 'var(--c-acento)' }}
                   aria-hidden
                 />
                 <p className="text-[13.5px] font-medium text-fg">{t.paso}</p>
@@ -254,7 +254,7 @@ function Mini({ etiqueta, valor, dorado }: { etiqueta: string; valor: string; do
   return (
     <div className="rounded-[10px] border border-line bg-surface-2 px-3 py-2">
       <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-mute">{etiqueta}</p>
-      <p className={`tabular mt-0.5 text-[15px] font-semibold ${dorado ? 'text-goldlite' : 'text-fg'}`}>
+      <p className={`tabular mt-0.5 text-[15px] font-semibold ${dorado ? 'text-acento-alto' : 'text-fg'}`}>
         {valor}
       </p>
     </div>

@@ -63,7 +63,7 @@ function VistaCapital() {
             <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-mute">
               Curva de capital
             </p>
-            <p className="gold-text mt-1 text-[28px] leading-none font-semibold">
+            <p className="texto-acento mt-1 text-[28px] leading-none font-semibold">
               <Cifra valor={resumen.unidades} decimales={2} signo sufijo=" u" />
             </p>
             <p className="mt-1 text-[12px] text-mute">
@@ -72,7 +72,7 @@ function VistaCapital() {
           </div>
           <div className="flex flex-col items-end gap-1.5 text-[11px]">
             <span className="flex items-center gap-1.5 text-mute">
-              <span className="h-0.5 w-4 rounded-full" style={{ background: 'var(--c-goldlite)' }} />
+              <span className="h-0.5 w-4 rounded-full" style={{ background: 'var(--c-acento-alto)' }} />
               Bot
             </span>
             <span className="flex items-center gap-1.5 text-mute">
@@ -151,7 +151,7 @@ function VistaMercados() {
                 </div>
                 <div className="text-right">
                   <p
-                    className={`tabular text-[17px] font-semibold ${y.rendimiento >= 0 ? 'text-goldlite' : 'text-loss'}`}
+                    className={`tabular text-[17px] font-semibold ${y.rendimiento >= 0 ? 'text-acento-alto' : 'text-loss'}`}
                   >
                     {formatearPorcentaje(y.rendimiento)}
                   </p>
@@ -202,7 +202,7 @@ function VistaCalidad() {
 
       <Card plano className="mt-3 p-4">
         <div className="flex gap-3">
-          <ShieldAlert size={16} className="mt-0.5 shrink-0 text-goldlite" strokeWidth={1.6} />
+          <ShieldAlert size={16} className="mt-0.5 shrink-0 text-acento-alto" strokeWidth={1.6} />
           <div className="min-w-0">
             <p className="text-[13px] font-medium text-fg">La puerta del CLV</p>
             <p className="mt-1 text-[12px] leading-relaxed text-mute">

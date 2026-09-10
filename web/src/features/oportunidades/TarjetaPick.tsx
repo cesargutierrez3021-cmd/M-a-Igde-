@@ -41,7 +41,7 @@ export function TarjetaPick({ pick, indice }: { pick: Pick; indice: number }) {
               transition={{ duration: 0.7, ease: 'easeOut', delay: 0.25 + indice * 0.08 }}
               style={{
                 background:
-                  'linear-gradient(100deg, transparent, color-mix(in srgb, var(--c-goldlite) 22%, transparent), transparent)',
+                  'linear-gradient(100deg, transparent, color-mix(in srgb, var(--c-acento-alto) 22%, transparent), transparent)',
               }}
             />
           )}
@@ -71,7 +71,7 @@ export function TarjetaPick({ pick, indice }: { pick: Pick; indice: number }) {
           {/* Selección: el dato protagonista */}
           <div className="px-4">
             <h3 className="display text-[21px] leading-tight">
-              <span className="gold-text">{pick.mercadoLegible}</span>
+              <span className="texto-acento">{pick.mercadoLegible}</span>
             </h3>
             <p className="mt-1 flex items-baseline gap-2 text-[12.5px] text-mute">
               <span>Cuota</span>
@@ -103,7 +103,7 @@ export function TarjetaPick({ pick, indice }: { pick: Pick; indice: number }) {
               <span className="font-semibold uppercase tracking-[0.12em] text-mute">
                 Confianza del consenso
               </span>
-              <span className="tabular font-semibold text-goldlite">
+              <span className="tabular font-semibold text-acento-alto">
                 {Math.round(pick.confianzaConsenso * 100)}/100
               </span>
             </div>
@@ -132,7 +132,7 @@ function Metrica({ etiqueta, valor, dorado }: { etiqueta: string; valor: string;
   return (
     <div className="bg-surface px-4 py-2.5">
       <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-mute">{etiqueta}</p>
-      <p className={`tabular mt-0.5 text-[17px] font-semibold ${dorado ? 'text-goldlite' : 'text-fg'}`}>
+      <p className={`tabular mt-0.5 text-[17px] font-semibold ${dorado ? 'text-acento-alto' : 'text-fg'}`}>
         {valor}
       </p>
     </div>

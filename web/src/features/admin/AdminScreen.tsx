@@ -43,7 +43,7 @@ export function AdminScreen() {
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
                       <p className="text-[14px] font-medium text-fg">{m.legible}</p>
-                      {m.modoSombra && <Badge tono="oro">Modo sombra</Badge>}
+                      {m.modoSombra && <Badge tono="acento">Modo sombra</Badge>}
                       {!m.activo && <Badge tono="void">Apagado</Badge>}
                     </div>
                     <p className="mt-0.5 font-mono text-[11px] text-mute">
@@ -132,7 +132,7 @@ export function AdminScreen() {
           <Divider />
 
           <div className="mt-3 flex gap-2">
-            <Button variante="oro" ancho icono={<Play size={15} strokeWidth={2} />}>
+            <Button variante="acento" ancho icono={<Play size={15} strokeWidth={2} />}>
               Motor fútbol
             </Button>
             <Button variante="contorno" ancho disabled>
@@ -170,7 +170,7 @@ export function AdminScreen() {
             ['06:00', 'Ingesta de cuotas · 12 errores registrados'],
           ].map(([hora, texto]) => (
             <div key={hora} className="flex gap-3 py-3">
-              <span className="tabular shrink-0 text-[12px] text-goldlite">{hora}</span>
+              <span className="tabular shrink-0 text-[12px] text-acento-alto">{hora}</span>
               <span className="text-[12.5px] leading-snug text-mute">{texto}</span>
             </div>
           ))}

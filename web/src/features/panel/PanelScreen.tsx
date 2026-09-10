@@ -12,12 +12,12 @@ import { formatearPesos, formatearCuota, formatearFechaCorta } from '../../lib/f
 import { listaEscalonada, elementoLista, tarjeta } from '../../design/motion'
 import type { ResultadoPick } from '../../lib/types'
 
-const tonoResultado: Record<ResultadoPick, 'win' | 'loss' | 'void' | 'oro'> = {
+const tonoResultado: Record<ResultadoPick, 'win' | 'loss' | 'void' | 'acento'> = {
   ganada: 'win',
   perdida: 'loss',
   nula: 'void',
   invalidada: 'void',
-  pendiente: 'oro',
+  pendiente: 'acento',
 }
 
 /*
@@ -58,7 +58,7 @@ export function PanelScreen() {
             </p>
             <div className="mt-1.5 flex items-end justify-between gap-3">
               <div>
-                <p className="gold-text text-[34px] leading-none font-semibold">
+                <p className="texto-acento text-[34px] leading-none font-semibold">
                   <Cifra valor={resumen.unidades} decimales={2} signo sufijo=" u" />
                 </p>
                 <p className="mt-1.5 text-[12.5px] text-mute">
@@ -109,7 +109,7 @@ export function PanelScreen() {
           titulo="Últimas alertas"
           descripcion="Lo que el motor emitió, con su estado actual."
           accion={
-            <Link to="/historial" className="text-[12px] font-medium text-goldlite">
+            <Link to="/historial" className="text-[12px] font-medium text-acento-alto">
               Ver todo
             </Link>
           }
@@ -154,7 +154,7 @@ export function PanelScreen() {
         <Card className="mt-3 p-4">
           <div className="flex items-end justify-between gap-3">
             <div>
-              <p className="gold-text text-[28px] leading-none font-semibold">
+              <p className="texto-acento text-[28px] leading-none font-semibold">
                 {formatearPesos(resumen.capital)}
               </p>
               <p className="mt-1.5 text-[12px] text-mute">
@@ -175,8 +175,8 @@ export function PanelScreen() {
         <Link to="/rendimiento">
           <Card className="flex items-center gap-3 p-4">
             <span
-              className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-gold-line text-goldlite"
-              style={{ background: 'var(--grad-gold-soft)' }}
+              className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-acento-linea text-acento-alto"
+              style={{ background: 'var(--grad-acento-suave)' }}
             >
               <TrendingUp size={16} strokeWidth={1.6} />
             </span>

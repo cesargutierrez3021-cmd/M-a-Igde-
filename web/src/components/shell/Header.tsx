@@ -1,7 +1,7 @@
 import { Moon, Sun, LogOut } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Logotipo } from '../brand/HuskyMark'
-import { useTema } from '../../lib/theme'
+import { useApariencia } from '../../lib/theme'
 import { pulsable } from '../../design/motion'
 
 /*
@@ -10,7 +10,7 @@ import { pulsable } from '../../design/motion'
  * El fondo lleva desenfoque para que el contenido pase por debajo sin chocar.
  */
 export function Header({ onSalir }: { onSalir?: () => void }) {
-  const { tema, alternar } = useTema()
+  const { modo, alternarModo } = useApariencia()
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-canvas/85 backdrop-blur-xl">
@@ -20,18 +20,18 @@ export function Header({ onSalir }: { onSalir?: () => void }) {
         <div className="flex items-center gap-1">
           <motion.button
             {...pulsable}
-            onClick={alternar}
-            aria-label={tema === 'noir' ? 'Cambiar a tema claro' : 'Cambiar a tema noir'}
+            onClick={alternarModo}
+            aria-label={modo === 'oscuro' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
             className="relative grid size-10 place-items-center rounded-full border border-line text-dim"
           >
             <motion.span
-              key={tema}
+              key={modo}
               initial={{ rotate: -70, opacity: 0, scale: 0.7 }}
               animate={{ rotate: 0, opacity: 1, scale: 1 }}
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               className="grid place-items-center"
             >
-              {tema === 'noir' ? <Sun size={17} strokeWidth={1.6} /> : <Moon size={17} strokeWidth={1.6} />}
+              {modo === 'oscuro' ? <Sun size={17} strokeWidth={1.6} /> : <Moon size={17} strokeWidth={1.6} />}
             </motion.span>
           </motion.button>
 
@@ -75,8 +75,8 @@ export function TituloPantalla({
         transition={{ duration: 0.24 }}
       >
         <span
-          className="inline-flex items-center rounded-[var(--radius-pill)] border border-gold-line px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-goldlite"
-          style={{ background: 'var(--grad-gold-soft)' }}
+          className="inline-flex items-center rounded-[var(--radius-pill)] border border-acento-linea px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-acento-alto"
+          style={{ background: 'var(--grad-acento-suave)' }}
         >
           {kicker}
         </span>
@@ -89,7 +89,7 @@ export function TituloPantalla({
         transition={{ duration: 0.26, delay: 0.04 }}
       >
         {titulo}
-        {destacado && <span className="gold-text"> {destacado}</span>}
+        {destacado && <span className="texto-acento"> {destacado}</span>}
       </motion.h1>
 
       {bajada && (

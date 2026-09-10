@@ -69,7 +69,7 @@ export function StatTile({ etiqueta, children, nota, destacada, className }: Sta
       <div
         className={cn(
           'mt-1.5 text-[26px] leading-none font-semibold',
-          destacada ? 'gold-text' : 'text-fg'
+          destacada ? 'texto-acento' : 'text-fg'
         )}
       >
         {children}
@@ -85,18 +85,18 @@ export function StatTile({ etiqueta, children, nota, destacada, className }: Sta
  */
 interface BarraProps {
   fraccion: number
-  tono?: 'oro' | 'win' | 'loss' | 'neutro'
+  tono?: 'acento' | 'win' | 'loss' | 'neutro'
   alto?: number
 }
 
 const fondos: Record<string, string> = {
-  oro: 'var(--grad-gold)',
+  acento: 'var(--grad-acento)',
   win: 'var(--c-win)',
   loss: 'var(--c-loss)',
   neutro: 'var(--c-dim)',
 }
 
-export function Barra({ fraccion, tono = 'oro', alto = 6 }: BarraProps) {
+export function Barra({ fraccion, tono = 'acento', alto = 6 }: BarraProps) {
   const pct = Math.max(0, Math.min(1, fraccion)) * 100
   return (
     <div
@@ -130,7 +130,7 @@ export function EscalaStake({ nivel, total = 10 }: { nivel: number; total?: numb
         <motion.span
           key={i}
           className="size-1.5 rounded-full"
-          style={{ background: i < nivel ? 'var(--c-goldlite)' : 'var(--c-line-strong)' }}
+          style={{ background: i < nivel ? 'var(--c-acento-alto)' : 'var(--c-line-strong)' }}
           initial={{ opacity: 0, scale: 0.4 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -165,7 +165,7 @@ export function MedidorConfianza({ valor, size = 84 }: { valor: number; size?: n
             <motion.line
               key={i}
               x1={x1} y1={y1} x2={x2} y2={y2}
-              stroke={i < encendidos ? 'var(--c-goldlite)' : 'var(--c-line-strong)'}
+              stroke={i < encendidos ? 'var(--c-acento-alto)' : 'var(--c-line-strong)'}
               strokeWidth="3"
               strokeLinecap="round"
               initial={{ opacity: 0 }}
@@ -194,11 +194,11 @@ export function AvisoMuestra({ n, minimo }: { n: number; minimo: number }) {
     <Card className="p-3.5" realce>
       <FiloSuperior dorado />
       <div className="flex gap-3">
-        <span className="mt-0.5 text-goldlite">⚠</span>
+        <span className="mt-0.5 text-acento-alto">⚠</span>
         <p className="text-[13px] leading-snug text-dim">
           <span className="font-semibold text-fg">Muestra insuficiente:</span> {n} de {minimo}{' '}
           apuestas resueltas. El ROI y el rendimiento todavía{' '}
-          <span className="text-goldlite">no son concluyentes</span> — no tomes decisiones con
+          <span className="text-acento-alto">no son concluyentes</span> — no tomes decisiones con
           estas cifras.
         </p>
       </div>

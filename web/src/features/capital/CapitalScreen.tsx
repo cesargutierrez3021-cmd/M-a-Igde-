@@ -39,7 +39,7 @@ export function CapitalScreen() {
           <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-mute">
             Capital actual
           </p>
-          <p className="gold-text mt-1.5 text-[34px] leading-none font-semibold">
+          <p className="texto-acento mt-1.5 text-[34px] leading-none font-semibold">
             <Cifra valor={capital} prefijo="$" />
           </p>
           <p className="mt-2 text-[12.5px] text-mute">
@@ -77,7 +77,7 @@ export function CapitalScreen() {
           <div>
             <div className="flex items-baseline justify-between">
               <span className="text-[13px] font-medium text-fg">Fracción de Kelly</span>
-              <span className="tabular text-[15px] font-semibold text-goldlite">
+              <span className="tabular text-[15px] font-semibold text-acento-alto">
                 {kelly.toFixed(2)}×
               </span>
             </div>
@@ -88,7 +88,7 @@ export function CapitalScreen() {
               step={0.05}
               value={kelly}
               onChange={(e) => setKelly(Number(e.target.value))}
-              className="mt-3 w-full accent-[var(--c-gold)]"
+              className="mt-3 w-full accent-[var(--c-acento)]"
               aria-label="Fracción de Kelly"
             />
             <div className="mt-1 flex justify-between text-[10.5px] text-mute">
@@ -108,7 +108,7 @@ export function CapitalScreen() {
           <div>
             <div className="flex items-baseline justify-between">
               <span className="text-[13px] font-medium text-fg">Tope por apuesta</span>
-              <span className="tabular text-[15px] font-semibold text-goldlite">{tope}%</span>
+              <span className="tabular text-[15px] font-semibold text-acento-alto">{tope}%</span>
             </div>
             <input
               type="range"
@@ -117,7 +117,7 @@ export function CapitalScreen() {
               step={1}
               value={tope}
               onChange={(e) => setTope(Number(e.target.value))}
-              className="mt-3 w-full accent-[var(--c-gold)]"
+              className="mt-3 w-full accent-[var(--c-acento)]"
               aria-label="Tope por apuesta"
             />
             <p className="mt-2 text-[11.5px] leading-snug text-mute">
@@ -145,7 +145,7 @@ export function CapitalScreen() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-mute">
                   Stake sugerido
                 </p>
-                <p className="gold-text text-[26px] leading-none font-semibold">
+                <p className="texto-acento text-[26px] leading-none font-semibold">
                   <Cifra valor={stakeFinal} prefijo="$" />
                 </p>
               </div>
@@ -159,7 +159,7 @@ export function CapitalScreen() {
             </div>
 
             {topeAplicado && (
-              <p className="mt-2.5 text-[11.5px] leading-snug text-goldlite">
+              <p className="mt-2.5 text-[11.5px] leading-snug text-acento-alto">
                 El tope del {tope}% recortó esta apuesta. La puerta no mata el mercado: reduce el
                 stake.
               </p>
@@ -169,7 +169,7 @@ export function CapitalScreen() {
       )}
 
       <div className="mt-5">
-        <Button variante="oro" ancho>
+        <Button variante="acento" ancho>
           Guardar cambios
         </Button>
       </div>

@@ -71,9 +71,9 @@ export function ApuestasScreen() {
       <Card plano className="mt-3 p-4">
         <p className="text-[12.5px] leading-relaxed text-mute">
           <span className="font-medium text-fg">La brecha:</span> seguiste{' '}
-          <span className="tabular text-goldlite">{marcadas.length}</span> de{' '}
+          <span className="tabular text-acento-alto">{marcadas.length}</span> de{' '}
           <span className="tabular">{historial.length}</span> alertas. Saltarte el resto te dejó{' '}
-          <span className="tabular text-goldlite">
+          <span className="tabular text-acento-alto">
             {formatearPesos(resumen.beneficio * 0.38)}
           </span>{' '}
           fuera — ni bueno ni malo por sí solo: con esta muestra todavía no es concluyente.
@@ -114,7 +114,7 @@ export function ApuestasScreen() {
                               : p.resultado === 'perdida'
                                 ? 'loss'
                                 : p.resultado === 'pendiente'
-                                  ? 'oro'
+                                  ? 'acento'
                                   : 'void'
                           }
                         >
@@ -191,8 +191,8 @@ function BloqueComparativa({
       <FiloSuperior dorado={destacado} />
       <div className="flex items-center gap-2">
         <span
-          className={`grid size-7 place-items-center rounded-[8px] border ${destacado ? 'border-gold-line text-goldlite' : 'border-line text-mute'}`}
-          style={destacado ? { background: 'var(--grad-gold-soft)' } : undefined}
+          className={`grid size-7 place-items-center rounded-[8px] border ${destacado ? 'border-acento-linea text-acento-alto' : 'border-line text-mute'}`}
+          style={destacado ? { background: 'var(--grad-acento-suave)' } : undefined}
         >
           {icono}
         </span>
@@ -236,7 +236,7 @@ function Dato({
   return (
     <div>
       <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-mute">{etiqueta}</p>
-      <p className={`mt-0.5 text-[19px] font-semibold ${dorado ? 'gold-text' : 'text-fg'}`}>
+      <p className={`mt-0.5 text-[19px] font-semibold ${dorado ? 'texto-acento' : 'text-fg'}`}>
         {children}
       </p>
     </div>

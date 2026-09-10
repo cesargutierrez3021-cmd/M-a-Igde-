@@ -19,10 +19,10 @@ export function Card({ className, realce, plano, ...props }: CardProps) {
       className={cn(
         'relative overflow-hidden rounded-[var(--radius-card)] border',
         plano ? 'bg-surface-2' : 'bg-[image:var(--grad-surface)]',
-        realce ? 'border-gold-line' : 'border-line',
+        realce ? 'border-acento-linea' : 'border-line',
         className
       )}
-      style={{ boxShadow: realce ? 'var(--glow-gold)' : 'var(--shadow-card)' }}
+      style={{ boxShadow: realce ? 'var(--glow-acento)' : 'var(--shadow-card)' }}
       {...props}
     />
   )
@@ -57,8 +57,8 @@ export function SectionHeader({ icono, titulo, descripcion, accion }: SectionHea
   return (
     <div className="flex items-start gap-3">
       <span
-        className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-gold-line text-goldlite"
-        style={{ background: 'var(--grad-gold-soft)' }}
+        className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-acento-linea text-acento-alto"
+        style={{ background: 'var(--grad-acento-suave)' }}
       >
         {icono}
       </span>
@@ -72,10 +72,10 @@ export function SectionHeader({ icono, titulo, descripcion, accion }: SectionHea
 }
 
 /* ── Etiqueta ─────────────────────────────────────────────────────────────── */
-type Tono = 'oro' | 'win' | 'loss' | 'void' | 'neutro'
+type Tono = 'acento' | 'win' | 'loss' | 'void' | 'neutro'
 
 const tonos: Record<Tono, string> = {
-  oro: 'text-goldlite border-gold-line bg-[image:var(--grad-gold-soft)]',
+  acento: 'text-acento-alto border-acento-linea bg-[image:var(--grad-acento-suave)]',
   win: 'text-win border-[color-mix(in_srgb,var(--c-win)_35%,transparent)] bg-[color-mix(in_srgb,var(--c-win)_12%,transparent)]',
   loss: 'text-loss border-[color-mix(in_srgb,var(--c-loss)_35%,transparent)] bg-[color-mix(in_srgb,var(--c-loss)_12%,transparent)]',
   void: 'text-mute border-line bg-surface-3',
@@ -103,8 +103,8 @@ export function Badge({ className, tono = 'neutro', ...props }: BadgeProps) {
 export function Kicker({ children }: { children: ReactNode }) {
   return (
     <span
-      className="inline-flex items-center rounded-[var(--radius-pill)] border border-gold-line px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-goldlite"
-      style={{ background: 'var(--grad-gold-soft)' }}
+      className="inline-flex items-center rounded-[var(--radius-pill)] border border-acento-linea px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-acento-alto"
+      style={{ background: 'var(--grad-acento-suave)' }}
     >
       {children}
     </span>
@@ -112,10 +112,10 @@ export function Kicker({ children }: { children: ReactNode }) {
 }
 
 /* ── Botón ────────────────────────────────────────────────────────────────── */
-type Variante = 'oro' | 'contorno' | 'fantasma' | 'peligro'
+type Variante = 'acento' | 'contorno' | 'fantasma' | 'peligro'
 
 const variantes: Record<Variante, string> = {
-  oro: 'text-[#12140F] font-semibold',
+  acento: 'font-semibold',
   contorno: 'border border-line-strong text-fg bg-surface-2',
   fantasma: 'text-dim',
   peligro:
@@ -146,7 +146,11 @@ export function Button({
         ancho && 'w-full',
         className
       )}
-      style={variante === 'oro' ? { background: 'var(--grad-gold)' } : undefined}
+      style={
+        variante === 'acento'
+          ? { background: 'var(--grad-acento)', color: 'var(--btn-fg)' }
+          : undefined
+      }
       {...props}
     >
       {icono}
@@ -176,7 +180,7 @@ export function Skeleton({ className }: { className?: string }) {
 /** Punto de estado con anillo que se expande. Comunica "vivo", no decora. */
 export function PuntoEstado({ estado }: { estado: 'correcto' | 'atencion' | 'critico' }) {
   const color =
-    estado === 'correcto' ? 'var(--c-win)' : estado === 'atencion' ? 'var(--c-gold)' : 'var(--c-loss)'
+    estado === 'correcto' ? 'var(--c-win)' : estado === 'atencion' ? 'var(--c-acento)' : 'var(--c-loss)'
   return (
     <span className="relative grid size-2.5 shrink-0 place-items-center">
       <span className="absolute size-2.5 rounded-full" style={{ background: color }} />

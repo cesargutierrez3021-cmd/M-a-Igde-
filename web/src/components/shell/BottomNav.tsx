@@ -59,7 +59,7 @@ export function BottomNav() {
                 className={({ isActive }) =>
                   cn(
                     'relative flex min-h-[58px] flex-col items-center justify-center gap-1 px-1 pt-1.5 text-[10px] font-medium transition-colors',
-                    isActive ? 'text-goldlite' : 'text-mute'
+                    isActive ? 'text-acento-alto' : 'text-mute'
                   )
                 }
               >
@@ -69,7 +69,7 @@ export function BottomNav() {
                       <motion.span
                         layoutId="nav-indicador"
                         className="absolute inset-x-4 top-0 h-0.5 rounded-full"
-                        style={{ background: 'var(--grad-gold)' }}
+                        style={{ background: 'var(--grad-acento)' }}
                         transition={{ type: 'spring', stiffness: 480, damping: 40 }}
                       />
                     )}
@@ -88,14 +88,14 @@ export function BottomNav() {
               onClick={() => setMasAbierto(true)}
               className={cn(
                 'relative flex min-h-[58px] w-full flex-col items-center justify-center gap-1 px-1 pt-1.5 text-[10px] font-medium transition-colors',
-                enSecundaria ? 'text-goldlite' : 'text-mute'
+                enSecundaria ? 'text-acento-alto' : 'text-mute'
               )}
             >
               {enSecundaria && (
                 <motion.span
                   layoutId="nav-indicador"
                   className="absolute inset-x-4 top-0 h-0.5 rounded-full"
-                  style={{ background: 'var(--grad-gold)' }}
+                  style={{ background: 'var(--grad-acento)' }}
                   transition={{ type: 'spring', stiffness: 480, damping: 40 }}
                 />
               )}
@@ -122,7 +122,7 @@ export function BottomNav() {
                 }}
                 className="flex w-full items-center gap-3 rounded-[12px] px-2 py-2.5 text-left transition-colors hover:bg-surface-2"
               >
-                <span className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-line bg-surface-2 text-goldlite">
+                <span className="grid size-9 shrink-0 place-items-center rounded-[10px] border border-line bg-surface-2 text-acento-alto">
                   <Icon size={16} strokeWidth={1.6} />
                 </span>
                 <span className="min-w-0 flex-1">

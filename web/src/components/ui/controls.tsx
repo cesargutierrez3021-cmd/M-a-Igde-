@@ -26,13 +26,13 @@ export function Toggle({ activo, onChange, etiqueta }: ToggleProps) {
       <span
         className={cn(
           'flex h-7 w-12 items-center rounded-full border p-0.5 transition-colors',
-          activo ? 'border-gold-line' : 'border-line bg-surface-3'
+          activo ? 'border-acento-linea' : 'border-line bg-surface-3'
         )}
-        style={activo ? { background: 'var(--grad-gold)' } : undefined}
+        style={activo ? { background: 'var(--grad-acento)' } : undefined}
       >
         <motion.span
           className="size-6 rounded-full"
-          style={{ background: activo ? '#12140F' : 'var(--c-mute)' }}
+          style={{ background: activo ? 'var(--btn-fg)' : 'var(--c-mute)' }}
           animate={{ x: activo ? 20 : 0 }}
           transition={{ type: 'spring', stiffness: 520, damping: 32 }}
         />
@@ -63,18 +63,21 @@ export function Segmented<T extends string>({ opciones, valor, onChange, id }: S
             onClick={() => onChange(op.valor)}
             className={cn(
               'relative flex min-h-9 flex-1 items-center justify-center gap-1.5 rounded-[var(--radius-pill)] px-3 text-[13px] font-medium transition-colors',
-              activo ? 'text-[#12140F]' : 'text-mute'
+              activo ? '' : 'text-mute'
             )}
           >
             {activo && (
               <motion.span
                 layoutId={`seg-${id}`}
                 className="absolute inset-0 rounded-[var(--radius-pill)]"
-                style={{ background: 'var(--grad-gold)' }}
+                style={{ background: 'var(--grad-acento)' }}
                 transition={{ type: 'spring', stiffness: 480, damping: 38 }}
               />
             )}
-            <span className="relative flex items-center gap-1.5">
+            <span
+              className="relative flex items-center gap-1.5"
+              style={activo ? { color: 'var(--btn-fg)' } : undefined}
+            >
               {op.icono}
               {op.etiqueta}
             </span>
@@ -115,7 +118,7 @@ export function Sheet({ abierta, onCerrar, titulo, children }: SheetProps) {
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0, bottom: 0.4 }}
             onDragEnd={(_, info) => info.offset.y > 90 && onCerrar()}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md rounded-t-[22px] border-t border-gold-line bg-surface pb-[calc(env(safe-area-inset-bottom)+16px)]"
+            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md rounded-t-[22px] border-t border-acento-linea bg-surface pb-[calc(env(safe-area-inset-bottom)+16px)]"
           >
             <div className="flex justify-center pt-3">
               <span className="h-1 w-10 rounded-full bg-line-strong" />

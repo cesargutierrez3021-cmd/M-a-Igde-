@@ -5,7 +5,8 @@ import { Pantalla } from '../../components/shell/Pantalla'
 import { TituloPantalla } from '../../components/shell/Header'
 import { Card, SectionHeader, Divider, Badge } from '../../components/ui/primitives'
 import { Toggle, FilaAjuste } from '../../components/ui/controls'
-import { useTema, type Tema } from '../../lib/theme'
+import { useApariencia, TEMAS, MODOS, type Tema, type Modo } from '../../lib/theme'
+import { VistaPrevia } from '../../components/brand/VistaPrevia'
 import { cn } from '../../lib/utils'
 
 /* Ajustes — manual §7.3, módulo 11. */
@@ -20,16 +21,18 @@ export function AjustesScreen() {
         bajada="Cómo se ve la app y cómo quieres que te avise."
       />
 
-      {/* Tema */}
+      {/* Apariencia: dos ejes independientes */}
       <section className="mt-6">
         <SectionHeader
           icono={<Palette size={16} strokeWidth={1.6} />}
           titulo="Apariencia"
-          descripcion="Los dos temas usan los mismos tokens: cambia el fondo, no la identidad."
+          descripcion="El tema decide la identidad; el modo, el fondo. Se eligen por separado."
         />
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          <TarjetaTema tema="noir" nombre="Noir" descripcion="Oscuro · por defecto" />
-          <TarjetaTema tema="claro" nombre="Claro" descripcion="Papel cálido" />
+
+        <div className="mt-3 space-y-3">
+          {(['terreno', 'mando'] as Tema[]).map((t) => (
+            <TarjetaTema key={t} tema={t} />
+          ))}
         </div>
       </section>
 
@@ -135,59 +138,31 @@ export function AjustesScreen() {
 }
 
 /*
- * Selector de tema con vista previa real: cada tarjeta pinta una miniatura con
- * los colores de su tema. Elegir a ciegas entre "claro" y "oscuro" es peor
- * experiencia que verlo antes de tocar.
+ * Selector de apariencia. Cada tarjeta es un tema, y dentro están sus dos modos
+ * con vista previa real. Tocar una miniatura fija tema y modo a la vez, así que
+ * cambiar de "Terreno oscuro" a "Mando claro" es un solo toque.
  */
-function TarjetaTema({ tema, nombre, descripcion }: { tema: Tema; nombre: string; descripcion: string }) {
-  const { tema: actual, fijar } = useTema()
-  const activo = actual === tema
-
-  const paleta =
-    tema === 'noir'
-      ? { fondo: '#0B0D10', sup: '#14181D', linea: 'rgba(195,199,204,0.14)', texto: '#F5F6F7' }
-      : { fondo: '#F7F5F1', sup: '#FFFFFF', linea: 'rgba(20,24,29,0.10)', texto: '#14181D' }
+function TarjetaTema({ tema }: { tema: Tema }) {
+  const { tema: temaActivo, modo, fijarTema, fijarModo } = useApariencia()
+  const activo = temaActivo === tema
 
   return (
-    <motion.button
-      whileTap={{ scale: 0.97 }}
-      onClick={() => fijar(tema)}
+    <motion.div
+      whileTap={{ scale: 0.99 }}
       className={cn(
-        'overflow-hidden rounded-[var(--radius-card)] border p-3 text-left transition-colors',
-        activo ? 'border-gold-line' : 'border-line'
+        'overflow-hidden rounded-[var(--radius-card)] border p-3.5 transition-colors',
+        activo ? 'border-acento-linea' : 'border-line'
       )}
-      style={{ background: activo ? 'var(--grad-gold-soft)' : 'var(--c-surface-2)' }}
-      aria-pressed={activo}
+      style={{ background: activo ? 'var(--grad-acento-suave)' : 'var(--c-surface-2)' }}
     >
-      {/* Miniatura */}
-      <div
-        className="h-20 w-full overflow-hidden rounded-[10px] border p-2"
-        style={{ background: paleta.fondo, borderColor: paleta.linea }}
+      <button
+        onClick={() => fijarTema(tema)}
+        className="flex w-full items-start justify-between gap-3 text-left"
+        aria-pressed={activo}
       >
-        <div className="flex items-center gap-1">
-          <span className="size-2 rounded-full" style={{ background: '#C9A227' }} />
-          <span
-            className="h-1.5 w-8 rounded-full"
-            style={{ background: paleta.texto, opacity: 0.65 }}
-          />
-        </div>
-        <div
-          className="mt-2 h-7 w-full rounded-[6px] border"
-          style={{ background: paleta.sup, borderColor: paleta.linea }}
-        />
-        <div className="mt-1.5 flex gap-1">
-          <span className="h-3 flex-1 rounded-[4px]" style={{ background: paleta.sup }} />
-          <span
-            className="h-3 flex-1 rounded-[4px]"
-            style={{ background: 'linear-gradient(135deg,#E8C766,#C9A227)' }}
-          />
-        </div>
-      </div>
-
-      <div className="mt-2.5 flex items-center justify-between">
-        <div>
-          <p className="text-[13.5px] font-semibold text-fg">{nombre}</p>
-          <p className="text-[11px] text-mute">{descripcion}</p>
+        <div className="min-w-0">
+          <p className="display text-[15.5px] text-fg">{TEMAS[tema].nombre}</p>
+          <p className="mt-0.5 text-[11.5px] text-mute">{TEMAS[tema].descripcion}</p>
         </div>
         {activo && (
           <motion.span
@@ -195,12 +170,42 @@ function TarjetaTema({ tema, nombre, descripcion }: { tema: Tema; nombre: string
             animate={{ scale: 1 }}
             transition={{ type: 'spring', stiffness: 480, damping: 22 }}
             className="grid size-5 shrink-0 place-items-center rounded-full"
-            style={{ background: 'var(--grad-gold)' }}
+            style={{ background: 'var(--grad-acento)' }}
           >
-            <Check size={12} strokeWidth={3} color="#12140F" />
+            <Check size={12} strokeWidth={3} color="var(--btn-fg)" />
           </motion.span>
         )}
+      </button>
+
+      <div className="mt-3 flex gap-2.5">
+        {(['oscuro', 'claro'] as Modo[]).map((m) => {
+          const elegida = activo && modo === m
+          return (
+            <button
+              key={m}
+              onClick={() => {
+                fijarTema(tema)
+                fijarModo(m)
+              }}
+              aria-pressed={elegida}
+              className={cn(
+                'flex-1 rounded-[8px] border p-1.5 transition-colors',
+                elegida ? 'border-acento-linea' : 'border-transparent'
+              )}
+            >
+              <VistaPrevia tema={tema} modo={m} />
+              <span
+                className={cn(
+                  'mt-1.5 block text-center text-[9.5px] font-semibold uppercase tracking-[0.14em]',
+                  elegida ? 'text-acento-alto' : 'text-mute'
+                )}
+              >
+                {MODOS[m].nombre}
+              </span>
+            </button>
+          )
+        })}
       </div>
-    </motion.button>
+    </motion.div>
   )
 }

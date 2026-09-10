@@ -5,7 +5,7 @@ import { Mail, Lock, Moon, Sun } from 'lucide-react'
 import { HuskyMark } from '../../components/brand/HuskyMark'
 import { TramaJauria } from '../../components/brand/Illustrations'
 import { Button, Divider } from '../../components/ui/primitives'
-import { useTema } from '../../lib/theme'
+import { useApariencia } from '../../lib/theme'
 
 /*
  * Acceso — manual §7.3, módulo 1.
@@ -14,19 +14,19 @@ import { useTema } from '../../lib/theme'
  */
 export function AccesoScreen() {
   const navigate = useNavigate()
-  const { tema, alternar } = useTema()
-  const [modo, setModo] = useState<'entrar' | 'registro'>('entrar')
+  const { modo, alternarModo } = useApariencia()
+  const [vista, setVista] = useState<'entrar' | 'registro'>('entrar')
 
   return (
     <div className="relative z-10 flex min-h-dvh flex-col">
       <TramaJauria className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-80" />
 
       <button
-        onClick={alternar}
+        onClick={alternarModo}
         aria-label="Cambiar tema"
         className="absolute right-4 top-4 grid size-10 place-items-center rounded-full border border-line text-dim"
       >
-        {tema === 'noir' ? <Sun size={17} strokeWidth={1.6} /> : <Moon size={17} strokeWidth={1.6} />}
+        {modo === 'oscuro' ? <Sun size={17} strokeWidth={1.6} /> : <Moon size={17} strokeWidth={1.6} />}
       </button>
 
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6 py-10">
@@ -40,7 +40,7 @@ export function AccesoScreen() {
           <div className="float-slow inline-block">
             <HuskyMark size={68} vivo />
           </div>
-          <h1 className="wordmark gold-text mt-4 text-[30px]">NOAH</h1>
+          <h1 className="wordmark texto-acento mt-4 text-[30px]">NOAH</h1>
           <p className="mt-2 text-[12px] font-medium uppercase tracking-[0.2em] text-mute">
             Valor deportivo cuantitativo
           </p>
@@ -57,16 +57,16 @@ export function AccesoScreen() {
             {(['entrar', 'registro'] as const).map((m) => (
               <button
                 key={m}
-                onClick={() => setModo(m)}
+                onClick={() => setVista(m)}
                 className={`relative min-h-10 flex-1 rounded-[var(--radius-pill)] text-[13px] font-medium transition-colors ${
-                  modo === m ? 'text-[#12140F]' : 'text-mute'
+                  vista === m ? 'text-[#12140F]' : 'text-mute'
                 }`}
               >
-                {modo === m && (
+                {vista === m && (
                   <motion.span
                     layoutId="acceso-tab"
                     className="absolute inset-0 rounded-[var(--radius-pill)]"
-                    style={{ background: 'var(--grad-gold)' }}
+                    style={{ background: 'var(--grad-acento)' }}
                     transition={{ type: 'spring', stiffness: 460, damping: 36 }}
                   />
                 )}
@@ -81,8 +81,8 @@ export function AccesoScreen() {
           </div>
 
           <div className="mt-5">
-            <Button variante="oro" ancho onClick={() => navigate('/')}>
-              {modo === 'entrar' ? 'Entrar' : 'Crear cuenta'}
+            <Button variante="acento" ancho onClick={() => navigate('/')}>
+              {vista === 'entrar' ? 'Entrar' : 'Crear cuenta'}
             </Button>
           </div>
 
@@ -96,7 +96,7 @@ export function AccesoScreen() {
             Continuar con Google
           </Button>
 
-          {modo === 'entrar' && (
+          {vista === 'entrar' && (
             <button className="mt-4 w-full text-center text-[12.5px] text-mute">
               ¿Olvidaste tu contraseña?
             </button>
@@ -129,7 +129,7 @@ function Campo({
   placeholder: string
 }) {
   return (
-    <label className="flex items-center gap-3 rounded-[var(--radius-btn)] border border-line bg-surface px-3.5 focus-within:border-gold-line">
+    <label className="flex items-center gap-3 rounded-[var(--radius-btn)] border border-line bg-surface px-3.5 focus-within:border-acento-linea">
       <span className="shrink-0 text-mute">{icono}</span>
       <input
         type={tipo}

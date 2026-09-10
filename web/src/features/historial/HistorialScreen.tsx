@@ -13,12 +13,12 @@ import type { ResultadoPick } from '../../lib/types'
 
 type Filtro = 'todas' | 'ganada' | 'perdida' | 'nula'
 
-const tono: Record<ResultadoPick, 'win' | 'loss' | 'void' | 'oro'> = {
+const tono: Record<ResultadoPick, 'win' | 'loss' | 'void' | 'acento'> = {
   ganada: 'win',
   perdida: 'loss',
   nula: 'void',
   invalidada: 'void',
-  pendiente: 'oro',
+  pendiente: 'acento',
 }
 
 /* Historial — manual §7.3, módulo 7. Filtrable y exportable. */

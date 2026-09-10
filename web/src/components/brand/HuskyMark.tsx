@@ -83,7 +83,7 @@ export function Logotipo({ size = 26 }: { size?: number }) {
   return (
     <div className="flex items-center gap-2.5">
       <HuskyMark size={size} vivo />
-      <span className="wordmark gold-text" style={{ fontSize: size * 0.72, lineHeight: 1 }}>
+      <span className="wordmark texto-acento" style={{ fontSize: size * 0.72, lineHeight: 1 }}>
         NOAH
       </span>
     </div>

@@ -1,60 +1,122 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 
-export type Tema = 'noir' | 'claro'
+export type Tema = 'terreno' | 'mando'
+export type Modo = 'oscuro' | 'claro'
 
-const CLAVE = 'noah:tema'
+const CLAVE_TEMA = 'noah:tema'
+const CLAVE_MODO = 'noah:modo'
+const CLAVE_ELEGIDO = 'noah:apariencia-elegida'
 
-interface ContextoTema {
-  tema: Tema
-  alternar: () => void
-  fijar: (t: Tema) => void
+export const TEMAS: Record<Tema, { nombre: string; descripcion: string }> = {
+  terreno: { nombre: 'Terreno', descripcion: 'Cartografía · cotas y curvas de nivel' },
+  mando: { nombre: 'Puesto de mando', descripcion: 'Instrumentos · objetivos y telemetría' },
 }
 
-const Ctx = createContext<ContextoTema | null>(null)
+export const MODOS: Record<Modo, { nombre: string }> = {
+  oscuro: { nombre: 'Oscuro' },
+  claro: { nombre: 'Claro' },
+}
 
-function temaInicial(): Tema {
+/** Color de la barra de estado del sistema, por combinación. */
+const COLOR_BARRA: Record<Tema, Record<Modo, string>> = {
+  terreno: { oscuro: '#0E1418', claro: '#F2F3F0' },
+  mando: { oscuro: '#060B14', claro: '#EDF2F6' },
+}
+
+interface ContextoApariencia {
+  tema: Tema
+  modo: Modo
+  /** false hasta que el usuario elige en la bienvenida. Gobierna si se muestra. */
+  yaEligio: boolean
+  fijarTema: (t: Tema) => void
+  fijarModo: (m: Modo) => void
+  alternarModo: () => void
+  confirmarEleccion: () => void
+}
+
+const Ctx = createContext<ContextoApariencia | null>(null)
+
+function leer<T extends string>(clave: string, validos: readonly T[], porDefecto: T): T {
   try {
-    const guardado = localStorage.getItem(CLAVE)
-    if (guardado === 'noir' || guardado === 'claro') return guardado
+    const v = localStorage.getItem(clave)
+    if (v && (validos as readonly string[]).includes(v)) return v as T
   } catch {
-    // Almacenamiento bloqueado (modo privado): se sigue con el tema por defecto.
+    // Almacenamiento bloqueado (modo privado): se sigue con el valor por defecto.
   }
-  return 'noir'
+  return porDefecto
+}
+
+/** Si el sistema pide claro y el usuario aún no ha elegido, se respeta. */
+function modoInicial(): Modo {
+  try {
+    if (localStorage.getItem(CLAVE_MODO)) return leer(CLAVE_MODO, ['oscuro', 'claro'] as const, 'oscuro')
+  } catch {
+    // Sin acceso al almacenamiento: se decide por la preferencia del sistema.
+  }
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'claro' : 'oscuro'
 }
 
 /*
- * Proveedor de tema. El manual pide modo claro con los mismos tokens
- * invertidos (§1.1) y que el usuario pueda elegirlo desde Ajustes (§7.3 módulo 11).
- * La elección se recuerda en el dispositivo.
+ * Apariencia de NOAH: dos ejes independientes.
+ *
+ *   TEMA  decide la identidad — paleta, formas, atmósfera, ilustración
+ *   MODO  decide el fondo sobre el que se lee esa identidad
+ *
+ * Se eligen juntos en la bienvenida, se cambian por separado después: el tema
+ * desde Ajustes, el modo desde el botón de la cabecera. Ambos se recuerdan.
  */
-export function ProveedorTema({ children }: { children: ReactNode }) {
-  const [tema, setTema] = useState<Tema>(temaInicial)
+export function ProveedorApariencia({ children }: { children: ReactNode }) {
+  const [tema, setTema] = useState<Tema>(() => leer(CLAVE_TEMA, ['terreno', 'mando'] as const, 'terreno'))
+  const [modo, setModo] = useState<Modo>(modoInicial)
+  const [yaEligio, setYaEligio] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem(CLAVE_ELEGIDO) === 'si'
+    } catch {
+      return false
+    }
+  })
 
   useEffect(() => {
-    document.documentElement.dataset.theme = tema
-    const meta = document.querySelector('meta[name="theme-color"]')
-    if (meta) meta.setAttribute('content', tema === 'noir' ? '#0B0D10' : '#F7F5F1')
-    try {
-      localStorage.setItem(CLAVE, tema)
-    } catch {
-      // Sin persistencia: el tema sigue aplicado en esta sesión.
-    }
-  }, [tema])
+    const raiz = document.documentElement
+    raiz.dataset.tema = tema
+    raiz.dataset.modo = modo
 
-  const valor = useMemo<ContextoTema>(
+    const meta = document.querySelector('meta[name="theme-color"]')
+    if (meta) meta.setAttribute('content', COLOR_BARRA[tema][modo])
+
+    try {
+      localStorage.setItem(CLAVE_TEMA, tema)
+      localStorage.setItem(CLAVE_MODO, modo)
+    } catch {
+      // Sin persistencia: la elección sigue aplicada en esta sesión.
+    }
+  }, [tema, modo])
+
+  const valor = useMemo<ContextoApariencia>(
     () => ({
       tema,
-      alternar: () => setTema((t) => (t === 'noir' ? 'claro' : 'noir')),
-      fijar: setTema,
+      modo,
+      yaEligio,
+      fijarTema: setTema,
+      fijarModo: setModo,
+      alternarModo: () => setModo((m) => (m === 'oscuro' ? 'claro' : 'oscuro')),
+      confirmarEleccion: () => {
+        setYaEligio(true)
+        try {
+          localStorage.setItem(CLAVE_ELEGIDO, 'si')
+        } catch {
+          // Sin persistencia: volverá a preguntar en el próximo arranque.
+        }
+      },
     }),
-    [tema]
+    [tema, modo, yaEligio]
   )
 
   return <Ctx.Provider value={valor}>{children}</Ctx.Provider>
 }
 
-export function useTema(): ContextoTema {
+export function useApariencia(): ContextoApariencia {
   const ctx = useContext(Ctx)
-  if (!ctx) throw new Error('useTema debe usarse dentro de ProveedorTema')
+  if (!ctx) throw new Error('useApariencia debe usarse dentro de ProveedorApariencia')
   return ctx
 }

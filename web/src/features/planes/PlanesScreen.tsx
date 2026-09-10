@@ -64,16 +64,16 @@ export function PlanesScreen() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    {p.destacado && <Crown size={16} className="text-goldlite" strokeWidth={1.7} />}
+                    {p.destacado && <Crown size={16} className="text-acento-alto" strokeWidth={1.7} />}
                     <h2 className="display text-[19px] text-fg">{p.nombre}</h2>
                   </div>
                   <p className="mt-1 text-[12px] text-mute">{p.nota}</p>
                 </div>
-                {p.destacado && <Badge tono="oro">Recomendado</Badge>}
+                {p.destacado && <Badge tono="acento">Recomendado</Badge>}
               </div>
 
               <p
-                className={`mt-3 text-[26px] leading-none font-semibold ${p.destacado ? 'gold-text' : 'text-fg'}`}
+                className={`mt-3 text-[26px] leading-none font-semibold ${p.destacado ? 'texto-acento' : 'text-fg'}`}
               >
                 {p.precio}
               </p>
@@ -94,7 +94,7 @@ export function PlanesScreen() {
               </ul>
 
               <div className="mt-4">
-                <Button variante={p.destacado ? 'oro' : 'contorno'} ancho disabled={p.destacado}>
+                <Button variante={p.destacado ? 'acento' : 'contorno'} ancho disabled={p.destacado}>
                   {p.destacado ? 'Disponible tras la fase de papel' : 'Tu plan actual'}
                 </Button>
               </div>

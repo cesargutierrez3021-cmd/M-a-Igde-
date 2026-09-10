@@ -1,0 +1,167 @@
+/*
+ * Apariencia — dos temas, tres combinaciones:
+ *   dorado + claro   → el que se ve en las capturas: papel marfil, oro, serifa.
+ *   dorado + oscuro   → mismo lenguaje, fondo negro.
+ *   mando  + oscuro   → el tema "Puesto de mando" de NOAH (cian/negro), una sola variante.
+ * Todo vive en variables; ninguna pantalla escribe un color a mano.
+ */
+
+:root, [data-tema="dorado"][data-modo="claro"] {
+  color-scheme: light;
+  --c-canvas: #F7F4EC;
+  --c-canvas-deep: #EEE9DA;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #FBF9F2;
+  --c-surface-3: #F0EBDC;
+  --c-fg: #1B1712;
+  --c-dim: #4A4234;
+  --c-mute: #857A64;
+  --c-acento: #B8860B;
+  --c-acento-alto: #C9A227;
+  --c-acento-hondo: #8A6408;
+  --c-alt: #2A6B5E;
+  --c-win: #2F7F55;
+  --c-loss: #A8412C;
+  --c-void: #8d979c;
+  --c-line: #1B171221;
+  --c-line-strong: #1B171238;
+  --c-acento-linea: #B8860B4a;
+  --grad-surface: linear-gradient(160deg, #FFFFFF 0%, #FBF9F2 100%);
+  --grad-acento: linear-gradient(135deg, #D4AF37 0%, #B8860B 55%, #8A6408 100%);
+  --grad-acento-suave: linear-gradient(135deg, #D4AF3724 0%, #B8860B0d 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, #B8860B61, transparent);
+  --glow-acento: 0 0 0 1px #B8860B33, 0 10px 28px -18px #B8860B55;
+  --shadow-card: 0 1px 2px 0 #1B17120d, 0 14px 28px -22px #1B171240;
+  --btn-fg: #FBF6E8;
+  --atm-1: #B8860B1c;
+  --atm-2: #2A6B5E14;
+  --radius-card: 14px;
+  --radius-btn: 10px;
+  --radius-pill: 999px;
+}
+
+[data-tema="dorado"][data-modo="oscuro"] {
+  color-scheme: dark;
+  --c-canvas: #100D08;
+  --c-canvas-deep: #0A0805;
+  --c-surface: #1B1610;
+  --c-surface-2: #221C14;
+  --c-surface-3: #2A2318;
+  --c-fg: #F3EDDD;
+  --c-dim: #C9BFA6;
+  --c-mute: #948a71;
+  --c-acento: #D4AF37;
+  --c-acento-alto: #E8C766;
+  --c-acento-hondo: #8A6408;
+  --c-alt: #4FBBA6;
+  --c-win: #4FA97A;
+  --c-loss: #C4553F;
+  --c-void: #6b7280;
+  --c-line: #F3EDDD22;
+  --c-line-strong: #F3EDDD3d;
+  --c-acento-linea: #D4AF3757;
+  --grad-surface: linear-gradient(160deg, #221C14 0%, #1B1610 100%);
+  --grad-acento: linear-gradient(135deg, #E8C766 0%, #D4AF37 45%, #8A6408 100%);
+  --grad-acento-suave: linear-gradient(135deg, #E8C76629 0%, #D4AF370f 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, #D4AF3773, transparent);
+  --glow-acento: 0 0 0 1px #D4AF3747, 0 8px 32px -12px #D4AF3773;
+  --shadow-card: 0 1px 0 0 #ffffff0a inset, 0 14px 32px -20px #000000e6;
+  --btn-fg: #14100A;
+  --atm-1: #D4AF3717;
+  --atm-2: #4FBBA60f;
+  --radius-card: 14px;
+  --radius-btn: 10px;
+  --radius-pill: 999px;
+}
+
+[data-tema="mando"] {
+  color-scheme: dark;
+  --c-canvas: #060B14;
+  --c-canvas-deep: #03060b;
+  --c-surface: #0c141f;
+  --c-surface-2: #111b28;
+  --c-surface-3: #172333;
+  --c-fg: #dde7f0;
+  --c-dim: #a8b8c6;
+  --c-mute: #7c90a6;
+  --c-acento: #35E0FF;
+  --c-acento-alto: #7febff;
+  --c-acento-hondo: #1c8fa6;
+  --c-alt: #f0b429;
+  --c-win: #3fe08a;
+  --c-loss: #ff5c6e;
+  --c-void: #5e7288;
+  --c-line: #35e0ff33;
+  --c-line-strong: #35e0ff52;
+  --c-acento-linea: #f0b42957;
+  --grad-surface: linear-gradient(160deg, #ffffff13, #ffffff06);
+  --grad-acento: linear-gradient(135deg, #35e0ff 0%, #f0b429 100%);
+  --grad-acento-suave: linear-gradient(135deg, #35e0ff29 0%, #f0b4290f 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, #35e0ff80, transparent);
+  --glow-acento: 0 0 0 1px #f0b4294d, 0 8px 32px -12px #35e0ff66;
+  --shadow-card: 0 0 0 1px #ffffff08 inset, 0 18px 40px -30px #000000e6;
+  --btn-fg: #06121a;
+  --atm-1: #35e0ff21;
+  --atm-2: #f0b42917;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --radius-pill: 999px;
+}
+
+html { background: var(--c-canvas); }
+body {
+  background: var(--c-canvas);
+  color: var(--c-fg);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+  margin: 0;
+  transition: background-color .25s, color .25s;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60rem 40rem at 15% -10%, var(--atm-1), transparent 60%),
+    radial-gradient(50rem 36rem at 110% 15%, var(--atm-2), transparent 60%);
+}
+
+[data-tema="mando"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .3;
+  background-image:
+    linear-gradient(var(--c-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(75% 55% at 50% 28%, #000, transparent);
+  -webkit-mask-image: radial-gradient(75% 55% at 50% 28%, #000, transparent);
+}
+
+.tabular { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.display { font-family: 'Playfair Display', ui-serif, Georgia, serif; letter-spacing: 0.01em; }
+.wordmark { font-family: 'Playfair Display', ui-serif, Georgia, serif; letter-spacing: 0.32em; font-weight: 600; }
+.texto-acento { background: var(--grad-acento); color: transparent; -webkit-background-clip: text; background-clip: text; }
+.hairline { background: var(--grad-hairline); height: 1px; }
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@keyframes noah-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes noah-ring { 0% { opacity: .7; transform: scale(.8); } 70%, 100% { opacity: 0; transform: scale(2.2); } }
+@keyframes noah-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.skeleton { background: linear-gradient(90deg, var(--c-surface-2) 25%, var(--c-surface-3) 37%, var(--c-surface-2) 63%); background-size: 200% 100%; border-radius: 8px; animation: noah-shimmer 1.6s ease-in-out infinite; }
+.pulse-ring { animation: noah-ring 2.2s cubic-bezier(.16,1,.3,1) infinite; }
+.breathe { animation: noah-pulse 2.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+:focus-visible { outline: 2px solid var(--c-acento); outline-offset: 2px; border-radius: 4px; }

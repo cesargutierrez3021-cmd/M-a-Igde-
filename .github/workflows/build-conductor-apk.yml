@@ -1,0 +1,74 @@
+name: Compilar APK · NOAH Conductor
+
+# Este proyecto (conductor/) no se puede compilar dentro del entorno de Claude
+# Code: el proxy de esa sandbox bloquea dl.google.com, que es de donde sale
+# el SDK de Android. Un runner de GitHub Actions sí tiene salida libre a
+# internet, así que aquí es donde de verdad se arma el APK.
+
+on:
+  push:
+    branches: [claude/hola-tpdd08]
+    paths:
+      - "conductor/**"
+      - ".github/workflows/build-conductor-apk.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: conductor
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Instalar dependencias web
+        run: npm ci
+
+      - name: Compilar la app web
+        run: npm run build
+
+      - name: Sincronizar Capacitor
+        run: npx cap sync android
+
+      - name: Dar permiso de ejecución a Gradle
+        run: chmod +x android/gradlew
+
+      - name: Compilar APK de depuración
+        working-directory: conductor/android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Subir el APK como artefacto de este run
+        uses: actions/upload-artifact@v4
+        with:
+          name: noah-conductor-debug
+          path: conductor/android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publicar como release descargable desde el celular
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: conductor-latest
+          name: NOAH Conductor (última compilación)
+          body: |
+            APK de depuración, generado automáticamente desde `conductor/` en cada push.
+            Commit: ${{ github.sha }}
+
+            Para instalarlo: descarga `app-debug.apk` desde el celular y ábrelo.
+            Android va a pedir permiso para instalar apps de "origen desconocido" —
+            es porque no viene de la Play Store, no porque tenga algo raro.
+          files: conductor/android/app/build/outputs/apk/debug/app-debug.apk
+          prerelease: true

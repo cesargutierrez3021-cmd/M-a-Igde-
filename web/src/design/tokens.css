@@ -1,0 +1,74 @@
+/*
+ * NOAH — tokens de diseño.
+ * Fuente de verdad: manual maestro §1.1 (paleta), §1.2 (tipografía), §7.5 (reglas visuales).
+ * Regla de oro: --gold nunca supera el 10% de la superficie de una pantalla.
+ */
+
+@import "tailwindcss";
+
+@theme {
+  /* Paleta — modo oscuro (por defecto) */
+  --color-noir: #0B0D10;
+  --color-surface: #14181D;
+  --color-gold: #C9A227;
+  --color-gold-lite: #E8C766;
+  --color-silver: #C3C7CC;
+  --color-white: #F5F6F7;
+  --color-win: #3FA96A;
+  --color-loss: #C4553F;
+  --color-void: #6B7280;
+
+  /* Tipografía — §1.2 */
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Bordes — §7.5: 12px tarjetas, 8px botones, 999px etiquetas */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-pill: 999px;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: var(--color-noir);
+  --bg-surface: var(--color-surface);
+  --text-primary: var(--color-white);
+  --text-secondary: var(--color-silver);
+  --accent: var(--color-gold);
+  --accent-lite: var(--color-gold-lite);
+  --border-subtle: color-mix(in srgb, var(--color-silver) 12%, transparent);
+}
+
+/* Modo claro: mismos tokens invertidos (§1.1) */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #F5F6F7;
+  --bg-surface: #FFFFFF;
+  --text-primary: #0B0D10;
+  --text-secondary: #4B5157;
+  --accent: var(--color-gold);
+  --accent-lite: #B8901F;
+  --border-subtle: color-mix(in srgb, #0B0D10 10%, transparent);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+/* Cifras tabulares: las columnas de cuotas y ROI no "bailan" al actualizarse (§1.2) */
+.tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Límite global de animación — §7.5: ninguna supera 300ms, todas respetan reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
